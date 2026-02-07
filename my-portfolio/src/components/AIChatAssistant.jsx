@@ -3,28 +3,36 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { MessageCircle, X, Send, Sparkles } from 'lucide-react';
 import './AIChatAssistant.css';
 
-// Knowledge base about Vatsav
+// Knowledge base about Srivatsav
 const knowledgeBase = {
-  name: 'Vatsav',
-  role: 'Software Engineer',
-  experience: '3+ years',
-  focus: 'AI and Data Engineering',
+  name: 'Srivatsav Saravanan',
+  role: 'Software Engineer at Caterpillar Inc',
+  education: 'B.Tech CSE from SRM Institute (CGPA: 8.8/10)',
+  location: 'Chennai, India',
   skills: {
-    languages: ['Python', 'JavaScript', 'SQL'],
-    data: ['Apache Spark', 'Kafka', 'Airflow', 'Pandas', 'dbt', 'Snowflake', 'BigQuery'],
-    ai: ['PyTorch', 'TensorFlow', 'LangChain', 'OpenAI API', 'Hugging Face', 'RAG'],
-    cloud: ['AWS', 'Docker', 'Kubernetes', 'Terraform'],
-    frontend: ['React', 'Node.js', 'FastAPI'],
+    languages: ['Python', 'Java', 'C++', 'JavaScript', 'SQL'],
+    web: ['React.js', 'Node.js', 'Express.js', 'HTML5', 'CSS3', 'REST APIs'],
+    databases: ['MySQL', 'MongoDB', 'PostgreSQL', 'Firebase'],
+    cloud: ['AWS', 'Docker', 'Jenkins', 'Linux', 'Git'],
+    ml: ['TensorFlow', 'Scikit-learn', 'Pandas', 'NumPy', 'NLP', 'spaCy'],
+    frameworks: ['Spring Boot', 'FastAPI', 'Flask', 'Socket.io', 'Microservices'],
   },
+  certifications: ['AWS Certified Cloud Practitioner', 'Google Data Analytics Professional', 'HackerRank 5-star Problem Solving'],
+  achievements: ['Smart India Hackathon 2023 Finalist'],
   projects: [
-    { name: 'Data Pipeline Platform', tech: ['Spark', 'Airflow', 'AWS'], desc: 'Scalable ETL pipelines processing millions of records' },
-    { name: 'LLM-Powered Analytics', tech: ['LangChain', 'OpenAI', 'FastAPI'], desc: 'AI assistant for automated document analysis' },
-    { name: 'Real-time Dashboard', tech: ['Kafka', 'React', 'PostgreSQL'], desc: 'Live streaming data visualization' },
+    { name: 'AI-Powered Resume Analyzer', tech: ['Python', 'TensorFlow', 'spaCy', 'Flask', 'React.js'], desc: 'NLP-based resume parsing with 92% accuracy in skill matching' },
+    { name: 'Real-Time Chat Application', tech: ['Node.js', 'Socket.io', 'MongoDB', 'React.js'], desc: 'Scalable chat platform supporting 1000+ concurrent users' },
+    { name: 'E-Commerce Analytics Dashboard', tech: ['Python', 'Pandas', 'Plotly', 'PostgreSQL', 'FastAPI'], desc: 'Business intelligence dashboard with automated ETL pipelines' },
+  ],
+  experience: [
+    { role: 'Software Engineer', company: 'Caterpillar Inc', period: 'July 2024 - Present', desc: 'Enterprise applications with Java, Spring Boot, microservices' },
+    { role: 'Software Development Intern', company: 'Caterpillar Inc', period: 'Jan - June 2024', desc: 'Full-stack development with React.js, Node.js, Docker' },
+    { role: 'Web Development Intern', company: 'The Sparks Foundation', period: 'Sept - Oct 2022', desc: 'Responsive web apps and payment gateway integration' },
   ],
   contact: {
-    email: 'contact@vatsav.dev',
-    github: 'github.com/vatsav',
-    linkedin: 'linkedin.com/in/vatsav',
+    email: 'srivatsavsaravanan@gmail.com',
+    linkedin: 'linkedin.com/in/srivatsav-saravanan',
+    phone: '+91 73581 63174',
   },
 };
 
@@ -33,103 +41,115 @@ const intents = [
   {
     patterns: [/hi|hello|hey|howdy|greetings/i],
     responses: [
-      "Hello! I'm Vatsav's AI assistant. How can I help you learn more about his work?",
-      "Hey there! Ask me anything about Vatsav's skills, projects, or experience.",
-      "Hi! I'm here to help you explore Vatsav's portfolio. What would you like to know?",
+      "Hello! I'm Srivatsav's AI assistant. How can I help you learn more about his work?",
+      "Hey there! Ask me anything about Srivatsav's skills, projects, or experience at Caterpillar.",
+      "Hi! I'm here to help you explore Srivatsav's portfolio. What would you like to know?",
     ],
   },
   {
     patterns: [/who is|about|tell me about|introduce/i],
     responses: [
-      `${knowledgeBase.name} is a ${knowledgeBase.role} with ${knowledgeBase.experience} of experience, focused on building intelligent systems at the intersection of ${knowledgeBase.focus}.`,
+      `${knowledgeBase.name} is a ${knowledgeBase.role}. He graduated with ${knowledgeBase.education} and is currently based in ${knowledgeBase.location}. He's AWS certified and a Smart India Hackathon 2023 Finalist!`,
     ],
   },
   {
-    patterns: [/experience|years|how long|background/i],
+    patterns: [/experience|work|job|caterpillar|company/i],
     responses: [
-      `Vatsav has ${knowledgeBase.experience} of professional experience in software engineering, specializing in data pipelines, AI/ML systems, and full-stack development.`,
+      `Srivatsav's professional experience:\n\n${knowledgeBase.experience.map(e => `• ${e.role} at ${e.company} (${e.period}): ${e.desc}`).join('\n\n')}`,
     ],
   },
   {
     patterns: [/skill|tech|stack|know|proficient|expertise/i],
     responses: [
-      `Vatsav's technical expertise spans multiple domains:\n\n• Languages: ${knowledgeBase.skills.languages.join(', ')}\n• Data Engineering: ${knowledgeBase.skills.data.slice(0, 4).join(', ')}\n• AI/ML: ${knowledgeBase.skills.ai.slice(0, 4).join(', ')}\n• Cloud: ${knowledgeBase.skills.cloud.join(', ')}`,
+      `Srivatsav's technical expertise:\n\n• Languages: ${knowledgeBase.skills.languages.join(', ')}\n• Web: ${knowledgeBase.skills.web.slice(0, 4).join(', ')}\n• Databases: ${knowledgeBase.skills.databases.join(', ')}\n• Cloud & Tools: ${knowledgeBase.skills.cloud.join(', ')}\n• ML: ${knowledgeBase.skills.ml.slice(0, 4).join(', ')}`,
     ],
   },
   {
-    patterns: [/python/i],
+    patterns: [/python|java/i],
     responses: [
-      "Python is Vatsav's primary language! He uses it extensively for data engineering (Pandas, Spark), AI/ML (PyTorch, TensorFlow, LangChain), and backend development (FastAPI). It's at the core of most of his projects.",
+      "Srivatsav is highly proficient in both Python and Java! He uses Python for ML/AI projects (TensorFlow, Pandas, spaCy) and backend APIs (FastAPI, Flask). Java with Spring Boot is his go-to for enterprise applications at Caterpillar.",
     ],
   },
   {
-    patterns: [/ai|machine learning|ml|llm|gpt|langchain|openai/i],
+    patterns: [/ai|machine learning|ml|nlp|tensorflow/i],
     responses: [
-      `Vatsav is deeply experienced in AI/ML:\n\n• LLMs: Building applications with LangChain, OpenAI API, and RAG architectures\n• Deep Learning: PyTorch and TensorFlow for model development\n• NLP: Text processing, embeddings, and semantic search\n\nHe's particularly passionate about making AI practical and accessible.`,
+      `Srivatsav has strong AI/ML skills:\n\n• Deep Learning: TensorFlow, Scikit-learn\n• NLP: spaCy for text processing\n• Data Science: Pandas, NumPy\n\nHis AI Resume Analyzer project achieved 92% accuracy in skill matching!`,
     ],
   },
   {
-    patterns: [/data|pipeline|etl|spark|kafka|airflow/i],
+    patterns: [/react|node|frontend|web|javascript/i],
     responses: [
-      `Data Engineering is one of Vatsav's core strengths:\n\n• Processing: Apache Spark for large-scale data processing\n• Orchestration: Airflow for workflow management\n• Streaming: Kafka for real-time data pipelines\n• Warehousing: Snowflake, BigQuery, dbt\n\nHe's built pipelines processing millions of records daily.`,
+      `Srivatsav's web development stack:\n\n• Frontend: React.js, HTML5, CSS3\n• Backend: Node.js, Express.js, FastAPI\n• Real-time: Socket.io for WebSocket applications\n• APIs: RESTful services and microservices\n\nHe built a real-time chat app supporting 1000+ concurrent users!`,
     ],
   },
   {
     patterns: [/project|work|built|portfolio|showcase/i],
     responses: [
-      `Here are some of Vatsav's notable projects:\n\n${knowledgeBase.projects.map(p => `• ${p.name}: ${p.desc} (${p.tech.join(', ')})`).join('\n\n')}`,
+      `Here are Srivatsav's notable projects:\n\n${knowledgeBase.projects.map(p => `• ${p.name}: ${p.desc} (${p.tech.join(', ')})`).join('\n\n')}`,
     ],
   },
   {
-    patterns: [/cloud|aws|docker|kubernetes|deploy/i],
+    patterns: [/cloud|aws|docker|deploy|devops/i],
     responses: [
-      `Vatsav has strong cloud and DevOps skills:\n\n• AWS: EC2, S3, Lambda, ECS, RDS, and more\n• Containers: Docker for containerization, Kubernetes for orchestration\n• IaC: Terraform for infrastructure as code\n• CI/CD: Automated deployment pipelines`,
+      `Srivatsav's cloud & DevOps skills:\n\n• AWS Certified Cloud Practitioner\n• Docker for containerization\n• Jenkins for CI/CD pipelines\n• Linux server administration\n• Git for version control\n\nHe contributed to CI/CD improvements at Caterpillar using Jenkins and Docker.`,
     ],
   },
   {
-    patterns: [/frontend|react|web|ui/i],
+    patterns: [/database|sql|mongo|postgres/i],
     responses: [
-      "While primarily a backend/data engineer, Vatsav is also proficient in frontend development with React, Node.js, and modern CSS. This portfolio itself showcases his full-stack capabilities!",
+      `Srivatsav works with multiple databases:\n\n• Relational: MySQL, PostgreSQL\n• NoSQL: MongoDB, Firebase\n• Optimized database queries improving system performance by 30% at Caterpillar`,
     ],
   },
   {
-    patterns: [/contact|email|reach|hire|connect|linkedin|github/i],
+    patterns: [/education|degree|college|srm|university/i],
     responses: [
-      `You can connect with Vatsav through:\n\n• Email: ${knowledgeBase.contact.email}\n• GitHub: ${knowledgeBase.contact.github}\n• LinkedIn: ${knowledgeBase.contact.linkedin}\n\nFeel free to reach out for collaborations or opportunities!`,
+      `Education:\n\n• B.Tech in Computer Science and Engineering\n• SRM Institute of Science and Technology (2020-2024)\n• CGPA: 8.8/10\n• Smart India Hackathon 2023 Finalist`,
+    ],
+  },
+  {
+    patterns: [/certif|aws certified|google/i],
+    responses: [
+      `Srivatsav's certifications:\n\n• AWS Certified Cloud Practitioner\n• Google Data Analytics Professional Certificate\n• HackerRank Problem Solving (5-star rating)`,
+    ],
+  },
+  {
+    patterns: [/contact|email|reach|hire|connect|linkedin|phone/i],
+    responses: [
+      `You can connect with Srivatsav:\n\n• Email: ${knowledgeBase.contact.email}\n• LinkedIn: ${knowledgeBase.contact.linkedin}\n• Phone: ${knowledgeBase.contact.phone}\n\nFeel free to reach out for collaborations or opportunities!`,
     ],
   },
   {
     patterns: [/resume|cv|download/i],
     responses: [
-      "You can download Vatsav's resume by clicking the document icon in the navigation bar, or scroll down to the Contact section for more details.",
+      "You can download Srivatsav's resume by scrolling to the Contact section, or reach out directly via email at srivatsavsaravanan@gmail.com",
     ],
   },
   {
     patterns: [/thank|thanks|bye|goodbye/i],
     responses: [
       "You're welcome! Feel free to ask if you have more questions. Have a great day!",
-      "Glad I could help! Don't hesitate to reach out to Vatsav directly for more detailed discussions.",
+      "Glad I could help! Don't hesitate to reach out to Srivatsav directly for more detailed discussions.",
     ],
   },
   {
     patterns: [/help|what can you|how do i|options/i],
     responses: [
-      "I can help you learn about:\n\n• Vatsav's skills and technical expertise\n• His projects and work experience\n• AI/ML and Data Engineering capabilities\n• How to contact him\n\nJust ask naturally, like \"What projects has he worked on?\" or \"Tell me about his Python experience\"",
+      "I can help you learn about:\n\n• Srivatsav's skills and technical expertise\n• His projects (AI Resume Analyzer, Chat App, Analytics Dashboard)\n• Work experience at Caterpillar Inc\n• Education and certifications\n• How to contact him\n\nJust ask naturally!",
     ],
   },
 ];
 
 // Default fallback responses
 const fallbackResponses = [
-  "I'm not sure about that specific topic, but I'd be happy to tell you about Vatsav's skills, projects, or experience. What would you like to know?",
-  "That's an interesting question! I'm best at answering questions about Vatsav's technical skills, projects, and background. Try asking about his AI/ML experience or data engineering work!",
-  "I don't have information on that, but I can tell you all about Vatsav's expertise in Python, AI, data engineering, and more. What interests you?",
+  "I'm not sure about that specific topic, but I'd be happy to tell you about Srivatsav's skills, projects, or experience at Caterpillar. What would you like to know?",
+  "That's an interesting question! I'm best at answering questions about Srivatsav's technical skills, projects, and background. Try asking about his experience or certifications!",
+  "I don't have information on that, but I can tell you all about Srivatsav's expertise in Java, Python, React, AWS, and more. What interests you?",
 ];
 
 // Suggested questions
 const suggestedQuestions = [
   "What are his main skills?",
-  "Tell me about his AI experience",
+  "Tell me about his experience",
   "What projects has he built?",
   "How can I contact him?",
 ];
@@ -177,7 +197,7 @@ export default function AIChatAssistant() {
     {
       id: 1,
       type: 'bot',
-      text: "Hi! I'm Vatsav's AI assistant. Ask me anything about his skills, projects, or experience!",
+      text: "Hi! I'm Srivatsav's AI assistant. Ask me anything about his skills, projects, or experience at Caterpillar!",
       timestamp: new Date(),
     },
   ]);

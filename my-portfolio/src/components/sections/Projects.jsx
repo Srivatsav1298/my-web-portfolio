@@ -6,23 +6,23 @@ import '../../styles/sections.css';
 
 const projects = [
   {
-    title: 'AI Neural Network Visualizer',
-    description: 'A real-time 3D visualization of neural network layers learning patterns using React Three Fiber.',
-    tags: ['React', 'Three.js', 'Python', 'TensorFlow'],
+    title: 'AI-Powered Resume Analyzer',
+    description: 'Intelligent resume parsing system using NLP and machine learning. Achieved 92% accuracy in skill matching and job recommendation with automated screening.',
+    tags: ['Python', 'TensorFlow', 'spaCy', 'Flask', 'React.js'],
     github: '#',
     live: '#',
   },
   {
-    title: 'Real-Time Analytics Pipeline',
-    description: 'High-throughput data pipeline processing millions of events per second with sub-second latency.',
-    tags: ['Apache Kafka', 'Spark', 'Python', 'AWS'],
+    title: 'Real-Time Chat Application',
+    description: 'Scalable chat platform with real-time messaging, end-to-end encryption, and user authentication. Supports 1000+ concurrent users with optimized WebSocket connections.',
+    tags: ['Node.js', 'Socket.io', 'MongoDB', 'React.js'],
     github: '#',
     live: '#',
   },
   {
-    title: 'LLM Document Assistant',
-    description: 'RAG-powered document analysis system with semantic search and conversational interface.',
-    tags: ['LangChain', 'OpenAI', 'FastAPI', 'Pinecone'],
+    title: 'E-Commerce Analytics Dashboard',
+    description: 'Comprehensive business intelligence dashboard with automated ETL pipelines. Visualizes sales trends, customer behavior patterns, and predictive analytics.',
+    tags: ['Python', 'Pandas', 'Plotly', 'PostgreSQL', 'FastAPI'],
     github: '#',
     live: '#',
   },

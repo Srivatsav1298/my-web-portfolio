@@ -181,7 +181,7 @@ export default function IntroAnimation({ onIntroComplete }) {
                 }}
                 transition={{ duration: 0.1, ease: "linear" }}
               >
-                {greeting}, I'm Vatsav
+                {greeting}, I'm Srivatsav
               </motion.p>
               <div className="intro-section__photo-frame">
                 <img src={profileImage} alt="Vatsav" />
@@ -201,10 +201,10 @@ export default function IntroAnimation({ onIntroComplete }) {
             >
               <h2 className="intro-section__title">Software Engineer</h2>
               <p className="intro-section__subtitle">
-                Building systems at the intersection of AI and Data
+                Building Enterprise Solutions & AI-Powered Applications
               </p>
               <p className="intro-section__description">
-                3+ years of experience building scalable applications that solve real-world problems
+                Software Engineer at Caterpillar Inc | B.Tech CSE from SRM Institute
               </p>
               <MagneticButton
                 className="glass-button glass-button--primary"

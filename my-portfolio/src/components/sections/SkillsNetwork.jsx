@@ -8,68 +8,93 @@ import './SkillsNetwork.css';
 // Skills data with categories and connections
 const skillsData = {
   nodes: [
-    // Core skills (center)
+    // Core Languages (center)
     { id: 'python', label: 'Python', category: 'language', x: 0, y: 0, size: 1.2 },
-    { id: 'javascript', label: 'JavaScript', category: 'language', x: 2.5, y: 0.8, size: 1.0 },
-    { id: 'sql', label: 'SQL', category: 'language', x: -2.5, y: 0.8, size: 1.0 },
+    { id: 'java', label: 'Java', category: 'language', x: 2.5, y: 0.5, size: 1.1 },
+    { id: 'javascript', label: 'JavaScript', category: 'language', x: -2.5, y: 0.5, size: 1.0 },
+    { id: 'sql', label: 'SQL', category: 'language', x: 0, y: 2, size: 0.95 },
+    { id: 'cpp', label: 'C++', category: 'language', x: -1.5, y: -1.5, size: 0.85 },
 
-    // Data Engineering
-    { id: 'spark', label: 'Spark', category: 'data', x: -3, y: -1.2, size: 0.9 },
-    { id: 'airflow', label: 'Airflow', category: 'data', x: -4, y: 0.3, size: 0.85 },
-    { id: 'kafka', label: 'Kafka', category: 'data', x: -3.2, y: 1.8, size: 0.85 },
-    { id: 'pandas', label: 'Pandas', category: 'data', x: -1.2, y: -1.8, size: 0.8 },
+    // Web Technologies
+    { id: 'react', label: 'React.js', category: 'frontend', x: -4, y: 0.3, size: 0.95 },
+    { id: 'nodejs', label: 'Node.js', category: 'frontend', x: -3.5, y: 1.8, size: 0.9 },
+    { id: 'express', label: 'Express.js', category: 'frontend', x: -4.2, y: -0.8, size: 0.8 },
+    { id: 'html', label: 'HTML/CSS', category: 'frontend', x: -3, y: -1.5, size: 0.8 },
 
-    // AI/ML
-    { id: 'tensorflow', label: 'TensorFlow', category: 'ai', x: 1.2, y: -1.8, size: 0.9 },
-    { id: 'pytorch', label: 'PyTorch', category: 'ai', x: 3, y: -1.2, size: 0.9 },
-    { id: 'langchain', label: 'LangChain', category: 'ai', x: 2.2, y: -2.5, size: 0.8 },
-    { id: 'openai', label: 'OpenAI', category: 'ai', x: 0, y: -2.5, size: 0.85 },
+    // Databases
+    { id: 'mysql', label: 'MySQL', category: 'data', x: 1.5, y: 2.5, size: 0.85 },
+    { id: 'mongodb', label: 'MongoDB', category: 'data', x: -1.5, y: 2.5, size: 0.85 },
+    { id: 'postgres', label: 'PostgreSQL', category: 'data', x: 0, y: 3.2, size: 0.9 },
+    { id: 'firebase', label: 'Firebase', category: 'data', x: 2.5, y: 2.2, size: 0.8 },
 
-    // Cloud & Infrastructure
-    { id: 'aws', label: 'AWS', category: 'cloud', x: 4, y: 0.3, size: 0.95 },
-    { id: 'docker', label: 'Docker', category: 'cloud', x: 3.2, y: 1.8, size: 0.85 },
-    { id: 'kubernetes', label: 'K8s', category: 'cloud', x: 4.2, y: -0.8, size: 0.8 },
+    // Cloud & Tools
+    { id: 'aws', label: 'AWS', category: 'cloud', x: 4, y: 0, size: 1.0 },
+    { id: 'docker', label: 'Docker', category: 'cloud', x: 3.5, y: 1.5, size: 0.9 },
+    { id: 'jenkins', label: 'Jenkins', category: 'cloud', x: 4.2, y: -1, size: 0.8 },
+    { id: 'git', label: 'Git', category: 'cloud', x: 3, y: -1.8, size: 0.85 },
+    { id: 'linux', label: 'Linux', category: 'cloud', x: 4.5, y: 0.8, size: 0.8 },
 
-    // Frontend
-    { id: 'react', label: 'React', category: 'frontend', x: 1, y: 2.2, size: 0.9 },
-    { id: 'nodejs', label: 'Node.js', category: 'frontend', x: -1, y: 2.2, size: 0.85 },
+    // ML/AI
+    { id: 'tensorflow', label: 'TensorFlow', category: 'ai', x: 1.5, y: -2, size: 0.95 },
+    { id: 'sklearn', label: 'Scikit-learn', category: 'ai', x: 0, y: -2.5, size: 0.85 },
+    { id: 'pandas', label: 'Pandas', category: 'ai', x: -1, y: -2.2, size: 0.85 },
+    { id: 'numpy', label: 'NumPy', category: 'ai', x: 0.8, y: -3, size: 0.8 },
+
+    // Frameworks
+    { id: 'springboot', label: 'Spring Boot', category: 'framework', x: 3.2, y: -0.5, size: 0.95 },
+    { id: 'fastapi', label: 'FastAPI', category: 'framework', x: 1.8, y: -1, size: 0.85 },
+    { id: 'flask', label: 'Flask', category: 'framework', x: 2.2, y: -1.8, size: 0.8 },
+    { id: 'socketio', label: 'Socket.io', category: 'framework', x: -2.8, y: 1, size: 0.8 },
   ],
   connections: [
     // Python connections
-    { from: 'python', to: 'spark' },
-    { from: 'python', to: 'airflow' },
-    { from: 'python', to: 'pandas' },
     { from: 'python', to: 'tensorflow' },
-    { from: 'python', to: 'pytorch' },
-    { from: 'python', to: 'langchain' },
-    { from: 'python', to: 'openai' },
+    { from: 'python', to: 'sklearn' },
+    { from: 'python', to: 'pandas' },
+    { from: 'python', to: 'numpy' },
+    { from: 'python', to: 'fastapi' },
+    { from: 'python', to: 'flask' },
+
+    // Java connections
+    { from: 'java', to: 'springboot' },
+    { from: 'java', to: 'aws' },
 
     // JavaScript connections
     { from: 'javascript', to: 'react' },
     { from: 'javascript', to: 'nodejs' },
+    { from: 'javascript', to: 'express' },
+    { from: 'javascript', to: 'socketio' },
 
-    // Data pipeline
-    { from: 'spark', to: 'kafka' },
-    { from: 'airflow', to: 'spark' },
-    { from: 'kafka', to: 'airflow' },
-    { from: 'pandas', to: 'spark' },
+    // Database connections
+    { from: 'sql', to: 'mysql' },
+    { from: 'sql', to: 'postgres' },
+    { from: 'nodejs', to: 'mongodb' },
+    { from: 'react', to: 'firebase' },
+    { from: 'springboot', to: 'postgres' },
 
-    // AI/ML
-    { from: 'tensorflow', to: 'pytorch' },
-    { from: 'langchain', to: 'openai' },
-    { from: 'pytorch', to: 'langchain' },
-
-    // Cloud
+    // Cloud connections
     { from: 'aws', to: 'docker' },
-    { from: 'docker', to: 'kubernetes' },
-    { from: 'aws', to: 'kubernetes' },
-    { from: 'spark', to: 'aws' },
+    { from: 'docker', to: 'jenkins' },
+    { from: 'aws', to: 'jenkins' },
+    { from: 'springboot', to: 'docker' },
+
+    // ML Pipeline
+    { from: 'tensorflow', to: 'sklearn' },
+    { from: 'pandas', to: 'sklearn' },
+    { from: 'numpy', to: 'pandas' },
+    { from: 'numpy', to: 'tensorflow' },
+
+    // Frontend
+    { from: 'react', to: 'nodejs' },
+    { from: 'nodejs', to: 'express' },
+    { from: 'html', to: 'react' },
+    { from: 'socketio', to: 'nodejs' },
 
     // Cross-category
-    { from: 'sql', to: 'spark' },
-    { from: 'sql', to: 'pandas' },
-    { from: 'nodejs', to: 'docker' },
-    { from: 'react', to: 'nodejs' },
+    { from: 'fastapi', to: 'postgres' },
+    { from: 'git', to: 'jenkins' },
+    { from: 'linux', to: 'docker' },
+    { from: 'mongodb', to: 'express' },
   ],
 };
 
@@ -79,14 +104,16 @@ const categoryColors = {
   ai: '#aa9a8a',
   cloud: '#8aaa8a',
   frontend: '#9a8aaa',
+  framework: '#aa8a9a',
 };
 
 const categoryNames = {
   language: 'Languages',
-  data: 'Data Engineering',
+  data: 'Databases',
   ai: 'AI / ML',
-  cloud: 'Cloud',
-  frontend: 'Frontend',
+  cloud: 'Cloud & Tools',
+  frontend: 'Web Technologies',
+  framework: 'Frameworks',
 };
 
 /**
@@ -336,10 +363,11 @@ export default function SkillsNetwork() {
 
   const categories = [
     { id: 'language', label: 'Languages', color: categoryColors.language },
-    { id: 'data', label: 'Data', color: categoryColors.data },
+    { id: 'data', label: 'Databases', color: categoryColors.data },
     { id: 'ai', label: 'AI/ML', color: categoryColors.ai },
     { id: 'cloud', label: 'Cloud', color: categoryColors.cloud },
-    { id: 'frontend', label: 'Frontend', color: categoryColors.frontend },
+    { id: 'frontend', label: 'Web', color: categoryColors.frontend },
+    { id: 'framework', label: 'Frameworks', color: categoryColors.framework },
   ];
 
   // Get hovered node details

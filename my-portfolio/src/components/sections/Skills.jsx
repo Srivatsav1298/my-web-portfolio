@@ -6,20 +6,28 @@ import '../../styles/sections.css';
 
 const skills = [
   {
-    category: 'Data Engineering',
-    items: ['Apache Spark', 'Kafka', 'Airflow', 'dbt', 'Snowflake', 'BigQuery'],
+    category: 'Languages',
+    items: ['Python', 'Java', 'C++', 'JavaScript', 'SQL'],
   },
   {
-    category: 'AI / ML',
-    items: ['PyTorch', 'TensorFlow', 'LangChain', 'OpenAI', 'Hugging Face', 'RAG'],
+    category: 'Web Technologies',
+    items: ['React.js', 'Node.js', 'Express.js', 'HTML5', 'CSS3', 'REST APIs'],
   },
   {
-    category: 'Backend',
-    items: ['Python', 'Node.js', 'FastAPI', 'PostgreSQL', 'Redis', 'GraphQL'],
+    category: 'Databases',
+    items: ['MySQL', 'MongoDB', 'PostgreSQL', 'Firebase'],
   },
   {
-    category: 'Infrastructure',
-    items: ['AWS', 'Docker', 'Kubernetes', 'Terraform', 'CI/CD', 'Linux'],
+    category: 'Tools & Cloud',
+    items: ['Git', 'Docker', 'AWS', 'Jenkins', 'Linux', 'Agile'],
+  },
+  {
+    category: 'Machine Learning',
+    items: ['TensorFlow', 'Scikit-learn', 'Pandas', 'NumPy', 'NLP'],
+  },
+  {
+    category: 'Frameworks',
+    items: ['Spring Boot', 'FastAPI', 'Flask', 'Socket.io', 'Microservices'],
   },
 ];
 

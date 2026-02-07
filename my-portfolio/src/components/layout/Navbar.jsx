@@ -1,6 +1,6 @@
 import React, { forwardRef, useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Github, FileText, Sun, Moon } from 'lucide-react';
+import { Github, Linkedin, FileText, Sun, Moon } from 'lucide-react';
 import { useTheme } from '../../context/ThemeContext';
 import '../../styles/glass.css';
 import './navbar.css';
@@ -39,7 +39,7 @@ const Navbar = forwardRef(({ showName = false }, ref) => {
             ease: [0.16, 1, 0.3, 1],
           }}
         >
-          VATSAV
+          SRIVATSAV
         </motion.span>
       </div>
 
@@ -67,10 +67,10 @@ const Navbar = forwardRef(({ showName = false }, ref) => {
           </motion.div>
           {isAutoTheme && <span className="navbar__auto-indicator" />}
         </button>
-        <a href="#" title="Resume" className="navbar__icon">
-          <FileText size={18} />
+        <a href="https://linkedin.com/in/srivatsav-saravanan" target="_blank" rel="noopener noreferrer" title="LinkedIn" className="navbar__icon">
+          <Linkedin size={18} />
         </a>
-        <a href="#" title="GitHub" className="navbar__icon">
+        <a href="https://github.com/Srivatsav1298" target="_blank" rel="noopener noreferrer" title="GitHub" className="navbar__icon">
           <Github size={18} />
         </a>
       </div>

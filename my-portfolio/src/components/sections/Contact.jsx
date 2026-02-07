@@ -82,8 +82,9 @@ const Contact = () => {
         />
 
         <motion.p className="contact__text" variants={itemVariants}>
-          I'm currently open to new opportunities in data engineering and AI.
-          Whether you have a question or just want to connect, feel free to reach out.
+          I'm currently working as a Software Engineer at Caterpillar Inc and always open to
+          discussing new opportunities, collaborations, or interesting projects.
+          Feel free to reach out!
         </motion.p>
 
         <motion.div
@@ -93,7 +94,7 @@ const Contact = () => {
         >
           <MagneticButton
             className="glass-button glass-button--primary"
-            onClick={() => window.location.href = 'mailto:hello@example.com'}
+            onClick={() => window.location.href = 'mailto:srivatsavsaravanan@gmail.com'}
           >
             <Send size={16} style={{ marginRight: '8px' }} />
             Say Hello
@@ -111,7 +112,7 @@ const Contact = () => {
             transition={{ duration: 0.2 }}
           >
             <Mail size={16} />
-            <span>hello@example.com</span>
+            <span>srivatsavsaravanan@gmail.com</span>
           </motion.div>
           <motion.div
             className="contact__detail-item"
@@ -120,7 +121,7 @@ const Contact = () => {
             transition={{ duration: 0.2 }}
           >
             <MapPin size={16} />
-            <span>San Francisco, CA</span>
+            <span>Chennai, India</span>
           </motion.div>
         </motion.div>
       </motion.div>
