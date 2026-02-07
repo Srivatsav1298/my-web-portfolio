@@ -201,10 +201,10 @@ export default function IntroAnimation({ onIntroComplete }) {
             >
               <h2 className="intro-section__title">Software Engineer</h2>
               <p className="intro-section__subtitle">
-                Building Enterprise Solutions & AI-Powered Applications
+                Building systems at the intersection of AI and Data
               </p>
               <p className="intro-section__description">
-                Software Engineer at Caterpillar Inc | B.Tech CSE from SRM Institute
+                3+ years of experience building scalable applications that solve real-world problems
               </p>
               <MagneticButton
                 className="glass-button glass-button--primary"
