@@ -1,12 +1,12 @@
 /* ============================================
-   Intro Section - Smooth Scroll Animation
-   Photo centered with "I am Vatsav", moves right as content appears
+   Intro Section - Centered Impact Hero
+   Everything visible immediately, exits on scroll
    ============================================ */
 
 .intro-section {
   position: relative;
   width: 100%;
-  min-height: 250vh;
+  min-height: 150vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -15,9 +15,9 @@
 }
 
 /* Fixed elements during scroll */
-.intro-section__overlay,
-.intro-section__photo-centered,
-.intro-section__content-wrapper,
+.intro-section__bg-photo,
+.intro-section__ambient-glow,
+.intro-section__content,
 .intro-section__scroll-hint {
   position: fixed;
   top: 0;
@@ -26,238 +26,300 @@
   height: 100vh;
 }
 
-/* Dark overlay */
-.intro-section__overlay {
-  background: #000;
-  z-index: 40;
+/* Background photo - very subtle */
+.intro-section__bg-photo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
   pointer-events: none;
 }
 
-/* Photo - starts centered */
-.intro-section__photo-centered {
+.intro-section__bg-photo img {
+  width: 500px;
+  height: 600px;
+  object-fit: cover;
+  object-position: center top;
+  filter: grayscale(100%) blur(1px);
+}
+
+/* Ambient glow */
+.intro-section__ambient-glow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.intro-section__ambient-glow::after {
+  content: '';
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(120, 120, 120, 0.1) 0%, transparent 60%);
+}
+
+/* Main content - centered */
+.intro-section__content {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  z-index: 35;
-  pointer-events: none;
+  z-index: 10;
+  padding: 0 20px;
+  text-align: center;
 }
 
-/* "I am Vatsav" intro text above photo */
-.intro-section__intro-text {
-  font-family: var(--font-primary);
-  font-size: clamp(24px, 4vw, 36px);
-  font-weight: 300;
-  letter-spacing: 0.12em;
-  margin-bottom: 28px;
-  color: #b0b0b0;
-  text-transform: none;
-}
-
-.intro-section__photo-frame {
-  position: relative;
-  width: 320px;
-  height: 400px;
-  border-radius: 16px;
+/* Small photo accent */
+.intro-section__photo-accent {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
   overflow: hidden;
+  margin-bottom: 32px;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
 }
 
-.intro-section__photo-frame img {
+.intro-section__photo-accent img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: center top;
 }
 
-.intro-section__photo-frame::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: 16px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  pointer-events: none;
-  z-index: 2;
-}
-
-.intro-section__photo-frame::after {
-  content: '';
-  position: absolute;
-  inset: -40px;
-  background: radial-gradient(
-    ellipse at center,
-    rgba(100, 100, 100, 0.15) 0%,
-    transparent 70%
-  );
-  z-index: -1;
-}
-
-/* Hero content - positioned to the left */
-.intro-section__content-wrapper {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-  z-index: 36;
-  padding-left: 8%;
-  padding-right: 55%;
-}
-
-.intro-section__title {
+/* Greeting */
+.intro-section__greeting {
   font-family: var(--font-primary);
-  font-size: clamp(42px, 7vw, 72px);
-  font-weight: 600;
-  letter-spacing: -0.02em;
-  line-height: 1.1;
+  font-size: 16px;
+  font-weight: 400;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: #606060;
+  margin: 0 0 20px 0;
+}
+
+/* Name - Large centered with vertical gradient */
+.intro-section__name {
+  font-family: var(--font-primary);
+  font-size: clamp(64px, 12vw, 140px);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 0.95;
   margin: 0 0 24px 0;
   background: linear-gradient(
-    90deg,
-    #707070 0%,
-    #a0a0a0 15%,
-    #d8d8d8 35%,
-    #f0f0f0 50%,
-    #d8d8d8 65%,
-    #a0a0a0 85%,
-    #707070 100%
+    180deg,
+    #ffffff 0%,
+    #e0e0e0 40%,
+    #a0a0a0 70%,
+    #606060 100%
   );
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
 }
 
-.intro-section__subtitle {
+/* Role */
+.intro-section__role {
   font-family: var(--font-primary);
-  font-size: clamp(18px, 2.5vw, 24px);
+  font-size: clamp(20px, 3vw, 28px);
   font-weight: 500;
-  line-height: 1.6;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #808080;
   margin: 0 0 20px 0;
-  white-space: nowrap;
-  background: linear-gradient(
-    90deg,
-    #808080 0%,
-    #b0b0b0 15%,
-    #e0e0e0 35%,
-    #f5f5f5 50%,
-    #e0e0e0 65%,
-    #b0b0b0 85%,
-    #808080 100%
-  );
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
 }
 
-.intro-section__description {
+/* Tagline */
+.intro-section__tagline {
   font-family: var(--font-primary);
-  font-size: 17px;
+  font-size: clamp(16px, 2vw, 20px);
   font-weight: 400;
-  line-height: 1.9;
-  margin: 0 0 36px 0;
-  max-width: 450px;
-  background: linear-gradient(
-    90deg,
-    #808080 0%,
-    #b0b0b0 15%,
-    #e0e0e0 35%,
-    #f0f0f0 50%,
-    #e0e0e0 65%,
-    #b0b0b0 85%,
-    #808080 100%
-  );
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  color: #505050;
+  max-width: 500px;
+  line-height: 1.6;
+  margin: 0 0 40px 0;
 }
 
-/* Scroll hint */
+/* Stats row */
+.intro-section__stats {
+  display: flex;
+  gap: 48px;
+  margin-bottom: 40px;
+}
+
+.intro-section__stat {
+  text-align: center;
+}
+
+.intro-section__stat-value {
+  display: block;
+  font-family: var(--font-primary);
+  font-size: 28px;
+  font-weight: 600;
+  color: #c0c0c0;
+  margin-bottom: 4px;
+}
+
+.intro-section__stat-label {
+  display: block;
+  font-family: var(--font-primary);
+  font-size: 12px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #505050;
+}
+
+/* CTA buttons */
+.intro-section__cta-row {
+  display: flex;
+  gap: 16px;
+}
+
+.intro-section__cta-primary {
+  padding: 14px 32px;
+  background: rgba(255, 255, 255, 0.9);
+  border: none;
+  border-radius: 8px;
+  color: #000;
+  font-family: var(--font-primary);
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.intro-section__cta-primary:hover {
+  background: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 40px rgba(255, 255, 255, 0.2);
+}
+
+.intro-section__cta-secondary {
+  padding: 14px 32px;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  color: #a0a0a0;
+  font-family: var(--font-primary);
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.intro-section__cta-secondary:hover {
+  border-color: rgba(255, 255, 255, 0.4);
+  color: #fff;
+}
+
+/* Scroll indicator - mouse style */
 .intro-section__scroll-hint {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-end;
   padding-bottom: 40px;
-  gap: 12px;
-  z-index: 45;
+  z-index: 15;
   pointer-events: none;
 }
 
-.intro-section__scroll-hint span {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  color: #707070;
+.intro-section__scroll-mouse {
+  width: 24px;
+  height: 38px;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  position: relative;
 }
 
-.intro-section__scroll-line {
-  width: 1px;
-  height: 50px;
-  background: linear-gradient(180deg, #606060 0%, transparent 100%);
-  animation: scrollPulse 2.5s ease-in-out infinite;
+.intro-section__scroll-wheel {
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 3px;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.4);
+  border-radius: 2px;
+  animation: scrollWheel 2s ease-in-out infinite;
 }
 
-@keyframes scrollPulse {
-  0%, 100% { opacity: 0.3; transform: scaleY(1); }
-  50% { opacity: 0.7; transform: scaleY(1.1); }
+@keyframes scrollWheel {
+  0%, 100% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+  50% {
+    opacity: 0.3;
+    transform: translateX(-50%) translateY(10px);
+  }
 }
 
 /* ============================================
    Responsive
    ============================================ */
 
-@media (max-width: 1024px) {
-  .intro-section__content-wrapper {
-    padding-left: 6%;
-    padding-right: 50%;
-  }
-
-  .intro-section__photo-frame {
-    width: 280px;
-    height: 350px;
-  }
-}
-
 @media (max-width: 768px) {
   .intro-section {
-    min-height: 220vh;
+    min-height: 130vh;
   }
 
-  .intro-section__photo-centered {
-    padding-top: 0;
+  .intro-section__stats {
+    gap: 32px;
   }
 
-  .intro-section__photo-frame {
-    width: 220px;
-    height: 280px;
+  .intro-section__stat-value {
+    font-size: 24px;
   }
 
-  .intro-section__content-wrapper {
-    padding-left: 5%;
-    padding-right: 5%;
-    padding-top: 50vh;
-    align-items: center;
+  .intro-section__cta-row {
+    flex-direction: column;
+    width: 100%;
+    max-width: 280px;
+  }
+
+  .intro-section__cta-primary,
+  .intro-section__cta-secondary {
+    width: 100%;
     text-align: center;
   }
 
-  .intro-section__subtitle {
-    white-space: normal;
-  }
-
-  .intro-section__description {
-    max-width: 100%;
+  .intro-section__bg-photo img {
+    width: 350px;
+    height: 450px;
   }
 }
 
 @media (max-width: 480px) {
   .intro-section {
-    min-height: 200vh;
+    min-height: 120vh;
   }
 
-  .intro-section__photo-frame {
-    width: 180px;
-    height: 230px;
+  .intro-section__photo-accent {
+    width: 64px;
+    height: 64px;
+    margin-bottom: 24px;
   }
 
-  .intro-section__intro-text {
-    font-size: clamp(20px, 5vw, 28px);
+  .intro-section__greeting {
+    font-size: 14px;
+    letter-spacing: 0.2em;
+  }
+
+  .intro-section__stats {
+    gap: 24px;
+  }
+
+  .intro-section__stat-value {
+    font-size: 20px;
+  }
+
+  .intro-section__stat-label {
+    font-size: 10px;
+  }
+
+  .intro-section__bg-photo img {
+    width: 280px;
+    height: 360px;
   }
 }

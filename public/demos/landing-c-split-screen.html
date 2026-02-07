@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Landing Variation C - Split Screen</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #050505;
+            color: #fff;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* Back Button */
+        .back-btn {
+            position: fixed;
+            top: 24px;
+            left: 24px;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.7);
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+        }
+
+        /* Hero Section - Split Layout */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            overflow: hidden;
+        }
+
+        /* Left Side - Content */
+        .hero-left {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 60px 8% 60px 10%;
+            background: #050505;
+            position: relative;
+            opacity: 0;
+            animation: fadeInLeft 0.8s ease-out 0.1s forwards;
+        }
+
+        @keyframes fadeInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Subtle grid pattern on left */
+        .hero-left::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+            background-size: 60px 60px;
+            pointer-events: none;
+        }
+
+        .greeting {
+            font-size: 14px;
+            font-weight: 500;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: #606060;
+            margin-bottom: 16px;
+        }
+
+        .hero-name {
+            font-size: clamp(42px, 6vw, 72px);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            line-height: 1.05;
+            margin-bottom: 8px;
+            color: #ffffff;
+        }
+
+        .hero-role {
+            font-size: clamp(32px, 4vw, 52px);
+            font-weight: 500;
+            letter-spacing: -0.01em;
+            line-height: 1.1;
+            margin-bottom: 24px;
+            background: linear-gradient(
+                90deg,
+                #707070 0%,
+                #909090 30%,
+                #b0b0b0 60%,
+                #808080 100%
+            );
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .hero-description {
+            font-size: 17px;
+            font-weight: 400;
+            color: #707070;
+            line-height: 1.8;
+            max-width: 420px;
+            margin-bottom: 36px;
+        }
+
+        .hero-description strong {
+            color: #a0a0a0;
+            font-weight: 500;
+        }
+
+        /* Tech Tags */
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 40px;
+        }
+
+        .tech-tag {
+            padding: 8px 16px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 6px;
+            font-size: 13px;
+            color: #808080;
+            transition: all 0.3s ease;
+        }
+
+        .tech-tag:hover {
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(255, 255, 255, 0.15);
+            color: #b0b0b0;
+        }
+
+        /* CTA Button */
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px 32px;
+            background: #ffffff;
+            border: none;
+            border-radius: 8px;
+            color: #000;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            width: fit-content;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 40px rgba(255, 255, 255, 0.15);
+        }
+
+        .cta-button svg {
+            transition: transform 0.3s ease;
+        }
+
+        .cta-button:hover svg {
+            transform: translateX(4px);
+        }
+
+        /* Right Side - Photo */
+        .hero-right {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #080808 0%, #0f0f0f 100%);
+            opacity: 0;
+            animation: fadeInRight 0.8s ease-out 0.2s forwards;
+        }
+
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Glass Frame Effect */
+        .photo-container {
+            position: relative;
+            padding: 24px;
+        }
+
+        .glass-frame {
+            position: relative;
+            width: 340px;
+            height: 440px;
+            border-radius: 20px;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            box-shadow:
+                0 40px 80px rgba(0, 0, 0, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        }
+
+        .glass-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center top;
+        }
+
+        /* Glass Reflection */
+        .glass-frame::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 50%;
+            background: linear-gradient(
+                180deg,
+                rgba(255, 255, 255, 0.08) 0%,
+                transparent 100%
+            );
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        /* Decorative Elements */
+        .deco-circle {
+            position: absolute;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            pointer-events: none;
+        }
+
+        .deco-circle-1 {
+            width: 500px;
+            height: 500px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .deco-circle-2 {
+            width: 600px;
+            height: 600px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        /* Ambient Glow */
+        .ambient {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(100, 100, 100, 0.15) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        /* Divider Line */
+        .divider {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            transform: translateY(-50%);
+            width: 1px;
+            height: 60%;
+            background: linear-gradient(
+                180deg,
+                transparent 0%,
+                rgba(255, 255, 255, 0.1) 50%,
+                transparent 100%
+            );
+        }
+
+        /* Scroll Indicator */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 10%;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            opacity: 0;
+            animation: fadeIn 0.6s ease-out 1s forwards;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        .scroll-indicator span {
+            font-size: 11px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: #505050;
+        }
+
+        .scroll-line {
+            width: 40px;
+            height: 1px;
+            background: #404040;
+        }
+
+        .scroll-arrow {
+            width: 6px;
+            height: 6px;
+            border-right: 1px solid #404040;
+            border-bottom: 1px solid #404040;
+            transform: rotate(45deg);
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0) rotate(45deg); }
+            50% { transform: translateY(4px) rotate(45deg); }
+        }
+
+        /* Description */
+        .design-notes {
+            padding: 60px 8%;
+            background: #0a0a0a;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .design-notes h2 {
+            font-size: 14px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.4);
+            margin-bottom: 24px;
+        }
+
+        .design-notes ul {
+            list-style: none;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 15px;
+            line-height: 2;
+        }
+
+        .design-notes li::before {
+            content: '\2022';
+            color: #606060;
+            margin-right: 12px;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero {
+                grid-template-columns: 1fr;
+                grid-template-rows: auto auto;
+            }
+
+            .hero-left {
+                padding: 100px 8% 60px;
+                order: 2;
+            }
+
+            .hero-right {
+                order: 1;
+                min-height: 50vh;
+                padding: 80px 20px 40px;
+            }
+
+            .glass-frame {
+                width: 280px;
+                height: 360px;
+            }
+
+            .divider {
+                display: none;
+            }
+
+            .scroll-indicator {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .glass-frame {
+                width: 220px;
+                height: 290px;
+            }
+
+            .tech-tags {
+                gap: 8px;
+            }
+
+            .tech-tag {
+                padding: 6px 12px;
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="javascript:history.back()" class="back-btn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+        Back
+    </a>
+
+    <section class="hero">
+        <div class="hero-left">
+            <p class="greeting">Hello, I'm</p>
+            <h1 class="hero-name">Srivatsav</h1>
+            <h2 class="hero-role">Software Engineer</h2>
+            <p class="hero-description">
+                Building systems at the intersection of <strong>AI and Data</strong>.
+                3+ years of experience creating scalable applications that solve real-world problems.
+            </p>
+
+            <div class="tech-tags">
+                <span class="tech-tag">Python</span>
+                <span class="tech-tag">Machine Learning</span>
+                <span class="tech-tag">Data Engineering</span>
+                <span class="tech-tag">Cloud</span>
+            </div>
+
+            <a href="#projects" class="cta-button">
+                Explore My Work
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+            </a>
+
+            <div class="scroll-indicator">
+                <span>Scroll</span>
+                <div class="scroll-line"></div>
+                <div class="scroll-arrow"></div>
+            </div>
+        </div>
+
+        <div class="hero-right">
+            <div class="ambient"></div>
+            <div class="deco-circle deco-circle-1"></div>
+            <div class="deco-circle deco-circle-2"></div>
+            <div class="divider"></div>
+
+            <div class="photo-container">
+                <div class="glass-frame">
+                    <img src="../profile.jpg" alt="Srivatsav" onerror="this.src='https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=500&fit=crop&crop=face'">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="design-notes">
+        <h2>Variation C - Split Screen</h2>
+        <ul>
+            <li>Clean 50/50 split layout - content left, photo right</li>
+            <li>Glass frame effect on photo with subtle reflection</li>
+            <li>Both sides visible immediately at full opacity</li>
+            <li>Tech tags show skills at a glance</li>
+            <li>Decorative circles add depth without distraction</li>
+            <li>Subtle grid pattern on content side</li>
+            <li>Mobile: stacks vertically with photo on top</li>
+            <li>White CTA button creates strong contrast</li>
+        </ul>
+    </section>
+</body>
+</html>

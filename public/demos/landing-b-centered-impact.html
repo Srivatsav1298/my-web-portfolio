@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Landing Variation B - Centered Impact</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #050505;
+            color: #fff;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* Back Button */
+        .back-btn {
+            position: fixed;
+            top: 24px;
+            left: 24px;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.7);
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 0 20px;
+            overflow: hidden;
+        }
+
+        /* Background Photo - Subtle */
+        .bg-photo {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 500px;
+            height: 600px;
+            opacity: 0.06;
+            filter: grayscale(100%) blur(1px);
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .bg-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center top;
+        }
+
+        /* Ambient Glow */
+        .ambient-glow {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(120, 120, 120, 0.1) 0%, transparent 60%);
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        /* Content */
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Small Photo Accent */
+        .photo-accent {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-bottom: 32px;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            opacity: 0;
+            transform: scale(0.8);
+            animation: popIn 0.5s ease-out 0.1s forwards;
+        }
+
+        @keyframes popIn {
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .photo-accent img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center top;
+        }
+
+        .greeting {
+            font-size: 16px;
+            font-weight: 400;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: #606060;
+            margin-bottom: 20px;
+            opacity: 0;
+            animation: fadeIn 0.6s ease-out 0.3s forwards;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        .hero-name {
+            font-size: clamp(64px, 12vw, 140px);
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            line-height: 0.95;
+            margin-bottom: 24px;
+            background: linear-gradient(
+                180deg,
+                #ffffff 0%,
+                #e0e0e0 40%,
+                #a0a0a0 70%,
+                #606060 100%
+            );
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: slideUp 0.7s ease-out 0.2s forwards;
+        }
+
+        @keyframes slideUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-role {
+            font-size: clamp(20px, 3vw, 28px);
+            font-weight: 500;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: #808080;
+            margin-bottom: 20px;
+            opacity: 0;
+            animation: fadeIn 0.6s ease-out 0.5s forwards;
+        }
+
+        .hero-tagline {
+            font-size: clamp(16px, 2vw, 20px);
+            font-weight: 400;
+            color: #505050;
+            max-width: 500px;
+            line-height: 1.6;
+            margin-bottom: 40px;
+            opacity: 0;
+            animation: fadeIn 0.6s ease-out 0.7s forwards;
+        }
+
+        /* Stats Row */
+        .stats-row {
+            display: flex;
+            gap: 48px;
+            margin-bottom: 40px;
+            opacity: 0;
+            animation: fadeIn 0.6s ease-out 0.9s forwards;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 28px;
+            font-weight: 600;
+            color: #c0c0c0;
+            margin-bottom: 4px;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: #505050;
+        }
+
+        /* CTA Buttons */
+        .cta-row {
+            display: flex;
+            gap: 16px;
+            opacity: 0;
+            animation: fadeIn 0.6s ease-out 1.1s forwards;
+        }
+
+        .cta-primary {
+            padding: 14px 32px;
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            border-radius: 8px;
+            color: #000;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .cta-primary:hover {
+            background: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 40px rgba(255, 255, 255, 0.2);
+        }
+
+        .cta-secondary {
+            padding: 14px 32px;
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            color: #a0a0a0;
+            font-size: 15px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .cta-secondary:hover {
+            border-color: rgba(255, 255, 255, 0.4);
+            color: #fff;
+        }
+
+        /* Scroll Indicator */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            opacity: 0;
+            animation: fadeIn 0.6s ease-out 1.4s forwards;
+        }
+
+        .scroll-mouse {
+            width: 24px;
+            height: 38px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            position: relative;
+        }
+
+        .scroll-mouse::after {
+            content: '';
+            position: absolute;
+            top: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 3px;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.4);
+            border-radius: 2px;
+            animation: scrollWheel 2s ease-in-out infinite;
+        }
+
+        @keyframes scrollWheel {
+            0%, 100% { opacity: 1; transform: translateX(-50%) translateY(0); }
+            50% { opacity: 0.3; transform: translateX(-50%) translateY(10px); }
+        }
+
+        /* Description */
+        .design-notes {
+            padding: 60px 8%;
+            background: #0a0a0a;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .design-notes h2 {
+            font-size: 14px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.4);
+            margin-bottom: 24px;
+        }
+
+        .design-notes ul {
+            list-style: none;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 15px;
+            line-height: 2;
+        }
+
+        .design-notes li::before {
+            content: '\2022';
+            color: #606060;
+            margin-right: 12px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .stats-row {
+                gap: 32px;
+            }
+
+            .cta-row {
+                flex-direction: column;
+                width: 100%;
+                max-width: 280px;
+            }
+
+            .cta-primary, .cta-secondary {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="javascript:history.back()" class="back-btn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+        Back
+    </a>
+
+    <section class="hero">
+        <!-- Background Photo (very subtle) -->
+        <div class="bg-photo">
+            <img src="../profile.jpg" alt="" onerror="this.src='https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&h=600&fit=crop&crop=face'">
+        </div>
+
+        <div class="ambient-glow"></div>
+
+        <div class="hero-content">
+            <div class="photo-accent">
+                <img src="../profile.jpg" alt="Srivatsav" onerror="this.src='https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&h=80&fit=crop&crop=face'">
+            </div>
+
+            <p class="greeting">Hello, I'm</p>
+            <h1 class="hero-name">Srivatsav</h1>
+            <p class="hero-role">Software Engineer</p>
+            <p class="hero-tagline">
+                Building systems at the intersection of AI and Data
+            </p>
+
+            <div class="stats-row">
+                <div class="stat">
+                    <div class="stat-value">3+</div>
+                    <div class="stat-label">Years Exp</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">20+</div>
+                    <div class="stat-label">Projects</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">AI</div>
+                    <div class="stat-label">& Data</div>
+                </div>
+            </div>
+
+            <div class="cta-row">
+                <a href="#projects" class="cta-primary">View Work</a>
+                <a href="#contact" class="cta-secondary">Get in Touch</a>
+            </div>
+        </div>
+
+        <div class="scroll-indicator">
+            <div class="scroll-mouse"></div>
+        </div>
+    </section>
+
+    <section class="design-notes">
+        <h2>Variation B - Centered Impact</h2>
+        <ul>
+            <li>Large centered name with dramatic vertical gradient</li>
+            <li>Photo as subtle background element (6% opacity, blurred)</li>
+            <li>Small circular photo accent above name</li>
+            <li>Strong visual hierarchy: Name > Role > Tagline</li>
+            <li>Stats row adds credibility without clutter</li>
+            <li>Dual CTA buttons (primary + secondary)</li>
+            <li>Mouse scroll indicator for modern feel</li>
+            <li>Everything visible immediately on load</li>
+        </ul>
+    </section>
+</body>
+</html>

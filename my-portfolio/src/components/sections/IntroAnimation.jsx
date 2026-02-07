@@ -1,14 +1,12 @@
-import React, { useEffect, useState, useMemo, useRef, useCallback } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTheme } from '../../context/ThemeContext';
-import MagneticButton from '../ui/MagneticButton';
 import profileImage from '../../assets/profile.jpg';
-import '../../styles/glass.css';
 import './IntroAnimation.css';
 
 /**
- * IntroAnimation - Hero section with smooth scroll-based reveals
- * Photo starts centered with dynamic greeting, moves right as content appears
+ * IntroAnimation - Centered Impact Hero
+ * Everything visible immediately on load, exits on scroll
  */
 export default function IntroAnimation({ onIntroComplete }) {
   const { greeting } = useTheme();
@@ -16,20 +14,13 @@ export default function IntroAnimation({ onIntroComplete }) {
   const [windowHeight, setWindowHeight] = useState(1);
   const [isInView, setIsInView] = useState(true);
 
-  // Smoothed opacity for intro text (prevents jumping on fast scroll)
-  const [smoothedIntroOpacity, setSmoothedIntroOpacity] = useState(0);
-  const targetOpacityRef = useRef(0);
-  const animationFrameRef = useRef(null);
-
   useEffect(() => {
     setWindowHeight(window.innerHeight);
 
     const handleScroll = () => {
       const newScrollY = window.scrollY;
       setScrollY(newScrollY);
-
-      // Check if intro section is still in view (within 250vh)
-      setIsInView(newScrollY < windowHeight * 2.6);
+      setIsInView(newScrollY < windowHeight * 1.5);
     };
 
     const handleResize = () => {
@@ -46,186 +37,184 @@ export default function IntroAnimation({ onIntroComplete }) {
     };
   }, [windowHeight]);
 
-  // Smooth animation loop for intro text opacity
-  const lerp = useCallback((current, target, factor) => {
-    return current + (target - current) * factor;
-  }, []);
-
-  useEffect(() => {
-    const animate = () => {
-      setSmoothedIntroOpacity(prev => {
-        const newValue = lerp(prev, targetOpacityRef.current, 0.08);
-        // Stop updating if very close to target
-        if (Math.abs(newValue - targetOpacityRef.current) < 0.001) {
-          return targetOpacityRef.current;
-        }
-        return newValue;
-      });
-      animationFrameRef.current = requestAnimationFrame(animate);
-    };
-
-    animationFrameRef.current = requestAnimationFrame(animate);
-
-    return () => {
-      if (animationFrameRef.current) {
-        cancelAnimationFrame(animationFrameRef.current);
-      }
-    };
-  }, [lerp]);
-
-  // Smooth easing functions
+  // Smooth easing
   const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3);
-  const easeOutQuart = (t) => 1 - Math.pow(1 - t, 4);
 
-  // Calculate progress based on scroll (2.5x viewport height for animation)
-  const rawProgress = Math.min(scrollY / (windowHeight * 2.5), 1);
+  // Calculate scroll progress (shorter section now - 1.5x viewport)
+  const rawProgress = Math.min(scrollY / (windowHeight * 1.5), 1);
 
-  // Animation values with smoother curves
+  // Animation values
   const animations = useMemo(() => {
-    // Overlay: fades out from 0% to 25% scroll (slower reveal)
-    const overlayOpacity = Math.max(0, 0.85 - easeOutCubic(Math.min(rawProgress / 0.25, 1)) * 0.85);
+    // Content fades out and moves up as user scrolls
+    const contentOpacity = rawProgress < 0.6
+      ? 1
+      : 1 - easeOutCubic((rawProgress - 0.6) / 0.4);
 
-    // "I am Vatsav" text: visible from 5% to 40%, fades out as photo moves
-    // Extended range and slower fade for better visibility during fast scroll
-    let introTextOpacity = 0;
-    if (rawProgress > 0.05 && rawProgress < 0.45) {
-      if (rawProgress < 0.15) {
-        // Fade in from 5% to 15%
-        introTextOpacity = easeOutCubic((rawProgress - 0.05) / 0.1);
-      } else if (rawProgress < 0.25) {
-        // Stay fully visible from 15% to 25%
-        introTextOpacity = 1;
-      } else {
-        // Fade out from 25% to 45%
-        introTextOpacity = 1 - easeOutCubic((rawProgress - 0.25) / 0.2);
-      }
-    }
-
-    // Fade out everything at the end - starts at 90%
-    const exitOpacity = rawProgress > 0.9
-      ? 1 - easeOutCubic((rawProgress - 0.9) / 0.1)
-      : 1;
-
-    // Update target for smooth interpolation
-    targetOpacityRef.current = introTextOpacity * exitOpacity;
-
-    // Photo: starts centered, moves right from 15% to 50% scroll
-    // Starts at 30% opacity, full at 25% scroll
-    const photoOpacity = 0.3 + easeOutCubic(Math.min(rawProgress / 0.25, 1)) * 0.7;
-    const photoX = rawProgress > 0.15
-      ? easeOutQuart(Math.min((rawProgress - 0.15) / 0.35, 1)) * 220
+    const contentY = rawProgress > 0.3
+      ? -easeOutCubic((rawProgress - 0.3) / 0.7) * 100
       : 0;
 
-    // Content: fades in from 30% to 50% scroll (appears as photo moves)
-    const contentOpacity = rawProgress > 0.3
-      ? easeOutCubic(Math.min((rawProgress - 0.3) / 0.2, 1))
-      : 0;
-    const contentX = rawProgress > 0.3
-      ? -50 + easeOutQuart(Math.min((rawProgress - 0.3) / 0.2, 1)) * 50
-      : -50;
-
-    // Scroll hint: fades out as user starts scrolling
-    const scrollHintOpacity = Math.max(0, 0.8 - rawProgress * 4);
+    // Scroll indicator fades out quickly
+    const scrollHintOpacity = Math.max(0, 1 - rawProgress * 3);
 
     return {
-      overlayOpacity,
-      photoOpacity: photoOpacity * exitOpacity,
-      photoX,
-      contentOpacity: contentOpacity * exitOpacity,
-      contentX,
+      contentOpacity,
+      contentY,
       scrollHintOpacity,
-      exitOpacity,
     };
   }, [rawProgress]);
 
-  // Update navbar name visibility - show VATSAV when content is visible
+  // Update navbar name visibility
   useEffect(() => {
-    if (rawProgress > 0.45) {
+    if (rawProgress > 0.5) {
       onIntroComplete?.(true);
     } else {
       onIntroComplete?.(false);
     }
   }, [rawProgress, onIntroComplete]);
 
+  const scrollToProjects = () => {
+    document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  const scrollToContact = () => {
+    document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
     <section id="intro" className="intro-section">
       <AnimatePresence>
         {isInView && (
           <>
-            {/* Dark overlay */}
+            {/* Background photo - very subtle */}
             <motion.div
-              className="intro-section__overlay"
-              initial={{ opacity: 0.85 }}
-              animate={{ opacity: animations.overlayOpacity }}
+              className="intro-section__bg-photo"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 0.06 * animations.contentOpacity }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.4, ease: "easeOut" }}
-            />
-
-            {/* Photo - Starts centered with "I am Vatsav" above */}
-            <motion.div
-              className="intro-section__photo-centered"
-              initial={{ opacity: 0.3, x: 0 }}
-              animate={{
-                opacity: animations.photoOpacity,
-                x: animations.photoX,
-              }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.5, ease: "easeOut" }}
+              transition={{ duration: 0.8 }}
             >
-              {/* Dynamic greeting text above photo */}
-              <motion.p
-                className="intro-section__intro-text"
-                initial={{ opacity: 0 }}
-                animate={{
-                  opacity: smoothedIntroOpacity,
-                }}
-                transition={{ duration: 0.1, ease: "linear" }}
-              >
-                {greeting}, I'm Srivatsav
-              </motion.p>
-              <div className="intro-section__photo-frame">
-                <img src={profileImage} alt="Vatsav" />
-              </div>
+              <img src={profileImage} alt="" />
             </motion.div>
 
-            {/* Hero content - appears on left as photo moves right */}
+            {/* Ambient glow */}
+            <div className="intro-section__ambient-glow" />
+
+            {/* Main content - centered */}
             <motion.div
-              className="intro-section__content-wrapper"
-              initial={{ opacity: 0, x: -50 }}
+              className="intro-section__content"
+              initial={{ opacity: 0 }}
               animate={{
                 opacity: animations.contentOpacity,
-                x: animations.contentX,
+                y: animations.contentY
               }}
-              exit={{ opacity: 0 }}
+              exit={{ opacity: 0, y: -50 }}
               transition={{ duration: 0.5, ease: "easeOut" }}
             >
-              <h2 className="intro-section__title">Software Engineer</h2>
-              <p className="intro-section__subtitle">
-                Building systems at the intersection of AI and Data
-              </p>
-              <p className="intro-section__description">
-                3+ years of experience building scalable applications that solve real-world problems
-              </p>
-              <MagneticButton
-                className="glass-button glass-button--primary"
-                onClick={() => {
-                  document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' });
-                }}
+              {/* Small photo accent */}
+              <motion.div
+                className="intro-section__photo-accent"
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5, delay: 0.1 }}
               >
-                View Projects
-              </MagneticButton>
+                <img src={profileImage} alt="Srivatsav" />
+              </motion.div>
+
+              {/* Greeting */}
+              <motion.p
+                className="intro-section__greeting"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.6, delay: 0.3 }}
+              >
+                {greeting}, I'm
+              </motion.p>
+
+              {/* Name */}
+              <motion.h1
+                className="intro-section__name"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, delay: 0.2 }}
+              >
+                Srivatsav
+              </motion.h1>
+
+              {/* Role */}
+              <motion.p
+                className="intro-section__role"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.6, delay: 0.5 }}
+              >
+                Software Engineer
+              </motion.p>
+
+              {/* Tagline */}
+              <motion.p
+                className="intro-section__tagline"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.6, delay: 0.7 }}
+              >
+                Building systems at the intersection of AI and Data
+              </motion.p>
+
+              {/* Stats row */}
+              <motion.div
+                className="intro-section__stats"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.6, delay: 0.9 }}
+              >
+                <div className="intro-section__stat">
+                  <span className="intro-section__stat-value">3+</span>
+                  <span className="intro-section__stat-label">Years Exp</span>
+                </div>
+                <div className="intro-section__stat">
+                  <span className="intro-section__stat-value">20+</span>
+                  <span className="intro-section__stat-label">Projects</span>
+                </div>
+                <div className="intro-section__stat">
+                  <span className="intro-section__stat-value">AI</span>
+                  <span className="intro-section__stat-label">& Data</span>
+                </div>
+              </motion.div>
+
+              {/* CTA buttons */}
+              <motion.div
+                className="intro-section__cta-row"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.6, delay: 1.1 }}
+              >
+                <button
+                  className="intro-section__cta-primary"
+                  onClick={scrollToProjects}
+                >
+                  View Work
+                </button>
+                <button
+                  className="intro-section__cta-secondary"
+                  onClick={scrollToContact}
+                >
+                  Get in Touch
+                </button>
+              </motion.div>
             </motion.div>
 
-            {/* Scroll hint */}
+            {/* Scroll indicator - mouse style */}
             <motion.div
               className="intro-section__scroll-hint"
-              initial={{ opacity: 0.8 }}
+              initial={{ opacity: 0 }}
               animate={{ opacity: animations.scrollHintOpacity }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.3 }}
+              transition={{ duration: 0.3, delay: 1.4 }}
             >
-              <span>Scroll to explore</span>
-              <div className="intro-section__scroll-line" />
+              <div className="intro-section__scroll-mouse">
+                <div className="intro-section__scroll-wheel" />
+              </div>
             </motion.div>
           </>
         )}
