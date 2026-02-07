@@ -1,0 +1,101 @@
+/* ============================================
+   Cursor Trail - Neural particles
+   ============================================ */
+
+.cursor-trail {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9998;
+  overflow: hidden;
+}
+
+/* Main cursor dot */
+.cursor-trail__main {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(180, 180, 185, 0.8) 0%,
+    rgba(180, 180, 185, 0.2) 50%,
+    transparent 70%
+  );
+  mix-blend-mode: screen;
+}
+
+/* Outer ring */
+.cursor-trail__ring {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid rgba(150, 150, 155, 0.3);
+  background: transparent;
+}
+
+/* Trail particles */
+.cursor-trail__particle {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(180, 180, 185, 0.9) 0%,
+    rgba(180, 180, 185, 0.4) 50%,
+    transparent 70%
+  );
+  mix-blend-mode: screen;
+}
+
+/* Connection SVG */
+.cursor-trail__connections {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+/* Light mode adjustments */
+.light-mode .cursor-trail__main {
+  background: radial-gradient(
+    circle,
+    rgba(80, 80, 85, 0.6) 0%,
+    rgba(80, 80, 85, 0.15) 50%,
+    transparent 70%
+  );
+  mix-blend-mode: multiply;
+}
+
+.light-mode .cursor-trail__ring {
+  border-color: rgba(80, 80, 85, 0.2);
+}
+
+.light-mode .cursor-trail__particle {
+  background: radial-gradient(
+    circle,
+    rgba(80, 80, 85, 0.7) 0%,
+    rgba(80, 80, 85, 0.3) 50%,
+    transparent 70%
+  );
+  mix-blend-mode: multiply;
+}
+
+/* Hide on mobile */
+@media (max-width: 768px) {
+  .cursor-trail {
+    display: none;
+  }
+}
+
+/* Hide when reduced motion is preferred */
+@media (prefers-reduced-motion: reduce) {
+  .cursor-trail {
+    display: none;
+  }
+}

@@ -1,0 +1,263 @@
+/* ============================================
+   Intro Section - Smooth Scroll Animation
+   Photo centered with "I am Vatsav", moves right as content appears
+   ============================================ */
+
+.intro-section {
+  position: relative;
+  width: 100%;
+  min-height: 250vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: visible;
+  z-index: 1;
+}
+
+/* Fixed elements during scroll */
+.intro-section__overlay,
+.intro-section__photo-centered,
+.intro-section__content-wrapper,
+.intro-section__scroll-hint {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+}
+
+/* Dark overlay */
+.intro-section__overlay {
+  background: #000;
+  z-index: 40;
+  pointer-events: none;
+}
+
+/* Photo - starts centered */
+.intro-section__photo-centered {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 35;
+  pointer-events: none;
+}
+
+/* "I am Vatsav" intro text above photo */
+.intro-section__intro-text {
+  font-family: var(--font-primary);
+  font-size: clamp(24px, 4vw, 36px);
+  font-weight: 300;
+  letter-spacing: 0.12em;
+  margin-bottom: 28px;
+  color: #b0b0b0;
+  text-transform: none;
+}
+
+.intro-section__photo-frame {
+  position: relative;
+  width: 320px;
+  height: 400px;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.intro-section__photo-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+}
+
+.intro-section__photo-frame::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.intro-section__photo-frame::after {
+  content: '';
+  position: absolute;
+  inset: -40px;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(100, 100, 100, 0.15) 0%,
+    transparent 70%
+  );
+  z-index: -1;
+}
+
+/* Hero content - positioned to the left */
+.intro-section__content-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  z-index: 36;
+  padding-left: 8%;
+  padding-right: 55%;
+}
+
+.intro-section__title {
+  font-family: var(--font-primary);
+  font-size: clamp(42px, 7vw, 72px);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin: 0 0 24px 0;
+  background: linear-gradient(
+    90deg,
+    #707070 0%,
+    #a0a0a0 15%,
+    #d8d8d8 35%,
+    #f0f0f0 50%,
+    #d8d8d8 65%,
+    #a0a0a0 85%,
+    #707070 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.intro-section__subtitle {
+  font-family: var(--font-primary);
+  font-size: clamp(18px, 2.5vw, 24px);
+  font-weight: 500;
+  line-height: 1.6;
+  margin: 0 0 20px 0;
+  white-space: nowrap;
+  background: linear-gradient(
+    90deg,
+    #808080 0%,
+    #b0b0b0 15%,
+    #e0e0e0 35%,
+    #f5f5f5 50%,
+    #e0e0e0 65%,
+    #b0b0b0 85%,
+    #808080 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.intro-section__description {
+  font-family: var(--font-primary);
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 1.9;
+  margin: 0 0 36px 0;
+  max-width: 450px;
+  background: linear-gradient(
+    90deg,
+    #808080 0%,
+    #b0b0b0 15%,
+    #e0e0e0 35%,
+    #f0f0f0 50%,
+    #e0e0e0 65%,
+    #b0b0b0 85%,
+    #808080 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Scroll hint */
+.intro-section__scroll-hint {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  padding-bottom: 40px;
+  gap: 12px;
+  z-index: 45;
+  pointer-events: none;
+}
+
+.intro-section__scroll-hint span {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: #707070;
+}
+
+.intro-section__scroll-line {
+  width: 1px;
+  height: 50px;
+  background: linear-gradient(180deg, #606060 0%, transparent 100%);
+  animation: scrollPulse 2.5s ease-in-out infinite;
+}
+
+@keyframes scrollPulse {
+  0%, 100% { opacity: 0.3; transform: scaleY(1); }
+  50% { opacity: 0.7; transform: scaleY(1.1); }
+}
+
+/* ============================================
+   Responsive
+   ============================================ */
+
+@media (max-width: 1024px) {
+  .intro-section__content-wrapper {
+    padding-left: 6%;
+    padding-right: 50%;
+  }
+
+  .intro-section__photo-frame {
+    width: 280px;
+    height: 350px;
+  }
+}
+
+@media (max-width: 768px) {
+  .intro-section {
+    min-height: 220vh;
+  }
+
+  .intro-section__photo-centered {
+    padding-top: 0;
+  }
+
+  .intro-section__photo-frame {
+    width: 220px;
+    height: 280px;
+  }
+
+  .intro-section__content-wrapper {
+    padding-left: 5%;
+    padding-right: 5%;
+    padding-top: 50vh;
+    align-items: center;
+    text-align: center;
+  }
+
+  .intro-section__subtitle {
+    white-space: normal;
+  }
+
+  .intro-section__description {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .intro-section {
+    min-height: 200vh;
+  }
+
+  .intro-section__photo-frame {
+    width: 180px;
+    height: 230px;
+  }
+
+  .intro-section__intro-text {
+    font-size: clamp(20px, 5vw, 28px);
+  }
+}

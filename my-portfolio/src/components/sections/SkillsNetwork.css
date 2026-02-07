@@ -1,0 +1,265 @@
+/* ============================================
+   Skills Network - Interactive 3D Visualization
+   ============================================ */
+
+.skills-network {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+/* Instruction hint */
+.skills-network__hint {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  font-family: var(--font-primary);
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.skills-network__hint span {
+  font-size: 16px;
+}
+
+/* Category filter chips */
+.skills-network__categories {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+
+.skills-network__category {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  font-family: var(--font-primary);
+  font-size: 13px;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.skills-network__category:hover {
+  background: var(--glass-bg-hover);
+  border-color: var(--glass-border-hover);
+  color: var(--text-primary);
+}
+
+.skills-network__category--active {
+  background: rgba(150, 150, 150, 0.15);
+  border-color: var(--category-color, var(--accent-light));
+  color: var(--text-primary);
+}
+
+.skills-network__category-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  transition: transform 0.2s ease;
+}
+
+.skills-network__category:hover .skills-network__category-dot {
+  transform: scale(1.2);
+}
+
+.skills-network__clear {
+  padding: 8px 16px;
+  background: transparent;
+  border: 1px dashed var(--accent-mid);
+  border-radius: 20px;
+  font-family: var(--font-primary);
+  font-size: 12px;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.skills-network__clear:hover {
+  border-color: var(--text-secondary);
+  color: var(--text-secondary);
+}
+
+/* 3D Canvas */
+.skills-network__canvas {
+  width: 100%;
+  height: 450px;
+  border-radius: var(--card-radius);
+  overflow: hidden;
+  background: rgba(10, 10, 10, 0.2);
+  border: 1px solid var(--glass-border);
+}
+
+/* Node labels */
+.skill-node__label {
+  font-family: var(--font-primary);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-primary);
+  white-space: nowrap;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
+  transition: all 0.2s ease;
+}
+
+.skill-node__label--active {
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+}
+
+/* Hover info panel */
+.skills-network__info {
+  position: absolute;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 16px 28px;
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--card-radius);
+  z-index: 10;
+}
+
+.skills-network__info-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.skills-network__info-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.skills-network__info-label {
+  font-family: var(--font-primary);
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.skills-network__info-meta {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.skills-network__info-category,
+.skills-network__info-connections {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Stats */
+.skills-network__stats {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Light mode */
+.light-mode .skills-network__canvas {
+  background: rgba(245, 245, 245, 0.3);
+}
+
+.light-mode .skill-node__label {
+  color: var(--text-primary);
+  text-shadow: 0 2px 8px rgba(255, 255, 255, 0.8);
+}
+
+.light-mode .skill-node__label--active {
+  color: #1a1a1a;
+}
+
+.light-mode .skills-network__hint {
+  background: rgba(255, 255, 255, 0.8);
+}
+
+.light-mode .skills-network__category {
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.light-mode .skills-network__category:hover {
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.light-mode .skills-network__category--active {
+  background: rgba(255, 255, 255, 0.95);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .skills-network__canvas {
+    height: 380px;
+  }
+
+  .skills-network__categories {
+    gap: 8px;
+  }
+
+  .skills-network__category {
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+
+  .skills-network__hint {
+    font-size: 11px;
+    padding: 8px 14px;
+  }
+
+  .skills-network__info {
+    padding: 12px 20px;
+  }
+
+  .skills-network__info-label {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .skills-network__canvas {
+    height: 320px;
+  }
+
+  .skills-network__category {
+    padding: 5px 10px;
+    font-size: 11px;
+  }
+
+  .skills-network__category-dot {
+    width: 8px;
+    height: 8px;
+  }
+
+  .skills-network__hint {
+    font-size: 10px;
+    text-align: center;
+    line-height: 1.4;
+  }
+}

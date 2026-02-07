@@ -1,0 +1,333 @@
+/* ============================================
+   Timeline - Animated Experience Section
+   ============================================ */
+
+.timeline {
+  position: relative;
+  max-width: 900px;
+  margin: 60px auto;
+  padding: 40px 0;
+}
+
+/* Main vertical line */
+.timeline__main-line {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    var(--accent-dark) 10%,
+    var(--accent-mid) 50%,
+    var(--accent-dark) 90%,
+    transparent 100%
+  );
+  transform-origin: top;
+}
+
+/* Traveling pulse */
+.timeline__pulse {
+  position: absolute;
+  left: 50%;
+  width: 6px;
+  height: 40px;
+  margin-left: -3px;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    var(--accent-highlight) 50%,
+    transparent 100%
+  );
+  border-radius: 3px;
+  filter: blur(2px);
+}
+
+/* Timeline items container */
+.timeline__items {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+}
+
+/* Single timeline item */
+.timeline-item {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.timeline-item--left {
+  flex-direction: row;
+}
+
+.timeline-item--right {
+  flex-direction: row-reverse;
+}
+
+/* Node dot */
+.timeline-item__node {
+  position: absolute;
+  left: 50%;
+  top: 20px;
+  width: 16px;
+  height: 16px;
+  margin-left: -8px;
+  z-index: 2;
+}
+
+.timeline-item__node-inner {
+  width: 100%;
+  height: 100%;
+  background: var(--bg-base);
+  border: 2px solid var(--accent-mid);
+  border-radius: 50%;
+  transition: all var(--transition-normal);
+}
+
+.timeline-item__node:hover .timeline-item__node-inner {
+  background: var(--accent-light);
+  border-color: var(--accent-highlight);
+}
+
+.timeline-item__node--project .timeline-item__node-inner {
+  border-style: dashed;
+}
+
+.timeline-item__node-pulse {
+  position: absolute;
+  inset: -4px;
+  border: 1px solid var(--accent-mid);
+  border-radius: 50%;
+  opacity: 0;
+  animation: nodePulse 2s ease-out infinite;
+}
+
+@keyframes nodePulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+  100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+/* Year label */
+.timeline-item__year {
+  position: absolute;
+  left: 50%;
+  top: 16px;
+  transform: translateX(-50%);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--accent-highlight);
+  letter-spacing: 0.1em;
+  margin-top: -30px;
+}
+
+/* Content card */
+.timeline-item__content {
+  width: calc(50% - 50px);
+  padding: 24px;
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--card-radius);
+  transition: all var(--transition-normal);
+}
+
+.timeline-item--left .timeline-item__content {
+  margin-right: auto;
+  text-align: right;
+}
+
+.timeline-item--right .timeline-item__content {
+  margin-left: auto;
+  text-align: left;
+}
+
+.timeline-item__content:hover {
+  background: var(--glass-bg-hover);
+  border-color: var(--glass-border-hover);
+  transform: translateY(-4px);
+  box-shadow: var(--glass-shadow-hover);
+}
+
+.timeline-item__header {
+  margin-bottom: 12px;
+}
+
+.timeline-item__title {
+  font-family: var(--font-primary);
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0 0 4px 0;
+}
+
+.timeline-item__company {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--accent-highlight);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.timeline-item__description {
+  font-family: var(--font-primary);
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--text-secondary);
+  margin: 0 0 16px 0;
+}
+
+.timeline-item__technologies {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.timeline-item--left .timeline-item__technologies {
+  justify-content: flex-end;
+}
+
+.timeline-item__tech {
+  padding: 4px 10px;
+  background: rgba(100, 100, 100, 0.1);
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+/* Decoration */
+.timeline-item__decoration {
+  position: absolute;
+  bottom: -10px;
+  width: 100px;
+  height: 20px;
+  color: var(--accent-dark);
+}
+
+.timeline-item--left .timeline-item__decoration {
+  right: 0;
+}
+
+.timeline-item--right .timeline-item__decoration {
+  left: 0;
+}
+
+/* Start/End markers */
+.timeline__start,
+.timeline-item__end {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 8px 16px;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.timeline__start {
+  bottom: -20px;
+}
+
+.timeline-item__end {
+  top: 100%;
+  margin-top: 20px;
+}
+
+/* Light mode */
+.light-mode .timeline__main-line {
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    var(--accent-mid) 10%,
+    var(--accent-dark) 50%,
+    var(--accent-mid) 90%,
+    transparent 100%
+  );
+}
+
+.light-mode .timeline-item__node-inner {
+  background: var(--bg-void);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .timeline__main-line {
+    left: 20px;
+  }
+
+  .timeline__pulse {
+    left: 20px;
+  }
+
+  .timeline-item {
+    flex-direction: row !important;
+  }
+
+  .timeline-item__node {
+    left: 20px;
+    margin-left: -8px;
+  }
+
+  .timeline-item__year {
+    left: 20px;
+  }
+
+  .timeline-item__content {
+    width: calc(100% - 60px);
+    margin-left: 50px !important;
+    text-align: left !important;
+  }
+
+  .timeline-item__technologies {
+    justify-content: flex-start !important;
+  }
+
+  .timeline-item__decoration {
+    display: none;
+  }
+
+  .timeline__start {
+    left: 20px;
+    transform: translateX(-50%);
+  }
+}
+
+@media (max-width: 480px) {
+  .timeline {
+    padding: 20px 0;
+  }
+
+  .timeline__items {
+    gap: 40px;
+  }
+
+  .timeline-item__content {
+    padding: 16px;
+  }
+
+  .timeline-item__title {
+    font-size: 16px;
+  }
+
+  .timeline-item__description {
+    font-size: 13px;
+  }
+}

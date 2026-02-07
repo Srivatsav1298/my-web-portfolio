@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terminal Theme - Portfolio Demo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        @font-face {
+            font-family: 'JetBrains Mono';
+            src: local('JetBrains Mono'), local('SF Mono'), local('Monaco'), local('Consolas');
+        }
+
+        body {
+            font-family: 'JetBrains Mono', 'SF Mono', Monaco, Consolas, monospace;
+            background: #000;
+            color: #00ff00;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* Back Button */
+        .back-btn {
+            position: fixed;
+            top: 24px;
+            left: 24px;
+            z-index: 100;
+            background: rgba(0, 255, 0, 0.05);
+            border: 1px solid rgba(0, 255, 0, 0.3);
+            color: #00ff00;
+            padding: 10px 20px;
+            border-radius: 0;
+            cursor: pointer;
+            font-size: 14px;
+            font-family: inherit;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .back-btn:hover {
+            background: rgba(0, 255, 0, 0.1);
+            border-color: #00ff00;
+            box-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        /* Scanlines */
+        .scanlines {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 2px,
+                rgba(0, 0, 0, 0.3) 2px,
+                rgba(0, 0, 0, 0.3) 4px
+            );
+            pointer-events: none;
+            z-index: 100;
+            opacity: 0.15;
+        }
+
+        /* CRT Glow */
+        .crt-glow {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at center, rgba(0, 255, 0, 0.03) 0%, transparent 70%);
+            z-index: 1;
+        }
+
+        /* Matrix Rain Background */
+        .matrix-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            opacity: 0.15;
+            overflow: hidden;
+        }
+
+        .matrix-column {
+            position: absolute;
+            top: -100%;
+            font-size: 14px;
+            line-height: 1.2;
+            color: #00ff00;
+            text-shadow: 0 0 10px #00ff00;
+            animation: matrix-fall linear infinite;
+            writing-mode: vertical-lr;
+        }
+
+        @keyframes matrix-fall {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(200vh); }
+        }
+
+        .mc1 { left: 5%; animation-duration: 8s; animation-delay: 0s; }
+        .mc2 { left: 12%; animation-duration: 10s; animation-delay: -2s; }
+        .mc3 { left: 20%; animation-duration: 7s; animation-delay: -4s; }
+        .mc4 { left: 28%; animation-duration: 9s; animation-delay: -1s; }
+        .mc5 { left: 35%; animation-duration: 11s; animation-delay: -3s; }
+        .mc6 { left: 45%; animation-duration: 8s; animation-delay: -5s; }
+        .mc7 { left: 55%; animation-duration: 10s; animation-delay: -2s; }
+        .mc8 { left: 65%; animation-duration: 7s; animation-delay: -4s; }
+        .mc9 { left: 75%; animation-duration: 9s; animation-delay: -1s; }
+        .mc10 { left: 85%; animation-duration: 11s; animation-delay: -3s; }
+        .mc11 { left: 92%; animation-duration: 8s; animation-delay: -5s; }
+
+        /* Terminal Window */
+        .terminal {
+            position: relative;
+            z-index: 10;
+            width: 90%;
+            max-width: 800px;
+            background: rgba(0, 0, 0, 0.8);
+            border: 1px solid #00ff00;
+            box-shadow: 0 0 30px rgba(0, 255, 0, 0.2), inset 0 0 30px rgba(0, 255, 0, 0.05);
+        }
+
+        /* Terminal Header */
+        .terminal-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 16px;
+            background: rgba(0, 255, 0, 0.1);
+            border-bottom: 1px solid rgba(0, 255, 0, 0.3);
+        }
+
+        .terminal-btn {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .btn-red { background: #ff5f56; }
+        .btn-yellow { background: #ffbd2e; }
+        .btn-green { background: #27c93f; }
+
+        .terminal-title {
+            flex: 1;
+            text-align: center;
+            color: rgba(0, 255, 0, 0.7);
+            font-size: 12px;
+        }
+
+        /* Terminal Body */
+        .terminal-body {
+            padding: 24px;
+            min-height: 300px;
+        }
+
+        .terminal-line {
+            margin-bottom: 8px;
+            opacity: 0;
+            animation: type-line 0.5s ease forwards;
+        }
+
+        .terminal-line:nth-child(1) { animation-delay: 0.5s; }
+        .terminal-line:nth-child(2) { animation-delay: 1.5s; }
+        .terminal-line:nth-child(3) { animation-delay: 2.5s; }
+        .terminal-line:nth-child(4) { animation-delay: 3.5s; }
+        .terminal-line:nth-child(5) { animation-delay: 4.5s; }
+        .terminal-line:nth-child(6) { animation-delay: 5.5s; }
+        .terminal-line:nth-child(7) { animation-delay: 6.5s; }
+        .terminal-line:nth-child(8) { animation-delay: 7.5s; }
+        .terminal-line:nth-child(9) { animation-delay: 8.5s; }
+
+        @keyframes type-line {
+            from { opacity: 0; transform: translateX(-10px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .prompt {
+            color: #ffb000;
+        }
+
+        .command {
+            color: #00ff00;
+        }
+
+        .output {
+            color: rgba(0, 255, 0, 0.7);
+            padding-left: 20px;
+        }
+
+        .highlight {
+            color: #00ffff;
+        }
+
+        .success {
+            color: #00ff00;
+        }
+
+        .name-output {
+            font-size: 32px;
+            font-weight: bold;
+            letter-spacing: 4px;
+            margin: 20px 0;
+            text-shadow: 0 0 20px #00ff00;
+        }
+
+        .title-output {
+            font-size: 18px;
+            color: #ffb000;
+            margin-bottom: 20px;
+        }
+
+        /* Cursor */
+        .cursor {
+            display: inline-block;
+            width: 10px;
+            height: 20px;
+            background: #00ff00;
+            animation: blink 1s step-end infinite;
+            vertical-align: bottom;
+            margin-left: 4px;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        /* ASCII Art */
+        .ascii-art {
+            color: rgba(0, 255, 0, 0.5);
+            font-size: 10px;
+            line-height: 1.1;
+            margin: 20px 0;
+            white-space: pre;
+        }
+
+        /* Color Palette Section */
+        .palette-section {
+            position: relative;
+            z-index: 10;
+            padding: 80px 40px;
+            text-align: center;
+        }
+
+        .palette-title {
+            font-size: 14px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: rgba(0, 255, 0, 0.5);
+            margin-bottom: 30px;
+        }
+
+        .palette {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .color-swatch {
+            width: 100px;
+            height: 100px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 10px;
+            font-size: 11px;
+            transition: transform 0.3s ease;
+            border: 1px solid currentColor;
+        }
+
+        .color-swatch:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 20px currentColor;
+        }
+
+        .swatch-bg { background: #000; color: #00ff00; }
+        .swatch-primary { background: #00ff00; color: #000; }
+        .swatch-secondary { background: #ffb000; color: #000; }
+        .swatch-accent { background: #00ffff; color: #000; }
+    </style>
+</head>
+<body>
+    <a href="javascript:history.back()" class="back-btn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+        [ESC] Back
+    </a>
+
+    <section class="hero">
+        <div class="scanlines"></div>
+        <div class="crt-glow"></div>
+
+        <!-- Matrix Background -->
+        <div class="matrix-bg">
+            <div class="matrix-column mc1">01001010100101001010010100101</div>
+            <div class="matrix-column mc2">10110101011010110101101011010</div>
+            <div class="matrix-column mc3">01001101001100110100110011010</div>
+            <div class="matrix-column mc4">11010010110100101101001011010</div>
+            <div class="matrix-column mc5">00101101001011010010110100101</div>
+            <div class="matrix-column mc6">10010101001010100101010010101</div>
+            <div class="matrix-column mc7">01101010110101011010101101010</div>
+            <div class="matrix-column mc8">10010110100101101001011010010</div>
+            <div class="matrix-column mc9">01011001011001011001011001011</div>
+            <div class="matrix-column mc10">10100110100110100110100110100</div>
+            <div class="matrix-column mc11">01011010010110100101101001011</div>
+        </div>
+
+        <div class="terminal">
+            <div class="terminal-header">
+                <div class="terminal-btn btn-red"></div>
+                <div class="terminal-btn btn-yellow"></div>
+                <div class="terminal-btn btn-green"></div>
+                <div class="terminal-title">portfolio@data-engineer ~ zsh</div>
+            </div>
+            <div class="terminal-body">
+                <div class="terminal-line">
+                    <span class="prompt">~</span> <span class="command">whoami</span>
+                </div>
+                <div class="terminal-line name-output">
+                    DATA_ENGINEER
+                </div>
+                <div class="terminal-line title-output">
+                    > Building data pipelines & AI solutions
+                </div>
+                <div class="terminal-line">
+                    <span class="prompt">~</span> <span class="command">cat skills.json | jq '.core[]'</span>
+                </div>
+                <div class="terminal-line output">
+                    <span class="highlight">"Python"</span> <span class="highlight">"SQL"</span> <span class="highlight">"Apache Spark"</span> <span class="highlight">"Airflow"</span>
+                </div>
+                <div class="terminal-line">
+                    <span class="prompt">~</span> <span class="command">echo $PASSION</span>
+                </div>
+                <div class="terminal-line output">
+                    Transforming raw data into actionable insights
+                </div>
+                <div class="terminal-line">
+                    <span class="prompt">~</span> <span class="command">./build_future.sh</span>
+                </div>
+                <div class="terminal-line output">
+                    <span class="success">[SUCCESS]</span> Ready to engineer your data solutions<span class="cursor"></span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="palette-section">
+        <h2 class="palette-title">// Color Palette</h2>
+        <div class="palette">
+            <div class="color-swatch swatch-bg">#000000<br>True Black</div>
+            <div class="color-swatch swatch-primary">#00ff00<br>Matrix Green</div>
+            <div class="color-swatch swatch-secondary">#ffb000<br>Amber</div>
+            <div class="color-swatch swatch-accent">#00ffff<br>Cyan</div>
+        </div>
+    </section>
+</body>
+</html>

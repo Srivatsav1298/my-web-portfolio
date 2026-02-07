@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI / LLM Theme - Portfolio Demo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #0f0f1a 0%, #1a1a2e 50%, #0f0f1a 100%);
+            color: #fff;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* Back Button */
+        .back-btn {
+            position: fixed;
+            top: 24px;
+            left: 24px;
+            z-index: 100;
+            background: rgba(168, 85, 247, 0.1);
+            border: 1px solid rgba(168, 85, 247, 0.3);
+            color: #a855f7;
+            padding: 10px 20px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .back-btn:hover {
+            background: rgba(168, 85, 247, 0.2);
+            border-color: #a855f7;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        /* Animated Gradient Orbs */
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.5;
+            animation: orb-float 8s ease-in-out infinite;
+        }
+
+        .orb-1 {
+            width: 500px;
+            height: 500px;
+            background: linear-gradient(135deg, #a855f7 0%, #6366f1 100%);
+            top: -20%;
+            left: -10%;
+            animation-delay: 0s;
+        }
+
+        .orb-2 {
+            width: 400px;
+            height: 400px;
+            background: linear-gradient(135deg, #ec4899 0%, #a855f7 100%);
+            bottom: -15%;
+            right: -10%;
+            animation-delay: -4s;
+        }
+
+        .orb-3 {
+            width: 300px;
+            height: 300px;
+            background: linear-gradient(135deg, #06b6d4 0%, #6366f1 100%);
+            top: 40%;
+            right: 20%;
+            animation-delay: -2s;
+        }
+
+        @keyframes orb-float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(30px, -30px) scale(1.05); }
+            66% { transform: translate(-20px, 20px) scale(0.95); }
+        }
+
+        /* Token Stream Animation */
+        .token-stream {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .token {
+            position: absolute;
+            font-family: 'SF Mono', Monaco, monospace;
+            font-size: 12px;
+            color: rgba(168, 85, 247, 0.4);
+            animation: token-float 10s linear infinite;
+            white-space: nowrap;
+        }
+
+        .token-bright {
+            color: rgba(168, 85, 247, 0.8);
+            text-shadow: 0 0 10px rgba(168, 85, 247, 0.5);
+        }
+
+        @keyframes token-float {
+            0% { transform: translateY(100vh) translateX(0); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100px) translateX(20px); opacity: 0; }
+        }
+
+        .t1 { left: 5%; animation-delay: 0s; animation-duration: 12s; }
+        .t2 { left: 15%; animation-delay: -2s; animation-duration: 10s; }
+        .t3 { left: 25%; animation-delay: -4s; animation-duration: 14s; }
+        .t4 { left: 35%; animation-delay: -1s; animation-duration: 11s; }
+        .t5 { left: 48%; animation-delay: -3s; animation-duration: 13s; }
+        .t6 { left: 58%; animation-delay: -5s; animation-duration: 9s; }
+        .t7 { left: 68%; animation-delay: -2s; animation-duration: 12s; }
+        .t8 { left: 78%; animation-delay: -4s; animation-duration: 10s; }
+        .t9 { left: 88%; animation-delay: -1s; animation-duration: 14s; }
+
+        /* Chat Interface */
+        .chat-container {
+            position: relative;
+            z-index: 10;
+            width: 90%;
+            max-width: 700px;
+        }
+
+        .chat-window {
+            background: rgba(15, 15, 26, 0.8);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(168, 85, 247, 0.2);
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 100px rgba(168, 85, 247, 0.1);
+        }
+
+        .chat-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 20px 24px;
+            border-bottom: 1px solid rgba(168, 85, 247, 0.1);
+        }
+
+        .model-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #a855f7, #6366f1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: icon-pulse 3s ease-in-out infinite;
+        }
+
+        @keyframes icon-pulse {
+            0%, 100% { box-shadow: 0 0 20px rgba(168, 85, 247, 0.3); }
+            50% { box-shadow: 0 0 40px rgba(168, 85, 247, 0.6); }
+        }
+
+        .model-icon svg {
+            width: 24px;
+            height: 24px;
+            fill: white;
+        }
+
+        .model-info {
+            flex: 1;
+        }
+
+        .model-name {
+            font-weight: 600;
+            font-size: 16px;
+            color: #fff;
+        }
+
+        .model-status {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.5);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background: #22c55e;
+            border-radius: 50%;
+            animation: status-blink 2s ease-in-out infinite;
+        }
+
+        @keyframes status-blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .chat-body {
+            padding: 24px;
+            min-height: 280px;
+        }
+
+        .message {
+            margin-bottom: 20px;
+            opacity: 0;
+            animation: message-appear 0.5s ease forwards;
+        }
+
+        .message:nth-child(1) { animation-delay: 0.5s; }
+        .message:nth-child(2) { animation-delay: 2s; }
+        .message:nth-child(3) { animation-delay: 4s; }
+
+        @keyframes message-appear {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .message-user {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .message-user .bubble {
+            background: linear-gradient(135deg, #a855f7, #6366f1);
+            color: #fff;
+            padding: 14px 20px;
+            border-radius: 20px 20px 4px 20px;
+            max-width: 80%;
+            font-size: 15px;
+        }
+
+        .message-ai {
+            display: flex;
+            gap: 12px;
+        }
+
+        .ai-avatar {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, #a855f7, #6366f1);
+            border-radius: 10px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .ai-avatar svg {
+            width: 18px;
+            height: 18px;
+            fill: white;
+        }
+
+        .message-ai .bubble {
+            background: rgba(168, 85, 247, 0.1);
+            border: 1px solid rgba(168, 85, 247, 0.2);
+            color: rgba(255, 255, 255, 0.9);
+            padding: 16px 20px;
+            border-radius: 4px 20px 20px 20px;
+            max-width: 85%;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        .hero-name {
+            font-size: clamp(2rem, 6vw, 3.5rem);
+            font-weight: 700;
+            background: linear-gradient(135deg, #fff 0%, #a855f7 50%, #6366f1 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 8px;
+        }
+
+        .hero-role {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 18px;
+        }
+
+        .hero-role span {
+            color: #a855f7;
+            font-weight: 500;
+        }
+
+        /* Typing Indicator */
+        .typing-indicator {
+            display: flex;
+            gap: 4px;
+            padding: 8px 0;
+        }
+
+        .typing-dot {
+            width: 8px;
+            height: 8px;
+            background: #a855f7;
+            border-radius: 50%;
+            animation: typing-bounce 1.4s ease-in-out infinite;
+        }
+
+        .typing-dot:nth-child(1) { animation-delay: 0s; }
+        .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+        .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes typing-bounce {
+            0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+            30% { transform: translateY(-8px); opacity: 1; }
+        }
+
+        /* Input Area */
+        .chat-input {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px 20px;
+            border-top: 1px solid rgba(168, 85, 247, 0.1);
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .input-field {
+            flex: 1;
+            background: rgba(168, 85, 247, 0.05);
+            border: 1px solid rgba(168, 85, 247, 0.2);
+            border-radius: 12px;
+            padding: 12px 16px;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 14px;
+        }
+
+        .send-btn {
+            width: 44px;
+            height: 44px;
+            background: linear-gradient(135deg, #a855f7, #6366f1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .send-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .send-btn svg {
+            width: 20px;
+            height: 20px;
+            fill: white;
+        }
+
+        /* Floating Badge */
+        .ai-badge {
+            position: absolute;
+            top: -60px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 24px;
+            background: rgba(168, 85, 247, 0.1);
+            border: 1px solid rgba(168, 85, 247, 0.3);
+            border-radius: 50px;
+            font-size: 13px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #a855f7;
+            animation: badge-float 3s ease-in-out infinite;
+        }
+
+        @keyframes badge-float {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(-5px); }
+        }
+
+        /* Color Palette Section */
+        .palette-section {
+            position: relative;
+            z-index: 10;
+            padding: 80px 40px;
+            text-align: center;
+        }
+
+        .palette-title {
+            font-size: 14px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.4);
+            margin-bottom: 30px;
+        }
+
+        .palette {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .color-swatch {
+            width: 100px;
+            height: 100px;
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 10px;
+            font-size: 11px;
+            font-family: 'SF Mono', monospace;
+            transition: transform 0.3s ease;
+        }
+
+        .color-swatch:hover {
+            transform: scale(1.1);
+        }
+
+        .swatch-bg { background: #0f0f1a; border: 1px solid rgba(255,255,255,0.1); color: #fff; }
+        .swatch-primary { background: #a855f7; color: #fff; }
+        .swatch-secondary { background: #6366f1; color: #fff; }
+        .swatch-accent { background: linear-gradient(135deg, #a855f7, #ec4899); color: #fff; }
+    </style>
+</head>
+<body>
+    <a href="javascript:history.back()" class="back-btn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+        Back
+    </a>
+
+    <section class="hero">
+        <!-- Gradient Orbs -->
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+
+        <!-- Token Stream -->
+        <div class="token-stream">
+            <div class="token t1">transformer attention</div>
+            <div class="token token-bright t2">embeddings</div>
+            <div class="token t3">self-attention</div>
+            <div class="token t4">neural network</div>
+            <div class="token token-bright t5">tokenization</div>
+            <div class="token t6">fine-tuning</div>
+            <div class="token t7">inference</div>
+            <div class="token token-bright t8">context window</div>
+            <div class="token t9">prompt engineering</div>
+        </div>
+
+        <div class="chat-container">
+            <div class="ai-badge">Large Language Models</div>
+            <div class="chat-window">
+                <div class="chat-header">
+                    <div class="model-icon">
+                        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                    </div>
+                    <div class="model-info">
+                        <div class="model-name">AI Assistant</div>
+                        <div class="model-status">
+                            <span class="status-dot"></span>
+                            Ready to collaborate
+                        </div>
+                    </div>
+                </div>
+                <div class="chat-body">
+                    <div class="message message-user">
+                        <div class="bubble">Tell me about your expertise</div>
+                    </div>
+                    <div class="message message-ai">
+                        <div class="ai-avatar">
+                            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/></svg>
+                        </div>
+                        <div class="bubble">
+                            <div class="hero-name">AI/ML Engineer</div>
+                            <div class="hero-role">
+                                Building <span>intelligent systems</span> with LLMs, fine-tuning models, and creating production AI applications.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="message message-ai">
+                        <div class="ai-avatar">
+                            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/></svg>
+                        </div>
+                        <div class="bubble">
+                            <div class="typing-indicator">
+                                <span class="typing-dot"></span>
+                                <span class="typing-dot"></span>
+                                <span class="typing-dot"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="chat-input">
+                    <div class="input-field">Ask me anything about AI...</div>
+                    <div class="send-btn">
+                        <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="palette-section">
+        <h2 class="palette-title">Color Palette</h2>
+        <div class="palette">
+            <div class="color-swatch swatch-bg">#0f0f1a<br>Deep Space</div>
+            <div class="color-swatch swatch-primary">#a855f7<br>AI Purple</div>
+            <div class="color-swatch swatch-secondary">#6366f1<br>Indigo</div>
+            <div class="color-swatch swatch-accent">Gradient<br>Fusion</div>
+        </div>
+    </section>
+</body>
+</html>

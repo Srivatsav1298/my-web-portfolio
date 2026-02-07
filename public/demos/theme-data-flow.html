@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Flow Theme - Portfolio Demo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #0a0a0f;
+            color: #fff;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* Back Button */
+        .back-btn {
+            position: fixed;
+            top: 24px;
+            left: 24px;
+            z-index: 100;
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            color: #00d4ff;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .back-btn:hover {
+            background: rgba(0, 212, 255, 0.2);
+            border-color: #00d4ff;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        /* Pipeline Canvas */
+        .pipeline-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        /* Pipeline Nodes */
+        .node {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            background: radial-gradient(circle, #8b5cf6 0%, #6d28d9 100%);
+            border-radius: 50%;
+            box-shadow: 0 0 40px rgba(139, 92, 246, 0.5), 0 0 80px rgba(139, 92, 246, 0.3);
+            animation: pulse 3s ease-in-out infinite;
+        }
+
+        .node::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 30px;
+            height: 30px;
+            background: #fff;
+            border-radius: 50%;
+            opacity: 0.9;
+        }
+
+        .node-1 { top: 15%; left: 10%; animation-delay: 0s; }
+        .node-2 { top: 40%; left: 25%; animation-delay: 0.5s; }
+        .node-3 { top: 20%; left: 45%; animation-delay: 1s; }
+        .node-4 { top: 60%; left: 55%; animation-delay: 1.5s; }
+        .node-5 { top: 30%; left: 75%; animation-delay: 2s; }
+        .node-6 { top: 70%; left: 85%; animation-delay: 2.5s; }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+
+        /* Flow Lines */
+        .flow-line {
+            position: absolute;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #00d4ff, transparent);
+            transform-origin: left center;
+            animation: flow 2s linear infinite;
+        }
+
+        .flow-line-1 {
+            top: 18%;
+            left: 14%;
+            width: 200px;
+            transform: rotate(25deg);
+            animation-delay: 0s;
+        }
+
+        .flow-line-2 {
+            top: 35%;
+            left: 32%;
+            width: 180px;
+            transform: rotate(-15deg);
+            animation-delay: 0.3s;
+        }
+
+        .flow-line-3 {
+            top: 28%;
+            left: 52%;
+            width: 220px;
+            transform: rotate(20deg);
+            animation-delay: 0.6s;
+        }
+
+        .flow-line-4 {
+            top: 55%;
+            left: 62%;
+            width: 200px;
+            transform: rotate(30deg);
+            animation-delay: 0.9s;
+        }
+
+        @keyframes flow {
+            0% { opacity: 0; clip-path: inset(0 100% 0 0); }
+            50% { opacity: 1; clip-path: inset(0 0 0 0); }
+            100% { opacity: 0; clip-path: inset(0 0 0 100%); }
+        }
+
+        /* Data Particles */
+        .particle {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: #00d4ff;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #00d4ff, 0 0 20px #00d4ff;
+            animation: particle-flow 4s linear infinite;
+        }
+
+        .particle:nth-child(1) { top: 20%; left: 5%; animation-delay: 0s; }
+        .particle:nth-child(2) { top: 35%; left: 15%; animation-delay: 0.5s; }
+        .particle:nth-child(3) { top: 50%; left: 8%; animation-delay: 1s; }
+        .particle:nth-child(4) { top: 65%; left: 20%; animation-delay: 1.5s; }
+        .particle:nth-child(5) { top: 80%; left: 12%; animation-delay: 2s; }
+
+        @keyframes particle-flow {
+            0% { transform: translateX(0) translateY(0); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateX(calc(100vw - 50px)) translateY(20px); opacity: 0; }
+        }
+
+        /* Hero Content */
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        .hero-title {
+            font-size: clamp(3rem, 10vw, 7rem);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            background: linear-gradient(135deg, #fff 0%, #00d4ff 50%, #8b5cf6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+            text-shadow: 0 0 60px rgba(0, 212, 255, 0.3);
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1rem, 3vw, 1.5rem);
+            color: rgba(255, 255, 255, 0.7);
+            font-weight: 400;
+            max-width: 600px;
+            margin: 0 auto 40px;
+            line-height: 1.6;
+        }
+
+        .hero-subtitle span {
+            color: #00d4ff;
+            font-weight: 500;
+        }
+
+        /* Animated Data Tag */
+        .data-tag {
+            display: inline-block;
+            padding: 8px 24px;
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 50px;
+            color: #00d4ff;
+            font-size: 14px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { box-shadow: 0 0 20px rgba(0, 212, 255, 0.2); }
+            to { box-shadow: 0 0 40px rgba(0, 212, 255, 0.4); }
+        }
+
+        /* Color Palette Section */
+        .palette-section {
+            position: relative;
+            z-index: 10;
+            padding: 80px 40px;
+            text-align: center;
+        }
+
+        .palette-title {
+            font-size: 14px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.5);
+            margin-bottom: 30px;
+        }
+
+        .palette {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .color-swatch {
+            width: 100px;
+            height: 100px;
+            border-radius: 16px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 10px;
+            font-size: 12px;
+            font-family: 'SF Mono', monospace;
+            transition: transform 0.3s ease;
+        }
+
+        .color-swatch:hover {
+            transform: scale(1.1);
+        }
+
+        .swatch-bg { background: #0a0a0f; border: 1px solid rgba(255,255,255,0.2); color: #fff; }
+        .swatch-primary { background: #00d4ff; color: #000; }
+        .swatch-secondary { background: #8b5cf6; color: #fff; }
+        .swatch-accent { background: linear-gradient(135deg, #00d4ff, #8b5cf6); color: #fff; }
+
+        /* Grid Lines Background */
+        .grid-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                linear-gradient(rgba(0, 212, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 212, 255, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: 0;
+        }
+    </style>
+</head>
+<body>
+    <a href="javascript:history.back()" class="back-btn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+        Back
+    </a>
+
+    <section class="hero">
+        <div class="grid-bg"></div>
+
+        <!-- Pipeline Nodes -->
+        <div class="node node-1"></div>
+        <div class="node node-2"></div>
+        <div class="node node-3"></div>
+        <div class="node node-4"></div>
+        <div class="node node-5"></div>
+        <div class="node node-6"></div>
+
+        <!-- Flow Lines -->
+        <div class="flow-line flow-line-1"></div>
+        <div class="flow-line flow-line-2"></div>
+        <div class="flow-line flow-line-3"></div>
+        <div class="flow-line flow-line-4"></div>
+
+        <!-- Data Particles -->
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+
+        <div class="hero-content">
+            <div class="data-tag">Data Engineering</div>
+            <h1 class="hero-title">Data Engineer</h1>
+            <p class="hero-subtitle">
+                Building <span>robust pipelines</span> that transform raw data into actionable insights.
+                Architecting systems that scale.
+            </p>
+        </div>
+    </section>
+
+    <section class="palette-section">
+        <h2 class="palette-title">Color Palette</h2>
+        <div class="palette">
+            <div class="color-swatch swatch-bg">#0a0a0f<br>Background</div>
+            <div class="color-swatch swatch-primary">#00d4ff<br>Data Streams</div>
+            <div class="color-swatch swatch-secondary">#8b5cf6<br>Nodes</div>
+            <div class="color-swatch swatch-accent">Gradient<br>Accent</div>
+        </div>
+    </section>
+</body>
+</html>

@@ -1,0 +1,192 @@
+/* ============================================
+   Tesla-Style HUD Overlay
+   Minimal, understated corner data readouts
+   ============================================ */
+
+/* ============================================
+   HUD Container - Fixed Overlay
+   ============================================ */
+
+.hud-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 50;
+}
+
+/* ============================================
+   HUD Text Base
+   ============================================ */
+
+.hud-text {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--hud-text);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  opacity: var(--hud-opacity);
+  transition: opacity var(--transition-normal);
+}
+
+/* Slight visibility on hover */
+.hud-overlay:hover .hud-text {
+  opacity: 0.5;
+}
+
+/* ============================================
+   Corner Positions
+   ============================================ */
+
+.hud-corner {
+  position: absolute;
+  padding: 24px;
+}
+
+/* Top Left */
+.hud-corner--tl {
+  top: 0;
+  left: 0;
+}
+
+/* Top Right */
+.hud-corner--tr {
+  top: 0;
+  right: 0;
+  text-align: right;
+}
+
+/* Bottom Left */
+.hud-corner--bl {
+  bottom: 0;
+  left: 0;
+}
+
+/* Bottom Right */
+.hud-corner--br {
+  bottom: 0;
+  right: 0;
+  text-align: right;
+}
+
+/* ============================================
+   HUD Data Readouts
+   ============================================ */
+
+.hud-readout {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.hud-readout--horizontal {
+  flex-direction: row;
+  gap: 16px;
+}
+
+.hud-label {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--text-muted);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  opacity: 0.4;
+}
+
+.hud-value {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--hud-text);
+  letter-spacing: 0.05em;
+}
+
+/* ============================================
+   Status Indicator
+   ============================================ */
+
+.hud-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.hud-status__dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--accent-light);
+  animation: status-pulse 2s ease-in-out infinite;
+}
+
+@keyframes status-pulse {
+  0%, 100% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+/* ============================================
+   Section Indicator
+   ============================================ */
+
+.hud-section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+}
+
+.hud-section__name {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--accent-light);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.hud-section__progress {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--hud-text);
+  letter-spacing: 0.05em;
+}
+
+/* ============================================
+   Scroll Progress Bar (optional)
+   ============================================ */
+
+.hud-progress-bar {
+  position: absolute;
+  right: 24px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 2px;
+  height: 100px;
+  background: rgba(61, 61, 61, 0.2);
+  border-radius: 1px;
+}
+
+.hud-progress-bar__fill {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: var(--accent-mid);
+  border-radius: 1px;
+  transition: height 0.1s ease-out;
+}
+
+/* ============================================
+   Responsive - Hide on Mobile
+   ============================================ */
+
+@media (max-width: 768px) {
+  .hud-overlay {
+    display: none;
+  }
+}

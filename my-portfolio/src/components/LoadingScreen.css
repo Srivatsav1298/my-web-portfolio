@@ -1,0 +1,203 @@
+/* ============================================
+   Loading Screen - Neural Network Boot
+   ============================================ */
+
+.loading-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loading-screen__canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.loading-screen__content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+/* Logo */
+.loading-screen__logo {
+  width: 80px;
+  height: 80px;
+  border: 2px solid rgba(180, 180, 185, 0.3);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.loading-screen__logo::before {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border: 1px solid rgba(180, 180, 185, 0.1);
+  border-radius: 50%;
+  animation: logoPulse 2s ease-in-out infinite;
+}
+
+.loading-screen__logo::after {
+  content: '';
+  position: absolute;
+  inset: -8px;
+  border: 1px solid rgba(180, 180, 185, 0.05);
+  border-radius: 50%;
+  animation: logoPulse 2s ease-in-out infinite 0.3s;
+}
+
+@keyframes logoPulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 1;
+  }
+}
+
+.loading-screen__logo-text {
+  font-family: var(--font-primary);
+  font-size: 36px;
+  font-weight: 300;
+  color: #b0b0b5;
+  letter-spacing: 0.1em;
+}
+
+/* Progress bar */
+.loading-screen__progress-container {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: 280px;
+}
+
+.loading-screen__progress-bar {
+  flex: 1;
+  height: 2px;
+  background: rgba(80, 80, 85, 0.3);
+  border-radius: 1px;
+  overflow: hidden;
+}
+
+.loading-screen__progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #606065, #a0a0a5, #606065);
+  background-size: 200% 100%;
+  animation: progressShine 1.5s linear infinite;
+  border-radius: 1px;
+}
+
+@keyframes progressShine {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+.loading-screen__progress-text {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: #707075;
+  min-width: 36px;
+  text-align: right;
+}
+
+/* Status text */
+.loading-screen__status {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: #808085;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+/* System info */
+.loading-screen__info {
+  display: flex;
+  gap: 24px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: #505055;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-top: 40px;
+}
+
+/* Light mode adjustments */
+.light-mode .loading-screen {
+  background: #f5f5f5;
+}
+
+.light-mode .loading-screen__logo {
+  border-color: rgba(60, 60, 65, 0.3);
+}
+
+.light-mode .loading-screen__logo::before {
+  border-color: rgba(60, 60, 65, 0.15);
+}
+
+.light-mode .loading-screen__logo::after {
+  border-color: rgba(60, 60, 65, 0.08);
+}
+
+.light-mode .loading-screen__logo-text {
+  color: #404045;
+}
+
+.light-mode .loading-screen__progress-bar {
+  background: rgba(100, 100, 105, 0.2);
+}
+
+.light-mode .loading-screen__progress-fill {
+  background: linear-gradient(90deg, #505055, #808085, #505055);
+  background-size: 200% 100%;
+}
+
+.light-mode .loading-screen__progress-text {
+  color: #606065;
+}
+
+.light-mode .loading-screen__status {
+  color: #505055;
+}
+
+.light-mode .loading-screen__info {
+  color: #808085;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .loading-screen__progress-container {
+    width: 200px;
+  }
+
+  .loading-screen__logo {
+    width: 60px;
+    height: 60px;
+  }
+
+  .loading-screen__logo-text {
+    font-size: 28px;
+  }
+}

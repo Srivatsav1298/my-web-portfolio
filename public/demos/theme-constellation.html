@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Constellation Theme - Portfolio Demo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #000;
+            color: #fff;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* Back Button */
+        .back-btn {
+            position: fixed;
+            top: 24px;
+            left: 24px;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        /* Nebula Background */
+        .nebula {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                radial-gradient(ellipse at 20% 30%, rgba(139, 92, 246, 0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 70%, rgba(99, 102, 241, 0.06) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 50%, rgba(168, 85, 247, 0.04) 0%, transparent 60%);
+            z-index: 1;
+            animation: nebula-drift 20s ease-in-out infinite;
+        }
+
+        @keyframes nebula-drift {
+            0%, 100% { transform: scale(1) rotate(0deg); }
+            50% { transform: scale(1.05) rotate(2deg); }
+        }
+
+        /* Stars */
+        .star {
+            position: absolute;
+            background: #fff;
+            border-radius: 50%;
+            animation: twinkle var(--duration) ease-in-out infinite;
+        }
+
+        .star-tiny { width: 1px; height: 1px; opacity: 0.6; }
+        .star-small { width: 2px; height: 2px; opacity: 0.8; }
+        .star-medium { width: 3px; height: 3px; opacity: 1; box-shadow: 0 0 6px #fff; }
+        .star-large { width: 4px; height: 4px; opacity: 1; box-shadow: 0 0 10px #fff, 0 0 20px rgba(255,255,255,0.5); }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: var(--base-opacity, 0.8); transform: scale(1); }
+            50% { opacity: calc(var(--base-opacity, 0.8) * 0.3); transform: scale(0.8); }
+        }
+
+        /* Generate stars programmatically with CSS */
+        .s1 { top: 5%; left: 10%; --duration: 3s; --base-opacity: 0.7; }
+        .s2 { top: 12%; left: 25%; --duration: 4s; --base-opacity: 0.9; }
+        .s3 { top: 8%; left: 45%; --duration: 2.5s; --base-opacity: 0.6; }
+        .s4 { top: 15%; left: 65%; --duration: 3.5s; --base-opacity: 0.8; }
+        .s5 { top: 7%; left: 80%; --duration: 4.5s; --base-opacity: 0.7; }
+        .s6 { top: 20%; left: 5%; --duration: 3s; --base-opacity: 0.5; }
+        .s7 { top: 25%; left: 18%; --duration: 2s; --base-opacity: 0.9; }
+        .s8 { top: 22%; left: 35%; --duration: 5s; --base-opacity: 0.6; }
+        .s9 { top: 28%; left: 55%; --duration: 3s; --base-opacity: 0.8; }
+        .s10 { top: 18%; left: 72%; --duration: 4s; --base-opacity: 0.7; }
+        .s11 { top: 30%; left: 88%; --duration: 2.5s; --base-opacity: 0.9; }
+        .s12 { top: 35%; left: 8%; --duration: 3.5s; --base-opacity: 0.6; }
+        .s13 { top: 40%; left: 22%; --duration: 4s; --base-opacity: 0.8; }
+        .s14 { top: 38%; left: 42%; --duration: 3s; --base-opacity: 0.5; }
+        .s15 { top: 42%; left: 60%; --duration: 5s; --base-opacity: 0.9; }
+        .s16 { top: 35%; left: 78%; --duration: 2s; --base-opacity: 0.7; }
+        .s17 { top: 45%; left: 92%; --duration: 3.5s; --base-opacity: 0.6; }
+        .s18 { top: 55%; left: 3%; --duration: 4s; --base-opacity: 0.8; }
+        .s19 { top: 52%; left: 15%; --duration: 3s; --base-opacity: 0.9; }
+        .s20 { top: 58%; left: 30%; --duration: 2.5s; --base-opacity: 0.5; }
+        .s21 { top: 60%; left: 48%; --duration: 4.5s; --base-opacity: 0.7; }
+        .s22 { top: 55%; left: 68%; --duration: 3s; --base-opacity: 0.8; }
+        .s23 { top: 62%; left: 85%; --duration: 5s; --base-opacity: 0.6; }
+        .s24 { top: 70%; left: 12%; --duration: 2s; --base-opacity: 0.9; }
+        .s25 { top: 75%; left: 28%; --duration: 3.5s; --base-opacity: 0.7; }
+        .s26 { top: 68%; left: 52%; --duration: 4s; --base-opacity: 0.5; }
+        .s27 { top: 78%; left: 70%; --duration: 3s; --base-opacity: 0.8; }
+        .s28 { top: 72%; left: 90%; --duration: 2.5s; --base-opacity: 0.6; }
+        .s29 { top: 85%; left: 20%; --duration: 4.5s; --base-opacity: 0.9; }
+        .s30 { top: 88%; left: 45%; --duration: 3s; --base-opacity: 0.7; }
+        .s31 { top: 82%; left: 65%; --duration: 5s; --base-opacity: 0.5; }
+        .s32 { top: 90%; left: 82%; --duration: 2s; --base-opacity: 0.8; }
+
+        /* Constellation Lines */
+        .constellation-line {
+            position: absolute;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+            transform-origin: left center;
+            animation: constellation-fade 6s ease-in-out infinite;
+        }
+
+        .cl1 { top: 12%; left: 25%; width: 200px; transform: rotate(-10deg); animation-delay: 0s; }
+        .cl2 { top: 8%; left: 45%; width: 180px; transform: rotate(20deg); animation-delay: 1s; }
+        .cl3 { top: 25%; left: 18%; width: 150px; transform: rotate(15deg); animation-delay: 2s; }
+        .cl4 { top: 22%; left: 35%; width: 200px; transform: rotate(8deg); animation-delay: 0.5s; }
+        .cl5 { top: 28%; left: 55%; width: 160px; transform: rotate(-5deg); animation-delay: 1.5s; }
+        .cl6 { top: 42%; left: 60%; width: 180px; transform: rotate(25deg); animation-delay: 2.5s; }
+        .cl7 { top: 55%; left: 68%; width: 170px; transform: rotate(-15deg); animation-delay: 0.8s; }
+        .cl8 { top: 70%; left: 12%; width: 160px; transform: rotate(30deg); animation-delay: 1.8s; }
+
+        @keyframes constellation-fade {
+            0%, 100% { opacity: 0.1; }
+            50% { opacity: 0.4; }
+        }
+
+        /* Shooting Stars */
+        .shooting-star {
+            position: absolute;
+            width: 100px;
+            height: 2px;
+            background: linear-gradient(90deg, #fff, transparent);
+            border-radius: 2px;
+            animation: shoot 4s linear infinite;
+            opacity: 0;
+        }
+
+        .ss1 { top: 15%; left: 0%; animation-delay: 0s; }
+        .ss2 { top: 45%; left: 20%; animation-delay: 2s; }
+        .ss3 { top: 75%; left: 10%; animation-delay: 4s; }
+
+        @keyframes shoot {
+            0% { transform: translateX(0) translateY(0) rotate(-45deg); opacity: 0; }
+            5% { opacity: 1; }
+            30% { opacity: 0; }
+            100% { transform: translateX(calc(100vw + 100px)) translateY(calc(50vh)) rotate(-45deg); opacity: 0; }
+        }
+
+        /* Hero Content */
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        .space-badge {
+            display: inline-block;
+            padding: 8px 24px;
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50px;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 12px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-bottom: 30px;
+        }
+
+        .hero-title {
+            font-size: clamp(3rem, 10vw, 7rem);
+            font-weight: 300;
+            letter-spacing: 0.1em;
+            color: #fff;
+            margin-bottom: 20px;
+            text-shadow: 0 0 80px rgba(255, 255, 255, 0.3);
+            animation: title-float 6s ease-in-out infinite;
+        }
+
+        @keyframes title-float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .hero-title span {
+            font-weight: 600;
+            background: linear-gradient(135deg, #fff 0%, #a78bfa 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1rem, 3vw, 1.4rem);
+            color: rgba(255, 255, 255, 0.5);
+            font-weight: 300;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.8;
+            letter-spacing: 0.05em;
+        }
+
+        .hero-subtitle em {
+            font-style: normal;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        /* Parallax Stars - Different layers */
+        .star-layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .layer-back { z-index: 1; }
+        .layer-mid { z-index: 2; }
+        .layer-front { z-index: 3; }
+
+        /* Color Palette Section */
+        .palette-section {
+            position: relative;
+            z-index: 10;
+            padding: 80px 40px;
+            text-align: center;
+        }
+
+        .palette-title {
+            font-size: 14px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.4);
+            margin-bottom: 30px;
+        }
+
+        .palette {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .color-swatch {
+            width: 100px;
+            height: 100px;
+            border-radius: 16px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 10px;
+            font-size: 12px;
+            font-family: 'SF Mono', monospace;
+            transition: transform 0.3s ease;
+        }
+
+        .color-swatch:hover {
+            transform: scale(1.1);
+        }
+
+        .swatch-bg { background: #000; border: 1px solid rgba(255,255,255,0.2); color: #fff; }
+        .swatch-primary { background: #fff; color: #000; }
+        .swatch-secondary { background: rgba(139, 92, 246, 0.5); color: #fff; border: 1px solid rgba(139, 92, 246, 0.8); }
+        .swatch-accent { background: linear-gradient(135deg, #a78bfa, #8b5cf6); color: #fff; }
+    </style>
+</head>
+<body>
+    <a href="javascript:history.back()" class="back-btn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+        Back
+    </a>
+
+    <section class="hero">
+        <!-- Nebula Background -->
+        <div class="nebula"></div>
+
+        <!-- Star Layers -->
+        <div class="star-layer layer-back">
+            <div class="star star-tiny s1"></div>
+            <div class="star star-tiny s2"></div>
+            <div class="star star-tiny s3"></div>
+            <div class="star star-tiny s4"></div>
+            <div class="star star-tiny s5"></div>
+            <div class="star star-tiny s6"></div>
+            <div class="star star-tiny s7"></div>
+            <div class="star star-tiny s8"></div>
+        </div>
+
+        <div class="star-layer layer-mid">
+            <div class="star star-small s9"></div>
+            <div class="star star-small s10"></div>
+            <div class="star star-small s11"></div>
+            <div class="star star-small s12"></div>
+            <div class="star star-small s13"></div>
+            <div class="star star-small s14"></div>
+            <div class="star star-small s15"></div>
+            <div class="star star-small s16"></div>
+            <div class="star star-medium s17"></div>
+            <div class="star star-medium s18"></div>
+            <div class="star star-medium s19"></div>
+            <div class="star star-medium s20"></div>
+        </div>
+
+        <div class="star-layer layer-front">
+            <div class="star star-medium s21"></div>
+            <div class="star star-medium s22"></div>
+            <div class="star star-medium s23"></div>
+            <div class="star star-medium s24"></div>
+            <div class="star star-large s25"></div>
+            <div class="star star-large s26"></div>
+            <div class="star star-large s27"></div>
+            <div class="star star-large s28"></div>
+            <div class="star star-small s29"></div>
+            <div class="star star-small s30"></div>
+            <div class="star star-small s31"></div>
+            <div class="star star-small s32"></div>
+        </div>
+
+        <!-- Constellation Lines -->
+        <div class="constellation-line cl1"></div>
+        <div class="constellation-line cl2"></div>
+        <div class="constellation-line cl3"></div>
+        <div class="constellation-line cl4"></div>
+        <div class="constellation-line cl5"></div>
+        <div class="constellation-line cl6"></div>
+        <div class="constellation-line cl7"></div>
+        <div class="constellation-line cl8"></div>
+
+        <!-- Shooting Stars -->
+        <div class="shooting-star ss1"></div>
+        <div class="shooting-star ss2"></div>
+        <div class="shooting-star ss3"></div>
+
+        <div class="hero-content">
+            <div class="space-badge">Infinite Possibilities</div>
+            <h1 class="hero-title">Data <span>Architect</span></h1>
+            <p class="hero-subtitle">
+                Mapping the <em>constellations</em> of information.<br>
+                Finding patterns in the vast expanse of data.
+            </p>
+        </div>
+    </section>
+
+    <section class="palette-section">
+        <h2 class="palette-title">Color Palette</h2>
+        <div class="palette">
+            <div class="color-swatch swatch-bg">#000000<br>Space Black</div>
+            <div class="color-swatch swatch-primary">#ffffff<br>Star White</div>
+            <div class="color-swatch swatch-secondary">#8b5cf6<br>Nebula</div>
+            <div class="color-swatch swatch-accent">Gradient<br>Purple</div>
+        </div>
+    </section>
+</body>
+</html>

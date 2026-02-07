@@ -1,0 +1,22 @@
+/* ============================================
+   Layout CSS - Base Structure
+   ============================================ */
+
+/* App Container */
+.app {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+}
+
+/* Main Content - Scrollable layer above canvas */
+.main-content {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+}
+
+/* Ensure sections stack properly */
+.main-content > section {
+  position: relative;
+}

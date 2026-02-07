@@ -1,0 +1,251 @@
+/* ============================================
+   Scroll Hero - Tesla Optimus-Inspired Design
+   ============================================ */
+
+/* Main scroll container - 300vh for scroll-driven animations */
+.scroll-hero {
+  position: relative;
+  width: 100%;
+  height: 300vh;
+  background: #0c0c0c;
+}
+
+/* Pinned viewport container */
+.scroll-hero__viewport {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #0c0c0c;
+}
+
+/* Gradient background - matching reference site */
+.scroll-hero__gradient {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #0c0c0c;
+  z-index: 1;
+}
+
+/* ============================================
+   Hero Title (Large VATSAV) - BEHIND robot
+   Z-INDEX: 5 (lower than robot at 10)
+   ============================================ */
+
+.hero-title {
+  position: absolute;
+  z-index: 5;
+  top: 50%;
+  left: 50%;
+  transform-origin: center center;
+
+  /* Typography - matching OPTIMUS style */
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-size: clamp(80px, 22vw, 320px);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  line-height: 1;
+
+  /* OPTIMUS-style gradient - dark gray fading down */
+  background: linear-gradient(
+    180deg,
+    rgba(120, 120, 120, 0.9) 0%,
+    rgba(80, 80, 80, 0.6) 35%,
+    rgba(50, 50, 50, 0.3) 65%,
+    rgba(30, 30, 30, 0.1) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+
+  user-select: none;
+  pointer-events: none;
+
+  /* Smooth transitions */
+  will-change: transform, opacity;
+  transition: none;
+}
+
+/* ============================================
+   Hero Canvas (Robot) - IN FRONT of title
+   Z-INDEX: 10 (higher than title at 5)
+   ============================================ */
+
+.hero-canvas {
+  position: absolute;
+  z-index: 10;
+  width: 100%;
+  height: 100%;
+  pointer-events: auto;
+
+  /* Smooth transitions */
+  will-change: transform, opacity;
+  transition: filter 0.5s ease;
+}
+
+/* Robot brightening effect */
+.hero-canvas--bright {
+  filter: brightness(1.3) contrast(1.1);
+}
+
+.hero-canvas canvas {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* ============================================
+   Hero Content (Left Side) - IN FRONT
+   Z-INDEX: 15
+   ============================================ */
+
+.hero-content {
+  position: absolute;
+  left: 8%;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 15;
+  max-width: 550px;
+  will-change: opacity, transform;
+}
+
+.hero-content__title {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: clamp(52px, 8vw, 100px);
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: -0.02em;
+  margin: 0 0 20px 0;
+  line-height: 1.05;
+}
+
+.hero-content__subtitle {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: clamp(18px, 2.2vw, 24px);
+  font-weight: 400;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.65);
+  margin: 0 0 40px 0;
+}
+
+/* Metallic text for "AI" and "Data" */
+.metallic-text {
+  display: inline;
+  font-weight: 600;
+  background: linear-gradient(
+    180deg,
+    #b8b8b8 0%,
+    #888888 50%,
+    #585858 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* CTA Button */
+.hero-content__cta {
+  padding: 16px 36px;
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 0;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.hero-content__cta:hover {
+  border-color: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+/* ============================================
+   Scroll Indicator
+   ============================================ */
+
+.scroll-indicator {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  opacity: 0.4;
+}
+
+.scroll-indicator span {
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.scroll-indicator__line {
+  width: 1px;
+  height: 40px;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.4) 0%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  animation: scrollPulse 2s ease-in-out infinite;
+}
+
+@keyframes scrollPulse {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.7; }
+}
+
+/* ============================================
+   Responsive Design
+   ============================================ */
+
+@media (max-width: 1200px) {
+  .hero-content {
+    left: 6%;
+    max-width: 480px;
+  }
+
+  .hero-title {
+    font-size: clamp(60px, 18vw, 240px);
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-content {
+    left: 5%;
+    top: auto;
+    bottom: 15%;
+    transform: none;
+    max-width: 90%;
+  }
+
+  .hero-content__title {
+    font-size: clamp(36px, 10vw, 52px);
+  }
+
+  .hero-title {
+    font-size: clamp(50px, 15vw, 120px);
+  }
+
+  .scroll-indicator {
+    bottom: 20px;
+  }
+}

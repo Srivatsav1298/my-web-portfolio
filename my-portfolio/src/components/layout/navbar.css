@@ -1,0 +1,231 @@
+/* ============================================
+   Navbar Styles - AI Theme
+   Metallic Grey Text with Dark Edges
+   ============================================ */
+
+.navbar {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: 900px;
+  height: 56px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 32px;
+  border-radius: 28px;
+  z-index: 200;
+  transition: all var(--transition-smooth);
+}
+
+.navbar--scrolled {
+  background: rgba(10, 10, 10, 0.9);
+}
+
+/* Logo */
+.navbar__logo {
+  flex-shrink: 0;
+}
+
+.navbar__logo-text {
+  font-family: var(--font-primary);
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.4em;
+  user-select: none;
+  transition: opacity var(--transition-normal);
+  background: linear-gradient(
+    90deg,
+    #505050 0%,
+    #909090 15%,
+    #d0d0d0 35%,
+    #e8e8e8 50%,
+    #d0d0d0 65%,
+    #909090 85%,
+    #505050 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Navigation Links */
+.navbar__links {
+  display: flex;
+  gap: 32px;
+  align-items: center;
+}
+
+.navbar__links a {
+  font-family: var(--font-primary);
+  font-size: 13px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all var(--transition-normal);
+  background: linear-gradient(
+    90deg,
+    #505050 0%,
+    #808080 25%,
+    #a0a0a0 50%,
+    #808080 75%,
+    #505050 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.navbar__links a:hover {
+  background: linear-gradient(
+    90deg,
+    #606060 0%,
+    #a0a0a0 25%,
+    #d0d0d0 50%,
+    #a0a0a0 75%,
+    #606060 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Icons */
+.navbar__icons {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.navbar__icon {
+  color: #808080;
+  transition: color var(--transition-normal);
+  display: flex;
+  align-items: center;
+}
+
+.navbar__icon:hover {
+  color: #d0d0d0;
+}
+
+/* Theme Toggle */
+.navbar__theme-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 50%;
+  position: relative;
+  transition: background var(--transition-fast);
+}
+
+.navbar__theme-toggle:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.navbar__auto-indicator {
+  position: absolute;
+  bottom: 4px;
+  right: 4px;
+  width: 6px;
+  height: 6px;
+  background: #808080;
+  border-radius: 50%;
+  animation: autoPulse 2s ease-in-out infinite;
+}
+
+@keyframes autoPulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+/* ============================================
+   Light Mode Overrides
+   ============================================ */
+
+.light-mode .navbar--scrolled {
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.light-mode .navbar__logo-text {
+  background: linear-gradient(
+    90deg,
+    #808080 0%,
+    #505050 15%,
+    #303030 35%,
+    #1a1a1a 50%,
+    #303030 65%,
+    #505050 85%,
+    #808080 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.light-mode .navbar__links a {
+  background: linear-gradient(
+    90deg,
+    #808080 0%,
+    #606060 25%,
+    #404040 50%,
+    #606060 75%,
+    #808080 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.light-mode .navbar__links a:hover {
+  background: linear-gradient(
+    90deg,
+    #606060 0%,
+    #404040 25%,
+    #1a1a1a 50%,
+    #404040 75%,
+    #606060 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.light-mode .navbar__icon {
+  color: #606060;
+}
+
+.light-mode .navbar__icon:hover {
+  color: #2a2a2a;
+}
+
+.light-mode .navbar__theme-toggle:hover {
+  background: rgba(0, 0, 0, 0.08);
+}
+
+.light-mode .navbar__auto-indicator {
+  background: #505050;
+}
+
+/* ============================================
+   Responsive
+   ============================================ */
+
+@media (max-width: 768px) {
+  .navbar {
+    padding: 0 20px;
+    width: 95%;
+    height: 52px;
+  }
+
+  .navbar__links {
+    display: none;
+  }
+
+  .navbar__logo-text {
+    font-size: 12px;
+    letter-spacing: 0.3em;
+  }
+}
