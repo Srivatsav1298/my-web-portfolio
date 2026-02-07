@@ -44,9 +44,9 @@ const About = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.3 }}
           >
-            I'm a Software Engineer at Caterpillar Inc, passionate about building enterprise-level
-            applications and AI-powered solutions. With a strong foundation in full-stack development
-            and machine learning, I specialize in creating scalable, high-performance systems.
+            I'm an engineer focused on building intelligent systems at the intersection of data and AI.
+            My work spans from architecting scalable data pipelines to developing machine learning
+            solutions that deliver real impact.
           </motion.p>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -54,9 +54,9 @@ const About = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.4 }}
           >
-            I graduated with a B.Tech in Computer Science from SRM Institute of Science and Technology
-            with a CGPA of 8.8/10. My expertise spans Java, Python, React, Node.js, and cloud technologies,
-            with a keen interest in microservices architecture and data-driven applications.
+            With a foundation in full-stack development and data engineering, I approach problems
+            with both technical depth and product thinking. I believe the best systems are those
+            that balance sophistication with simplicity.
           </motion.p>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -64,9 +64,8 @@ const About = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.5 }}
           >
-            AWS Certified Cloud Practitioner and Google Data Analytics certified professional,
-            I bring a blend of theoretical knowledge and hands-on experience in building robust,
-            production-ready solutions.
+            Currently exploring the frontiers of AI engineering, from LLM applications to
+            real-time data processing systems.
           </motion.p>
         </div>
 
