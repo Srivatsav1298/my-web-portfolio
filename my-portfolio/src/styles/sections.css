@@ -102,7 +102,6 @@
 
 .about {
   justify-content: center;
-  background: rgba(10, 10, 10, 0.5); /* Subtle background to verify rendering */
 }
 
 .about .section__container {
