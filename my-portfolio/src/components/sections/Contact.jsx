@@ -82,8 +82,8 @@ const Contact = () => {
         />
 
         <motion.p className="contact__text" variants={itemVariants}>
-          I'm currently working as a Software Engineer at Caterpillar Inc and always open to
-          discussing new opportunities, collaborations, or interesting projects.
+          I'm currently pursuing my Master's in Data Science at NMBU, Norway and open to
+          discussing opportunities, collaborations, or interesting projects.
           Feel free to reach out!
         </motion.p>
 
@@ -121,7 +121,7 @@ const Contact = () => {
             transition={{ duration: 0.2 }}
           >
             <MapPin size={16} />
-            <span>Chennai, India</span>
+            <span>Ås, Norway</span>
           </motion.div>
         </motion.div>
       </motion.div>

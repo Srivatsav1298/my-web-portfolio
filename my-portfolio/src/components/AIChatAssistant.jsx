@@ -6,33 +6,35 @@ import './AIChatAssistant.css';
 // Knowledge base about Srivatsav
 const knowledgeBase = {
   name: 'Srivatsav Saravanan',
-  role: 'Software Engineer at Caterpillar Inc',
-  education: 'B.Tech CSE from SRM Institute (CGPA: 8.8/10)',
-  location: 'Chennai, India',
-  skills: {
-    languages: ['Python', 'Java', 'C++', 'JavaScript', 'SQL'],
-    web: ['React.js', 'Node.js', 'Express.js', 'HTML5', 'CSS3', 'REST APIs'],
-    databases: ['MySQL', 'MongoDB', 'PostgreSQL', 'Firebase'],
-    cloud: ['AWS', 'Docker', 'Jenkins', 'Linux', 'Git'],
-    ml: ['TensorFlow', 'Scikit-learn', 'Pandas', 'NumPy', 'NLP', 'spaCy'],
-    frameworks: ['Spring Boot', 'FastAPI', 'Flask', 'Socket.io', 'Microservices'],
+  role: 'Data Science Graduate Student & Software Engineer',
+  education: {
+    masters: "Master's in Data Science at NMBU, Norway (2024-2026)",
+    bachelors: "B.Tech Computer Science from India (2016-2020)",
   },
-  certifications: ['AWS Certified Cloud Practitioner', 'Google Data Analytics Professional', 'HackerRank 5-star Problem Solving'],
-  achievements: ['Smart India Hackathon 2023 Finalist'],
+  location: 'Ås, Norway',
+  skills: {
+    backend: ['Python', 'Flask', 'RestAPI', 'Microservices'],
+    datascience: ['Pandas', 'Matplotlib', 'Seaborn', 'Data Modeling', 'Data Analytics'],
+    databases: ['SQL', 'PostgreSQL', 'Data Modelling'],
+    cloud: ['Azure', 'AWS', 'Docker', 'CI/CD', 'Cloud Architecture'],
+    dev: ['Git', 'Clean Coding', 'Software Architecture', 'Testing'],
+    ai: ['LangChain', 'LLM APIs', 'Claude', 'LLaMA'],
+  },
+  certifications: ['3rd Place GenAI Hackathon AWS Norway', 'AWS Cloud Computing Badge', 'GenAI Concepts - DataCamp', 'Star of the Month (2x) - Orion Innovation'],
   projects: [
-    { name: 'AI-Powered Resume Analyzer', tech: ['Python', 'TensorFlow', 'spaCy', 'Flask', 'React.js'], desc: 'NLP-based resume parsing with 92% accuracy in skill matching' },
-    { name: 'Real-Time Chat Application', tech: ['Node.js', 'Socket.io', 'MongoDB', 'React.js'], desc: 'Scalable chat platform supporting 1000+ concurrent users' },
-    { name: 'E-Commerce Analytics Dashboard', tech: ['Python', 'Pandas', 'Plotly', 'PostgreSQL', 'FastAPI'], desc: 'Business intelligence dashboard with automated ETL pipelines' },
+    { name: 'Oil Spill Simulation System', tech: ['Python', 'Pandas', 'Matplotlib'], desc: 'Environmental impact modeling for offshore operations' },
+    { name: 'Energy Analytics Dashboard', tech: ['Python', 'PySpark', 'ETL'], desc: '1M+ hourly electricity records from Elhub Norway' },
+    { name: 'Financial AI Agent', tech: ['Python', 'LLaMA', 'SSB Data'], desc: 'Norwegian household budget insights with AI' },
+    { name: 'AV Danse Studio Platform', tech: ['AWS', 'JavaScript', 'CI/CD'], desc: '99.99% uptime, 50% cost reduction' },
   ],
   experience: [
-    { role: 'Software Engineer', company: 'Caterpillar Inc', period: 'July 2024 - Present', desc: 'Enterprise applications with Java, Spring Boot, microservices' },
-    { role: 'Software Development Intern', company: 'Caterpillar Inc', period: 'Jan - June 2024', desc: 'Full-stack development with React.js, Node.js, Docker' },
-    { role: 'Web Development Intern', company: 'The Sparks Foundation', period: 'Sept - Oct 2022', desc: 'Responsive web apps and payment gateway integration' },
+    { role: 'Teaching Assistant - DBMS', company: 'NMBU', period: 'Sept - Dec 2025', desc: 'Mentored 40+ students in SQL and database design' },
+    { role: 'Software Engineer', company: 'Orion Innovation', period: 'Nov 2020 - Jul 2024', desc: 'Backend services, Tennis Australia app, 30% cost reduction' },
   ],
+  languages: ['English (Fluent)', 'Norwegian (B1)'],
   contact: {
     email: 'srivatsavsaravanan@gmail.com',
     linkedin: 'linkedin.com/in/srivatsav-saravanan',
-    phone: '+91 73581 63174',
   },
 };
 
@@ -42,18 +44,18 @@ const intents = [
     patterns: [/hi|hello|hey|howdy|greetings/i],
     responses: [
       "Hello! I'm Srivatsav's AI assistant. How can I help you learn more about his work?",
-      "Hey there! Ask me anything about Srivatsav's skills, projects, or experience at Caterpillar.",
+      "Hey there! Ask me anything about Srivatsav's skills, projects, or experience.",
       "Hi! I'm here to help you explore Srivatsav's portfolio. What would you like to know?",
     ],
   },
   {
     patterns: [/who is|about|tell me about|introduce/i],
     responses: [
-      `${knowledgeBase.name} is a ${knowledgeBase.role}. He graduated with ${knowledgeBase.education} and is currently based in ${knowledgeBase.location}. He's AWS certified and a Smart India Hackathon 2023 Finalist!`,
+      `${knowledgeBase.name} is a Data Science graduate student at NMBU, Norway, with 4 years of software engineering experience at Orion Innovation. He specializes in Python, data analytics, and AI applications.`,
     ],
   },
   {
-    patterns: [/experience|work|job|caterpillar|company/i],
+    patterns: [/experience|work|job|orion|company/i],
     responses: [
       `Srivatsav's professional experience:\n\n${knowledgeBase.experience.map(e => `• ${e.role} at ${e.company} (${e.period}): ${e.desc}`).join('\n\n')}`,
     ],
@@ -61,25 +63,25 @@ const intents = [
   {
     patterns: [/skill|tech|stack|know|proficient|expertise/i],
     responses: [
-      `Srivatsav's technical expertise:\n\n• Languages: ${knowledgeBase.skills.languages.join(', ')}\n• Web: ${knowledgeBase.skills.web.slice(0, 4).join(', ')}\n• Databases: ${knowledgeBase.skills.databases.join(', ')}\n• Cloud & Tools: ${knowledgeBase.skills.cloud.join(', ')}\n• ML: ${knowledgeBase.skills.ml.slice(0, 4).join(', ')}`,
+      `Srivatsav's technical expertise:\n\n• Backend: ${knowledgeBase.skills.backend.join(', ')}\n• Data Science: ${knowledgeBase.skills.datascience.slice(0, 4).join(', ')}\n• Cloud: ${knowledgeBase.skills.cloud.slice(0, 4).join(', ')}\n• AI: ${knowledgeBase.skills.ai.join(', ')}`,
     ],
   },
   {
-    patterns: [/python|java/i],
+    patterns: [/python|flask|backend/i],
     responses: [
-      "Srivatsav is highly proficient in both Python and Java! He uses Python for ML/AI projects (TensorFlow, Pandas, spaCy) and backend APIs (FastAPI, Flask). Java with Spring Boot is his go-to for enterprise applications at Caterpillar.",
+      "Python is Srivatsav's primary language! He uses it extensively for backend development (Flask, RestAPI), data science (Pandas, Matplotlib), and AI applications (LangChain, LLaMA). He built scalable microservices at Orion Innovation.",
     ],
   },
   {
-    patterns: [/ai|machine learning|ml|nlp|tensorflow/i],
+    patterns: [/ai|langchain|llm|llama|claude/i],
     responses: [
-      `Srivatsav has strong AI/ML skills:\n\n• Deep Learning: TensorFlow, Scikit-learn\n• NLP: spaCy for text processing\n• Data Science: Pandas, NumPy\n\nHis AI Resume Analyzer project achieved 92% accuracy in skill matching!`,
+      `Srivatsav has strong AI/LLM skills:\n\n• LangChain for building AI agents\n• LLM APIs: Claude, LLaMA\n• Built Financial AI Agent with SSB data\n• 3rd Place at AWS Norway GenAI Hackathon`,
     ],
   },
   {
-    patterns: [/react|node|frontend|web|javascript/i],
+    patterns: [/data|pandas|analytics|matplotlib/i],
     responses: [
-      `Srivatsav's web development stack:\n\n• Frontend: React.js, HTML5, CSS3\n• Backend: Node.js, Express.js, FastAPI\n• Real-time: Socket.io for WebSocket applications\n• APIs: RESTful services and microservices\n\nHe built a real-time chat app supporting 1000+ concurrent users!`,
+      `Srivatsav's Data Science stack:\n\n• Analysis: Pandas, Data Modeling, Data Analytics\n• Visualization: Matplotlib, Seaborn\n• Processing: PySpark, ETL pipelines\n• Built Energy Analytics Dashboard processing 1M+ records`,
     ],
   },
   {
@@ -89,39 +91,39 @@ const intents = [
     ],
   },
   {
-    patterns: [/cloud|aws|docker|deploy|devops/i],
+    patterns: [/cloud|aws|azure|docker|devops/i],
     responses: [
-      `Srivatsav's cloud & DevOps skills:\n\n• AWS Certified Cloud Practitioner\n• Docker for containerization\n• Jenkins for CI/CD pipelines\n• Linux server administration\n• Git for version control\n\nHe contributed to CI/CD improvements at Caterpillar using Jenkins and Docker.`,
+      `Srivatsav's Cloud & DevOps skills:\n\n• Azure: App Services, Cloud Architecture\n• AWS: S3, CloudFront, Route 53\n• Docker & CI/CD pipelines\n• Built AV Danse platform with 99.99% uptime`,
     ],
   },
   {
-    patterns: [/database|sql|mongo|postgres/i],
+    patterns: [/database|sql|postgres/i],
     responses: [
-      `Srivatsav works with multiple databases:\n\n• Relational: MySQL, PostgreSQL\n• NoSQL: MongoDB, Firebase\n• Optimized database queries improving system performance by 30% at Caterpillar`,
+      `Srivatsav's database expertise:\n\n• SQL & PostgreSQL\n• Data Modelling\n• Teaching Assistant for DBMS at NMBU\n• Mentored 40+ students in SQL optimization`,
     ],
   },
   {
-    patterns: [/education|degree|college|srm|university/i],
+    patterns: [/education|degree|college|nmbu|university|masters/i],
     responses: [
-      `Education:\n\n• B.Tech in Computer Science and Engineering\n• SRM Institute of Science and Technology (2020-2024)\n• CGPA: 8.8/10\n• Smart India Hackathon 2023 Finalist`,
+      `Education:\n\n• Master's in Data Science - NMBU, Norway (2024-2026)\n  Coursework: Python, Data-to-Decision, SQL\n\n• B.Tech Computer Science - India (2016-2020)\n  Coursework: Software Engineering, Web Dev, System Design`,
     ],
   },
   {
-    patterns: [/certif|aws certified|google/i],
+    patterns: [/certif|award|hackathon/i],
     responses: [
-      `Srivatsav's certifications:\n\n• AWS Certified Cloud Practitioner\n• Google Data Analytics Professional Certificate\n• HackerRank Problem Solving (5-star rating)`,
+      `Srivatsav's certifications & awards:\n\n• 3rd Place: GenAI Hackathon - AWS Norway (Nov 2025)\n• AWS Cloud Computing Badge\n• GenAI Concepts - DataCamp\n• Star of the Month (2x) - Orion Innovation`,
     ],
   },
   {
-    patterns: [/contact|email|reach|hire|connect|linkedin|phone/i],
+    patterns: [/contact|email|reach|hire|connect|linkedin/i],
     responses: [
-      `You can connect with Srivatsav:\n\n• Email: ${knowledgeBase.contact.email}\n• LinkedIn: ${knowledgeBase.contact.linkedin}\n• Phone: ${knowledgeBase.contact.phone}\n\nFeel free to reach out for collaborations or opportunities!`,
+      `You can connect with Srivatsav:\n\n• Email: ${knowledgeBase.contact.email}\n• LinkedIn: ${knowledgeBase.contact.linkedin}\n• Location: Ås, Norway\n\nFeel free to reach out!`,
     ],
   },
   {
-    patterns: [/resume|cv|download/i],
+    patterns: [/language|norwegian|english/i],
     responses: [
-      "You can download Srivatsav's resume by scrolling to the Contact section, or reach out directly via email at srivatsavsaravanan@gmail.com",
+      `Languages:\n\n• English - Fluent\n• Norwegian - B1 (Actively Improving)\n\nSrivatsav is currently studying in Norway and improving his Norwegian language skills.`,
     ],
   },
   {
@@ -134,23 +136,23 @@ const intents = [
   {
     patterns: [/help|what can you|how do i|options/i],
     responses: [
-      "I can help you learn about:\n\n• Srivatsav's skills and technical expertise\n• His projects (AI Resume Analyzer, Chat App, Analytics Dashboard)\n• Work experience at Caterpillar Inc\n• Education and certifications\n• How to contact him\n\nJust ask naturally!",
+      "I can help you learn about:\n\n• Srivatsav's skills (Python, Data Science, AI, Cloud)\n• His projects (Oil Spill Simulation, Energy Analytics, AI Agent)\n• Work experience at Orion Innovation\n• Education at NMBU, Norway\n• How to contact him\n\nJust ask naturally!",
     ],
   },
 ];
 
 // Default fallback responses
 const fallbackResponses = [
-  "I'm not sure about that specific topic, but I'd be happy to tell you about Srivatsav's skills, projects, or experience at Caterpillar. What would you like to know?",
-  "That's an interesting question! I'm best at answering questions about Srivatsav's technical skills, projects, and background. Try asking about his experience or certifications!",
-  "I don't have information on that, but I can tell you all about Srivatsav's expertise in Java, Python, React, AWS, and more. What interests you?",
+  "I'm not sure about that specific topic, but I'd be happy to tell you about Srivatsav's skills, projects, or experience at Orion Innovation and NMBU. What would you like to know?",
+  "That's an interesting question! I'm best at answering questions about Srivatsav's technical skills, projects, and background. Try asking about his data science or AI experience!",
+  "I don't have information on that, but I can tell you all about Srivatsav's expertise in Python, Data Science, Cloud, and AI. What interests you?",
 ];
 
 // Suggested questions
 const suggestedQuestions = [
   "What are his main skills?",
-  "Tell me about his experience",
-  "What projects has he built?",
+  "Tell me about his projects",
+  "What's his experience?",
   "How can I contact him?",
 ];
 
@@ -197,7 +199,7 @@ export default function AIChatAssistant() {
     {
       id: 1,
       type: 'bot',
-      text: "Hi! I'm Srivatsav's AI assistant. Ask me anything about his skills, projects, or experience at Caterpillar!",
+      text: "Hi! I'm Srivatsav's AI assistant. Ask me about his skills, projects, or experience in Data Science and Software Engineering!",
       timestamp: new Date(),
     },
   ]);

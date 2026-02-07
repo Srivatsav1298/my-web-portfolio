@@ -6,28 +6,28 @@ import '../../styles/sections.css';
 
 const skills = [
   {
-    category: 'Languages',
-    items: ['Python', 'Java', 'C++', 'JavaScript', 'SQL'],
+    category: 'Programming & Backend',
+    items: ['Python', 'Flask', 'RestAPI', 'Microservices'],
   },
   {
-    category: 'Web Technologies',
-    items: ['React.js', 'Node.js', 'Express.js', 'HTML5', 'CSS3', 'REST APIs'],
+    category: 'Data Science',
+    items: ['Pandas', 'Matplotlib', 'Seaborn', 'Data Modeling', 'Distributed Systems', 'Data Analytics'],
   },
   {
     category: 'Databases',
-    items: ['MySQL', 'MongoDB', 'PostgreSQL', 'Firebase'],
+    items: ['SQL', 'PostgreSQL', 'Data Modelling'],
   },
   {
-    category: 'Tools & Cloud',
-    items: ['Git', 'Docker', 'AWS', 'Jenkins', 'Linux', 'Agile'],
+    category: 'Cloud & DevOps',
+    items: ['Azure', 'AWS', 'Docker', 'CI/CD', 'Cloud Architecture'],
   },
   {
-    category: 'Machine Learning',
-    items: ['TensorFlow', 'Scikit-learn', 'Pandas', 'NumPy', 'NLP'],
+    category: 'Software Development',
+    items: ['Git', 'Clean Coding', 'Software Architecture', 'Testing'],
   },
   {
-    category: 'Frameworks',
-    items: ['Spring Boot', 'FastAPI', 'Flask', 'Socket.io', 'Microservices'],
+    category: 'AI',
+    items: ['LangChain', 'LLM APIs', 'Claude', 'LLaMA'],
   },
 ];
 

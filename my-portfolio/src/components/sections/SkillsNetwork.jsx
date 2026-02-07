@@ -8,112 +8,109 @@ import './SkillsNetwork.css';
 // Skills data with categories and connections
 const skillsData = {
   nodes: [
-    // Core Languages (center)
-    { id: 'python', label: 'Python', category: 'language', x: 0, y: 0, size: 1.2 },
-    { id: 'java', label: 'Java', category: 'language', x: 2.5, y: 0.5, size: 1.1 },
-    { id: 'javascript', label: 'JavaScript', category: 'language', x: -2.5, y: 0.5, size: 1.0 },
-    { id: 'sql', label: 'SQL', category: 'language', x: 0, y: 2, size: 0.95 },
-    { id: 'cpp', label: 'C++', category: 'language', x: -1.5, y: -1.5, size: 0.85 },
+    // Programming & Backend (center)
+    { id: 'python', label: 'Python', category: 'backend', x: 0, y: 0, size: 1.3 },
+    { id: 'flask', label: 'Flask', category: 'backend', x: 1.8, y: -0.5, size: 0.95 },
+    { id: 'restapi', label: 'RestAPI', category: 'backend', x: 1.5, y: 0.8, size: 0.9 },
+    { id: 'microservices', label: 'Microservices', category: 'backend', x: 2.5, y: 0, size: 0.85 },
 
-    // Web Technologies
-    { id: 'react', label: 'React.js', category: 'frontend', x: -4, y: 0.3, size: 0.95 },
-    { id: 'nodejs', label: 'Node.js', category: 'frontend', x: -3.5, y: 1.8, size: 0.9 },
-    { id: 'express', label: 'Express.js', category: 'frontend', x: -4.2, y: -0.8, size: 0.8 },
-    { id: 'html', label: 'HTML/CSS', category: 'frontend', x: -3, y: -1.5, size: 0.8 },
+    // Data Science
+    { id: 'pandas', label: 'Pandas', category: 'data', x: -1.5, y: -1.5, size: 1.0 },
+    { id: 'matplotlib', label: 'Matplotlib', category: 'data', x: -2.5, y: -0.8, size: 0.9 },
+    { id: 'seaborn', label: 'Seaborn', category: 'data', x: -3, y: -1.8, size: 0.8 },
+    { id: 'datamodeling', label: 'Data Modeling', category: 'data', x: -2, y: 0.5, size: 0.85 },
+    { id: 'analytics', label: 'Data Analytics', category: 'data', x: -3.2, y: 0.2, size: 0.9 },
 
     // Databases
-    { id: 'mysql', label: 'MySQL', category: 'data', x: 1.5, y: 2.5, size: 0.85 },
-    { id: 'mongodb', label: 'MongoDB', category: 'data', x: -1.5, y: 2.5, size: 0.85 },
-    { id: 'postgres', label: 'PostgreSQL', category: 'data', x: 0, y: 3.2, size: 0.9 },
-    { id: 'firebase', label: 'Firebase', category: 'data', x: 2.5, y: 2.2, size: 0.8 },
+    { id: 'sql', label: 'SQL', category: 'database', x: 0, y: 2.2, size: 1.1 },
+    { id: 'postgres', label: 'PostgreSQL', category: 'database', x: 1.5, y: 2.5, size: 0.95 },
 
-    // Cloud & Tools
-    { id: 'aws', label: 'AWS', category: 'cloud', x: 4, y: 0, size: 1.0 },
-    { id: 'docker', label: 'Docker', category: 'cloud', x: 3.5, y: 1.5, size: 0.9 },
-    { id: 'jenkins', label: 'Jenkins', category: 'cloud', x: 4.2, y: -1, size: 0.8 },
-    { id: 'git', label: 'Git', category: 'cloud', x: 3, y: -1.8, size: 0.85 },
-    { id: 'linux', label: 'Linux', category: 'cloud', x: 4.5, y: 0.8, size: 0.8 },
+    // Cloud & DevOps
+    { id: 'azure', label: 'Azure', category: 'cloud', x: 3.5, y: 1, size: 1.0 },
+    { id: 'aws', label: 'AWS', category: 'cloud', x: 4, y: -0.5, size: 1.0 },
+    { id: 'docker', label: 'Docker', category: 'cloud', x: 3.8, y: -1.5, size: 0.9 },
+    { id: 'cicd', label: 'CI/CD', category: 'cloud', x: 4.5, y: 0.3, size: 0.85 },
 
-    // ML/AI
-    { id: 'tensorflow', label: 'TensorFlow', category: 'ai', x: 1.5, y: -2, size: 0.95 },
-    { id: 'sklearn', label: 'Scikit-learn', category: 'ai', x: 0, y: -2.5, size: 0.85 },
-    { id: 'pandas', label: 'Pandas', category: 'ai', x: -1, y: -2.2, size: 0.85 },
-    { id: 'numpy', label: 'NumPy', category: 'ai', x: 0.8, y: -3, size: 0.8 },
+    // Software Development
+    { id: 'git', label: 'Git', category: 'dev', x: -1, y: 1.5, size: 0.9 },
+    { id: 'cleancode', label: 'Clean Code', category: 'dev', x: -1.8, y: 2.2, size: 0.8 },
+    { id: 'architecture', label: 'Software Arch', category: 'dev', x: 0.8, y: -2, size: 0.85 },
+    { id: 'testing', label: 'Testing', category: 'dev', x: 2, y: -1.8, size: 0.8 },
 
-    // Frameworks
-    { id: 'springboot', label: 'Spring Boot', category: 'framework', x: 3.2, y: -0.5, size: 0.95 },
-    { id: 'fastapi', label: 'FastAPI', category: 'framework', x: 1.8, y: -1, size: 0.85 },
-    { id: 'flask', label: 'Flask', category: 'framework', x: 2.2, y: -1.8, size: 0.8 },
-    { id: 'socketio', label: 'Socket.io', category: 'framework', x: -2.8, y: 1, size: 0.8 },
+    // AI
+    { id: 'langchain', label: 'LangChain', category: 'ai', x: -0.5, y: -2.5, size: 0.95 },
+    { id: 'llm', label: 'LLM APIs', category: 'ai', x: -2, y: -2.5, size: 0.9 },
+    { id: 'claude', label: 'Claude', category: 'ai', x: -1.2, y: -3.2, size: 0.85 },
+    { id: 'llama', label: 'LLaMA', category: 'ai', x: 0.5, y: -3.2, size: 0.85 },
   ],
   connections: [
-    // Python connections
-    { from: 'python', to: 'tensorflow' },
-    { from: 'python', to: 'sklearn' },
-    { from: 'python', to: 'pandas' },
-    { from: 'python', to: 'numpy' },
-    { from: 'python', to: 'fastapi' },
+    // Python connections (central hub)
     { from: 'python', to: 'flask' },
+    { from: 'python', to: 'restapi' },
+    { from: 'python', to: 'pandas' },
+    { from: 'python', to: 'langchain' },
+    { from: 'python', to: 'sql' },
 
-    // Java connections
-    { from: 'java', to: 'springboot' },
-    { from: 'java', to: 'aws' },
+    // Backend connections
+    { from: 'flask', to: 'restapi' },
+    { from: 'restapi', to: 'microservices' },
+    { from: 'flask', to: 'docker' },
 
-    // JavaScript connections
-    { from: 'javascript', to: 'react' },
-    { from: 'javascript', to: 'nodejs' },
-    { from: 'javascript', to: 'express' },
-    { from: 'javascript', to: 'socketio' },
+    // Data Science connections
+    { from: 'pandas', to: 'matplotlib' },
+    { from: 'matplotlib', to: 'seaborn' },
+    { from: 'pandas', to: 'datamodeling' },
+    { from: 'datamodeling', to: 'analytics' },
+    { from: 'analytics', to: 'sql' },
 
     // Database connections
-    { from: 'sql', to: 'mysql' },
     { from: 'sql', to: 'postgres' },
-    { from: 'nodejs', to: 'mongodb' },
-    { from: 'react', to: 'firebase' },
-    { from: 'springboot', to: 'postgres' },
+    { from: 'postgres', to: 'datamodeling' },
 
     // Cloud connections
+    { from: 'azure', to: 'aws' },
     { from: 'aws', to: 'docker' },
-    { from: 'docker', to: 'jenkins' },
-    { from: 'aws', to: 'jenkins' },
-    { from: 'springboot', to: 'docker' },
+    { from: 'docker', to: 'cicd' },
+    { from: 'azure', to: 'cicd' },
+    { from: 'microservices', to: 'azure' },
+    { from: 'microservices', to: 'docker' },
 
-    // ML Pipeline
-    { from: 'tensorflow', to: 'sklearn' },
-    { from: 'pandas', to: 'sklearn' },
-    { from: 'numpy', to: 'pandas' },
-    { from: 'numpy', to: 'tensorflow' },
+    // Software Dev connections
+    { from: 'git', to: 'cicd' },
+    { from: 'cleancode', to: 'git' },
+    { from: 'architecture', to: 'microservices' },
+    { from: 'testing', to: 'cicd' },
+    { from: 'cleancode', to: 'architecture' },
 
-    // Frontend
-    { from: 'react', to: 'nodejs' },
-    { from: 'nodejs', to: 'express' },
-    { from: 'html', to: 'react' },
-    { from: 'socketio', to: 'nodejs' },
+    // AI connections
+    { from: 'langchain', to: 'llm' },
+    { from: 'llm', to: 'claude' },
+    { from: 'llm', to: 'llama' },
+    { from: 'langchain', to: 'llama' },
 
     // Cross-category
-    { from: 'fastapi', to: 'postgres' },
-    { from: 'git', to: 'jenkins' },
-    { from: 'linux', to: 'docker' },
-    { from: 'mongodb', to: 'express' },
+    { from: 'flask', to: 'postgres' },
+    { from: 'pandas', to: 'sql' },
+    { from: 'aws', to: 'postgres' },
   ],
 };
 
 const categoryColors = {
-  language: '#b0b0b5',
+  backend: '#b0b0b5',
   data: '#8a9aaa',
-  ai: '#aa9a8a',
+  database: '#9aaa8a',
   cloud: '#8aaa8a',
-  frontend: '#9a8aaa',
-  framework: '#aa8a9a',
+  dev: '#9a8aaa',
+  ai: '#aa9a8a',
 };
 
 const categoryNames = {
-  language: 'Languages',
-  data: 'Databases',
-  ai: 'AI / ML',
-  cloud: 'Cloud & Tools',
-  frontend: 'Web Technologies',
-  framework: 'Frameworks',
+  backend: 'Backend',
+  data: 'Data Science',
+  database: 'Databases',
+  cloud: 'Cloud & DevOps',
+  dev: 'Development',
+  ai: 'AI',
 };
 
 /**
@@ -362,12 +359,12 @@ export default function SkillsNetwork() {
   }, [hoveredNode, selectedCategory]);
 
   const categories = [
-    { id: 'language', label: 'Languages', color: categoryColors.language },
-    { id: 'data', label: 'Databases', color: categoryColors.data },
-    { id: 'ai', label: 'AI/ML', color: categoryColors.ai },
+    { id: 'backend', label: 'Backend', color: categoryColors.backend },
+    { id: 'data', label: 'Data Science', color: categoryColors.data },
+    { id: 'database', label: 'Databases', color: categoryColors.database },
     { id: 'cloud', label: 'Cloud', color: categoryColors.cloud },
-    { id: 'frontend', label: 'Web', color: categoryColors.frontend },
-    { id: 'framework', label: 'Frameworks', color: categoryColors.framework },
+    { id: 'dev', label: 'Dev', color: categoryColors.dev },
+    { id: 'ai', label: 'AI', color: categoryColors.ai },
   ];
 
   // Get hovered node details
