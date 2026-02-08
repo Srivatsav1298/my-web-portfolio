@@ -2,56 +2,17 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Mail, MapPin, Send } from 'lucide-react';
 import MagneticButton from '../ui/MagneticButton';
+import { personalInfo } from '../../data/portfolioData';
+import {
+  containerVariants,
+  itemVariants,
+  lineVariants,
+  detailVariants,
+  contactLineStyle,
+} from '../../utils/animations';
 import '../../styles/sections.css';
 
 const Contact = () => {
-  // Uniform animation variants
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.12,
-        delayChildren: 0.1,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 40 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.8,
-        ease: [0.16, 1, 0.3, 1],
-      },
-    },
-  };
-
-  const lineVariants = {
-    hidden: { scaleX: 0 },
-    visible: {
-      scaleX: 1,
-      transition: {
-        duration: 0.8,
-        ease: [0.16, 1, 0.3, 1],
-      },
-    },
-  };
-
-  const detailVariants = {
-    hidden: { opacity: 0, x: -20 },
-    visible: {
-      opacity: 1,
-      x: 0,
-      transition: {
-        duration: 0.6,
-        ease: [0.16, 1, 0.3, 1],
-      },
-    },
-  };
-
   return (
     <section id="contact" className="section contact">
       <motion.div
@@ -72,13 +33,7 @@ const Contact = () => {
         <motion.div
           className="section__line"
           variants={lineVariants}
-          style={{
-            height: '2px',
-            width: '80px',
-            background: 'linear-gradient(90deg, transparent, #808080, transparent)',
-            margin: '0 auto 32px',
-            transformOrigin: 'center',
-          }}
+          style={contactLineStyle}
         />
 
         <motion.p className="contact__text" variants={itemVariants}>
@@ -94,7 +49,7 @@ const Contact = () => {
         >
           <MagneticButton
             className="glass-button glass-button--primary"
-            onClick={() => window.location.href = 'mailto:srivatsavsaravanan@gmail.com'}
+            onClick={() => window.location.href = `mailto:${personalInfo.email}`}
           >
             <Send size={16} style={{ marginRight: '8px' }} />
             Say Hello
@@ -112,7 +67,7 @@ const Contact = () => {
             transition={{ duration: 0.2 }}
           >
             <Mail size={16} />
-            <span>srivatsavsaravanan@gmail.com</span>
+            <span>{personalInfo.email}</span>
           </motion.div>
           <motion.div
             className="contact__detail-item"
@@ -121,7 +76,7 @@ const Contact = () => {
             transition={{ duration: 0.2 }}
           >
             <MapPin size={16} />
-            <span>Ås, Norway</span>
+            <span>{personalInfo.location}</span>
           </motion.div>
         </motion.div>
       </motion.div>

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Oil Spill Simulation - Project Preview</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      background: #1a1a1a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+    .canvas {
+      width: 800px;
+      height: 600px;
+      background: linear-gradient(135deg, #0a4b6e 0%, #1a7fa0 50%, #0d5f7f 100%);
+      position: relative;
+      overflow: hidden;
+      border-radius: 8px;
+    }
+    /* Water effect */
+    .water-layer {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(ellipse at 30% 40%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+    }
+    /* Oil spill visualization */
+    .oil-spill {
+      position: absolute;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(30, 30, 30, 0.8) 0%, rgba(60, 40, 20, 0.6) 40%, transparent 70%);
+      animation: spread 6s ease-in-out infinite alternate;
+    }
+    .oil-1 {
+      width: 280px;
+      height: 280px;
+      top: 30%;
+      left: 25%;
+      animation-delay: 0s;
+    }
+    .oil-2 {
+      width: 200px;
+      height: 200px;
+      top: 45%;
+      left: 35%;
+      animation-delay: 1s;
+    }
+    .oil-3 {
+      width: 150px;
+      height: 150px;
+      top: 55%;
+      left: 50%;
+      animation-delay: 2s;
+    }
+    @keyframes spread {
+      0% { transform: scale(0.9); opacity: 0.6; }
+      100% { transform: scale(1.1); opacity: 0.8; }
+    }
+    /* Grid overlay for simulation */
+    .grid {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+      background-size: 50px 50px;
+    }
+    /* Data points */
+    .data-point {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      background: #4ade80;
+      border-radius: 50%;
+      box-shadow: 0 0 12px rgba(74, 222, 128, 0.8);
+      animation: pulse 2s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(1.3); }
+    }
+    .dp-1 { top: 25%; left: 20%; animation-delay: 0s; }
+    .dp-2 { top: 35%; left: 45%; animation-delay: 0.5s; }
+    .dp-3 { top: 50%; left: 65%; animation-delay: 1s; }
+    .dp-4 { top: 65%; left: 35%; animation-delay: 1.5s; }
+    .dp-5 { top: 70%; left: 55%; animation-delay: 2s; }
+    /* Title overlay */
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.6) 70%, rgba(0, 0, 0, 0.9) 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 40px;
+    }
+    .title {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 32px;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 8px;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+    }
+    .subtitle {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 16px;
+      font-weight: 400;
+      color: #d0d0d0;
+      max-width: 600px;
+    }
+    .tech-badge {
+      display: inline-block;
+      padding: 6px 14px;
+      background: rgba(74, 222, 128, 0.2);
+      border: 1px solid rgba(74, 222, 128, 0.4);
+      border-radius: 16px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #4ade80;
+      margin-top: 16px;
+      margin-right: 8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="canvas">
+    <div class="water-layer"></div>
+    <div class="grid"></div>
+
+    <div class="oil-spill oil-1"></div>
+    <div class="oil-spill oil-2"></div>
+    <div class="oil-spill oil-3"></div>
+
+    <div class="data-point dp-1"></div>
+    <div class="data-point dp-2"></div>
+    <div class="data-point dp-3"></div>
+    <div class="data-point dp-4"></div>
+    <div class="data-point dp-5"></div>
+
+    <div class="overlay">
+      <div class="title">Oil Spill Simulation System</div>
+      <div class="subtitle">Real-time environmental impact modeling & monitoring</div>
+      <div>
+        <span class="tech-badge">Python</span>
+        <span class="tech-badge">Pandas</span>
+        <span class="tech-badge">Simulation</span>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

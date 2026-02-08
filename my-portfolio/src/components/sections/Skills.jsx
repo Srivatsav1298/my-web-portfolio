@@ -1,86 +1,38 @@
-import React, { useState } from 'react';
+import React, { useState, lazy, Suspense } from 'react';
 import { motion } from 'framer-motion';
 import GlassCard from '../ui/GlassCard';
-import SkillsNetwork from './SkillsNetwork';
+import { skillsForGrid } from '../../data/portfolioData';
+import {
+  containerVariants,
+  titleVariants,
+  cardVariants,
+  lineVariants,
+  smoothEase,
+  sectionViewport,
+  sectionLineStyle,
+} from '../../utils/animations';
 import '../../styles/sections.css';
 
-const skills = [
-  {
-    category: 'Programming & Backend',
-    items: ['Python', 'Flask', 'RestAPI', 'Microservices'],
-  },
-  {
-    category: 'Data Science',
-    items: ['Pandas', 'Matplotlib', 'Seaborn', 'Data Modeling', 'Distributed Systems', 'Data Analytics'],
-  },
-  {
-    category: 'Databases',
-    items: ['SQL', 'PostgreSQL', 'Data Modelling'],
-  },
-  {
-    category: 'Cloud & DevOps',
-    items: ['Azure', 'AWS', 'Docker', 'CI/CD', 'Cloud Architecture'],
-  },
-  {
-    category: 'Software Development',
-    items: ['Git', 'Clean Coding', 'Software Architecture', 'Testing'],
-  },
-  {
-    category: 'AI',
-    items: ['LangChain', 'LLM APIs', 'Claude', 'LLaMA'],
-  },
-];
+// Lazy load the heavy 3D component
+const SkillsNetwork = lazy(() => import('./SkillsNetwork'));
+
+// Simple loading fallback for network view
+const NetworkFallback = () => (
+  <div style={{
+    height: '500px',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    color: 'rgba(255,255,255,0.5)',
+    fontFamily: 'var(--font-mono)',
+    fontSize: '12px',
+  }}>
+    Loading 3D visualization...
+  </div>
+);
 
 const Skills = () => {
   const [showNetwork, setShowNetwork] = useState(true);
-
-  // Uniform animation variants
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.12,
-        delayChildren: 0.1,
-      },
-    },
-  };
-
-  const titleVariants = {
-    hidden: { opacity: 0, y: 40 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.8,
-        ease: [0.16, 1, 0.3, 1],
-      },
-    },
-  };
-
-  const cardVariants = {
-    hidden: { opacity: 0, y: 40, scale: 0.95 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      scale: 1,
-      transition: {
-        duration: 0.7,
-        ease: [0.16, 1, 0.3, 1],
-      },
-    },
-  };
-
-  const lineVariants = {
-    hidden: { scaleX: 0 },
-    visible: {
-      scaleX: 1,
-      transition: {
-        duration: 0.8,
-        ease: [0.16, 1, 0.3, 1],
-      },
-    },
-  };
 
   return (
     <section id="skills" className="section">
@@ -89,20 +41,14 @@ const Skills = () => {
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, margin: '-80px' }}
+        viewport={sectionViewport}
       >
         <motion.div className="section__header" variants={titleVariants}>
           <h2 className="section__title">Technical Skills</h2>
           <motion.div
             className="section__line"
             variants={lineVariants}
-            style={{
-              height: '2px',
-              width: '60px',
-              background: 'linear-gradient(90deg, transparent, #808080, transparent)',
-              margin: '20px auto 0',
-              transformOrigin: 'center',
-            }}
+            style={sectionLineStyle}
           />
         </motion.div>
 
@@ -138,7 +84,9 @@ const Skills = () => {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5 }}
           >
-            <SkillsNetwork />
+            <Suspense fallback={<NetworkFallback />}>
+              <SkillsNetwork />
+            </Suspense>
           </motion.div>
         )}
 
@@ -150,7 +98,7 @@ const Skills = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            {skills.map((group, index) => (
+            {skillsForGrid.map((group, index) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 30 }}
@@ -172,7 +120,7 @@ const Skills = () => {
                         transition={{
                           delay: 0.2 + index * 0.1 + skillIndex * 0.05,
                           duration: 0.4,
-                          ease: [0.16, 1, 0.3, 1],
+                          ease: smoothEase,
                         }}
                         whileHover={{
                           scale: 1.05,

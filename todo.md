@@ -1,42 +1,91 @@
-# VatsWebsite - Portfolio Theme Selection
+# VatsWebsite - Portfolio Development
 
 ## Current Status
-Theme demo pages created and ready for review.
+Hero/landing page redesign completed and pushed to main. React app is functional with centered impact hero design.
 
-## Completed
-- [x] Create `/public/demos/` directory
-- [x] Create theme-data-flow.html - Data pipeline with animated particles & nodes
-- [x] Create theme-neural-network.html - Pulsing neural network with synaptic connections
-- [x] Create theme-constellation.html - Space/stars theme with shooting stars & nebula
-- [x] Create theme-terminal.html - CLI/hacker aesthetic with typing animation & matrix rain
-- [x] Create theme-ai-llm.html - Chat interface with purple gradients and token streams
+## Recently Completed
+- [x] Create 5 theme demos (data-flow, neural-network, constellation, terminal, ai-llm)
+- [x] Create 4 landing page variation mockups for hero redesign
+- [x] Implement "Centered Impact" hero design (Variation B)
+- [x] Push hero redesign to GitHub (commit b10cc50)
+
+## What Was Built (Hero Section)
+The new IntroAnimation component features:
+- Large centered name "Srivatsav" with vertical gradient (white → gray)
+- Small circular photo accent above name
+- "SOFTWARE ENGINEER" role as uppercase subheading
+- Tagline: "Building systems at the intersection of AI and Data"
+- Stats row: 3+ Years | 20+ Projects | AI & Data
+- Dual CTA buttons (View Work / Get in Touch)
+- Mouse-style scroll indicator with wheel animation
+- Staggered entrance animations on page load
+- Content fades out and moves up on scroll
+
+## Uncommitted Changes
+The following files have modifications not yet committed:
+- `my-portfolio/src/app/App.jsx`
+- `my-portfolio/src/components/AIChatAssistant.jsx`
+- `my-portfolio/src/components/sections/Contact.jsx`
+- `my-portfolio/src/components/sections/Projects.jsx`
+- `my-portfolio/src/components/sections/Skills.jsx`
+- `my-portfolio/src/components/sections/SkillsNetwork.jsx`
+- `my-portfolio/src/components/sections/Timeline.jsx`
+- `my-portfolio/src/main.jsx`
+- `my-portfolio/src/styles/sections.css`
+- `my-portfolio/vite.config.js`
+
+Untracked files:
+- `my-portfolio/src/components/LoadTimeIndicator.*`
+- `my-portfolio/src/components/sections/skills/`
+- `my-portfolio/src/data/`
+- `my-portfolio/src/styles/utilities.css`
+- `my-portfolio/src/utils/`
 
 ## Next Steps
-- [ ] Review all 5 theme demos in browser
-- [ ] Select preferred theme direction (or combination of elements)
-- [ ] Implement chosen theme into actual portfolio site
-- [ ] Add additional sections (About, Projects, Skills, Contact)
-- [ ] Make responsive for mobile devices
-- [ ] Add interactivity and navigation
+- [ ] Review and commit remaining modified files (or discard if not needed)
+- [ ] Test hero section on mobile devices
+- [ ] Fine-tune animation timing if needed
+- [ ] Review other sections (About, Projects, Skills, Contact, Timeline)
+- [ ] Ensure consistent styling across all sections
+- [ ] Deploy to production
 
-## Theme Demo Files
-All demos are located in `/public/demos/`:
+## Demo Files
+Located in `/public/demos/`:
 
-| File | Theme | Key Colors | Animation Style |
-|------|-------|------------|-----------------|
-| `theme-data-flow.html` | Data Pipeline | #0a0a0f, #00d4ff, #8b5cf6 | Flowing particles, pulsing nodes |
-| `theme-neural-network.html` | Neural Network | #050505, #3b82f6, #fff | Synaptic connections, brain glow |
-| `theme-constellation.html` | Space/Stars | #000, #fff, #8b5cf6 | Twinkling stars, shooting stars, nebula |
-| `theme-terminal.html` | CLI/Hacker | #000, #00ff00, #ffb000 | Matrix rain, typing animation |
-| `theme-ai-llm.html` | AI/LLM Chat | #0f0f1a, #a855f7, #6366f1 | Gradient orbs, token streams, chat UI |
+### Theme Demos
+| File | Theme |
+|------|-------|
+| `theme-data-flow.html` | Data Pipeline with animated particles |
+| `theme-neural-network.html` | Neural Network with synaptic connections |
+| `theme-constellation.html` | Space/stars with shooting stars |
+| `theme-terminal.html` | CLI/hacker with typing animation |
+| `theme-ai-llm.html` | AI chat interface |
 
-## Open in Browser
+### Landing Page Mockups
+| File | Variation |
+|------|-----------|
+| `landing-a-immediate-hero.html` | Left/right split layout |
+| `landing-b-centered-impact.html` | **SELECTED** - Centered with large name |
+| `landing-c-split-screen.html` | 50/50 split with glass frame |
+| `landing-d-typewriter.html` | Terminal with typed commands |
+
+## Quick Commands
 ```bash
-open /Users/kamal/Desktop/Raicode/VatsWebsite/public/demos/theme-*.html
+# Start dev server
+cd my-portfolio && npm run dev
+
+# Open in browser (check port - may vary)
+open http://localhost:5173/my-web-portfolio/
+
+# View git status
+git status
+
+# Open landing mockups
+open public/demos/landing-*.html
 ```
 
 ## Notes
-- All themes are self-contained HTML files with inline CSS
-- Each includes animated hero section + color palette showcase
-- Back button uses `history.back()` for navigation
-- Consider mixing elements: e.g., terminal typing + neural network background
+- Dev server runs on port 5173+ (check terminal for actual port)
+- Base path is `/my-web-portfolio/` in vite config
+- Profile image at `my-portfolio/src/assets/profile.jpg`
+- Theme context provides dynamic greeting based on time of day

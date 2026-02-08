@@ -1,6 +1,6 @@
 /* ============================================
-   Intro Section - Centered Impact Hero
-   Everything visible immediately, exits on scroll
+   Intro Section - Split Layout Hero
+   Content on left, profile picture on right
    ============================================ */
 
 .intro-section {
@@ -15,32 +15,14 @@
 }
 
 /* Fixed elements during scroll */
-.intro-section__bg-photo,
 .intro-section__ambient-glow,
-.intro-section__content,
+.intro-section__container,
 .intro-section__scroll-hint {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100vh;
-}
-
-/* Background photo - very subtle */
-.intro-section__bg-photo {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1;
-  pointer-events: none;
-}
-
-.intro-section__bg-photo img {
-  width: 500px;
-  height: 600px;
-  object-fit: cover;
-  object-position: center top;
-  filter: grayscale(100%) blur(1px);
 }
 
 /* Ambient glow */
@@ -59,33 +41,47 @@
   background: radial-gradient(circle, rgba(120, 120, 120, 0.1) 0%, transparent 60%);
 }
 
-/* Main content - centered */
+/* Main container - split layout (50/50) */
+.intro-section__container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 80px;
+  z-index: 10;
+  padding: 0 60px;
+  width: 100%;
+}
+
+/* Left side - Content */
 .intro-section__content {
+  flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  z-index: 10;
-  padding: 0 20px;
   text-align: center;
+  max-width: 600px;
 }
 
-/* Small photo accent */
-.intro-section__photo-accent {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  overflow: hidden;
-  margin-bottom: 32px;
-  border: 2px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+/* Right side - Profile Picture */
+.intro-section__profile {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 600px;
 }
 
-.intro-section__photo-accent img {
+.intro-section__profile img {
   width: 100%;
-  height: 100%;
+  max-width: 380px;
+  height: auto;
+  aspect-ratio: 3/4;
   object-fit: cover;
   object-position: center top;
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 20px 80px rgba(0, 0, 0, 0.4);
 }
 
 /* Greeting */
@@ -95,14 +91,14 @@
   font-weight: 400;
   letter-spacing: 0.3em;
   text-transform: uppercase;
-  color: #606060;
+  color: #a8a8a8;
   margin: 0 0 20px 0;
 }
 
-/* Name - Large centered with vertical gradient */
+/* Name - Large with silver gradient */
 .intro-section__name {
   font-family: var(--font-primary);
-  font-size: clamp(64px, 12vw, 140px);
+  font-size: clamp(48px, 8vw, 80px);
   font-weight: 700;
   letter-spacing: -0.03em;
   line-height: 0.95;
@@ -110,9 +106,9 @@
   background: linear-gradient(
     180deg,
     #ffffff 0%,
-    #e0e0e0 40%,
-    #a0a0a0 70%,
-    #606060 100%
+    #f0f0f0 30%,
+    #d0d0d0 60%,
+    #b0b0b0 100%
   );
   -webkit-background-clip: text;
   background-clip: text;
@@ -126,7 +122,7 @@
   font-weight: 500;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: #808080;
+  color: #b8b8b8;
   margin: 0 0 20px 0;
 }
 
@@ -135,7 +131,7 @@
   font-family: var(--font-primary);
   font-size: clamp(16px, 2vw, 20px);
   font-weight: 400;
-  color: #505050;
+  color: #909090;
   max-width: 500px;
   line-height: 1.6;
   margin: 0 0 40px 0;
@@ -157,7 +153,7 @@
   font-family: var(--font-primary);
   font-size: 28px;
   font-weight: 600;
-  color: #c0c0c0;
+  color: #f0f0f0;
   margin-bottom: 4px;
 }
 
@@ -167,7 +163,7 @@
   font-size: 12px;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: #505050;
+  color: #b0b0b0;
 }
 
 /* CTA buttons */
@@ -256,16 +252,60 @@
 }
 
 /* ============================================
+   Light Mode Overrides
+   ============================================ */
+
+.light-mode .intro-section__greeting {
+  color: #86868b;
+}
+
+.light-mode .intro-section__role {
+  color: #6e6e73;
+}
+
+.light-mode .intro-section__tagline {
+  color: #6e6e73;
+}
+
+.light-mode .intro-section__stat-value {
+  color: #1d1d1f;
+}
+
+.light-mode .intro-section__stat-label {
+  color: #6e6e73;
+}
+
+/* ============================================
    Responsive
    ============================================ */
+
+@media (max-width: 1024px) {
+  .intro-section__container {
+    gap: 40px;
+    padding: 0 40px;
+  }
+
+  .intro-section__profile img {
+    max-width: 350px;
+  }
+}
 
 @media (max-width: 768px) {
   .intro-section {
     min-height: 130vh;
   }
 
+  .intro-section__container {
+    gap: 30px;
+    padding: 0 30px;
+  }
+
+  .intro-section__profile img {
+    max-width: 280px;
+  }
+
   .intro-section__stats {
-    gap: 32px;
+    gap: 24px;
   }
 
   .intro-section__stat-value {
@@ -275,18 +315,15 @@
   .intro-section__cta-row {
     flex-direction: column;
     width: 100%;
-    max-width: 280px;
+    max-width: 200px;
   }
 
   .intro-section__cta-primary,
   .intro-section__cta-secondary {
     width: 100%;
     text-align: center;
-  }
-
-  .intro-section__bg-photo img {
-    width: 350px;
-    height: 450px;
+    padding: 12px 24px;
+    font-size: 14px;
   }
 }
 
@@ -295,31 +332,32 @@
     min-height: 120vh;
   }
 
-  .intro-section__photo-accent {
-    width: 64px;
-    height: 64px;
-    margin-bottom: 24px;
+  .intro-section__container {
+    gap: 20px;
+    padding: 0 20px;
+  }
+
+  .intro-section__profile img {
+    max-width: 200px;
+    border-radius: 16px;
   }
 
   .intro-section__greeting {
-    font-size: 14px;
+    font-size: 12px;
     letter-spacing: 0.2em;
   }
 
   .intro-section__stats {
-    gap: 24px;
+    gap: 16px;
+    flex-wrap: wrap;
+    justify-content: center;
   }
 
   .intro-section__stat-value {
-    font-size: 20px;
+    font-size: 18px;
   }
 
   .intro-section__stat-label {
-    font-size: 10px;
-  }
-
-  .intro-section__bg-photo img {
-    width: 280px;
-    height: 360px;
+    font-size: 9px;
   }
 }

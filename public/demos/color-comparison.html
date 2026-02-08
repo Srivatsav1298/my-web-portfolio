@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Color Comparison - Dark & Light Mode</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, sans-serif;
+      background: #1a1a1a;
+      padding: 40px 20px;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      color: #ffffff;
+      text-align: center;
+      margin-bottom: 60px;
+      font-size: 36px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 30px;
+      margin-bottom: 60px;
+    }
+
+    .card {
+      padding: 40px 30px;
+      border-radius: 16px;
+      min-height: 500px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .card-title {
+      font-size: 14px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 30px;
+      opacity: 0.6;
+      text-align: center;
+    }
+
+    .sample-heading {
+      font-size: 40px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .sample-subheading {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    .sample-body {
+      font-size: 18px;
+      line-height: 1.7;
+      margin-bottom: 16px;
+    }
+
+    .sample-secondary {
+      font-size: 16px;
+      line-height: 1.6;
+      margin-bottom: 16px;
+    }
+
+    .sample-meta {
+      font-size: 14px;
+      letter-spacing: 0.05em;
+    }
+
+    /* Dark Mode - Option 1: Higher Contrast */
+    .dark-option-1 {
+      background: #050505;
+    }
+    .dark-option-1 .card-title {
+      color: #a0a0a0;
+    }
+    .dark-option-1 .sample-heading {
+      color: #ffffff;
+    }
+    .dark-option-1 .sample-subheading {
+      color: #f5f5f5;
+    }
+    .dark-option-1 .sample-body {
+      color: #e4e4e4;
+    }
+    .dark-option-1 .sample-secondary {
+      color: #b8b8b8;
+    }
+    .dark-option-1 .sample-meta {
+      color: #959595;
+    }
+
+    /* Dark Mode - Option 2: Softer */
+    .dark-option-2 {
+      background: #050505;
+    }
+    .dark-option-2 .card-title {
+      color: #909090;
+    }
+    .dark-option-2 .sample-heading {
+      color: #f0f0f0;
+    }
+    .dark-option-2 .sample-subheading {
+      color: #e0e0e0;
+    }
+    .dark-option-2 .sample-body {
+      color: #d0d0d0;
+    }
+    .dark-option-2 .sample-secondary {
+      color: #b0b0b0;
+    }
+    .dark-option-2 .sample-meta {
+      color: #909090;
+    }
+
+    /* Light Mode - Current (Apple Style) */
+    .light-current {
+      background: #f5f5f7;
+    }
+    .light-current .card-title {
+      color: #86868b;
+    }
+    .light-current .sample-heading {
+      color: #1d1d1f;
+    }
+    .light-current .sample-subheading {
+      color: #1d1d1f;
+    }
+    .light-current .sample-body {
+      color: #1d1d1f;
+    }
+    .light-current .sample-secondary {
+      color: #6e6e73;
+    }
+    .light-current .sample-meta {
+      color: #86868b;
+    }
+
+    /* Light Mode - Alternative */
+    .light-alt {
+      background: #ffffff;
+    }
+    .light-alt .card-title {
+      color: #8e8e93;
+    }
+    .light-alt .sample-heading {
+      color: #1a1a1a;
+    }
+    .light-alt .sample-subheading {
+      color: #1a1a1a;
+    }
+    .light-alt .sample-body {
+      color: #1a1a1a;
+    }
+    .light-alt .sample-secondary {
+      color: #5a5a5a;
+    }
+    .light-alt .sample-meta {
+      color: #8e8e93;
+    }
+
+    .section-header {
+      color: #ffffff;
+      font-size: 24px;
+      font-weight: 600;
+      margin-bottom: 20px;
+      margin-top: 20px;
+      text-align: center;
+      letter-spacing: 0.05em;
+    }
+
+    .recommendation {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 20px;
+      border-radius: 8px;
+      text-align: center;
+      margin-top: 40px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .recommendation-title {
+      color: #ffffff;
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    .recommendation-text {
+      color: #b0b0b0;
+      font-size: 15px;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Color Scheme Comparison</h1>
+
+    <div class="section-header">DARK MODE OPTIONS</div>
+
+    <div class="grid">
+      <!-- Dark Mode - Option 1 -->
+      <div class="card dark-option-1">
+        <div class="card-title">Option 1: Higher Contrast</div>
+        <h2 class="sample-heading">Srivatsav</h2>
+        <h3 class="sample-subheading">Software Engineer</h3>
+        <p class="sample-body">
+          Building systems at the intersection of AI and Data. Creating intelligent solutions that transform complex problems into elegant implementations.
+        </p>
+        <p class="sample-secondary">
+          Specializing in machine learning pipelines, data engineering, and full-stack development with modern frameworks.
+        </p>
+        <p class="sample-meta">
+          3+ YEARS • 20+ PROJECTS • AI & DATA
+        </p>
+      </div>
+
+      <!-- Dark Mode - Option 2 -->
+      <div class="card dark-option-2">
+        <div class="card-title">Option 2: Softer</div>
+        <h2 class="sample-heading">Srivatsav</h2>
+        <h3 class="sample-subheading">Software Engineer</h3>
+        <p class="sample-body">
+          Building systems at the intersection of AI and Data. Creating intelligent solutions that transform complex problems into elegant implementations.
+        </p>
+        <p class="sample-secondary">
+          Specializing in machine learning pipelines, data engineering, and full-stack development with modern frameworks.
+        </p>
+        <p class="sample-meta">
+          3+ YEARS • 20+ PROJECTS • AI & DATA
+        </p>
+      </div>
+    </div>
+
+    <div class="section-header">LIGHT MODE OPTIONS</div>
+
+    <div class="grid">
+      <!-- Light Mode - Current -->
+      <div class="card light-current">
+        <div class="card-title">Current (Apple Style)</div>
+        <h2 class="sample-heading">Srivatsav</h2>
+        <h3 class="sample-subheading">Software Engineer</h3>
+        <p class="sample-body">
+          Building systems at the intersection of AI and Data. Creating intelligent solutions that transform complex problems into elegant implementations.
+        </p>
+        <p class="sample-secondary">
+          Specializing in machine learning pipelines, data engineering, and full-stack development with modern frameworks.
+        </p>
+        <p class="sample-meta">
+          3+ YEARS • 20+ PROJECTS • AI & DATA
+        </p>
+      </div>
+
+      <!-- Light Mode - Alternative -->
+      <div class="card light-alt">
+        <div class="card-title">Alternative (Higher Contrast)</div>
+        <h2 class="sample-heading">Srivatsav</h2>
+        <h3 class="sample-subheading">Software Engineer</h3>
+        <p class="sample-body">
+          Building systems at the intersection of AI and Data. Creating intelligent solutions that transform complex problems into elegant implementations.
+        </p>
+        <p class="sample-secondary">
+          Specializing in machine learning pipelines, data engineering, and full-stack development with modern frameworks.
+        </p>
+        <p class="sample-meta">
+          3+ YEARS • 20+ PROJECTS • AI & DATA
+        </p>
+      </div>
+    </div>
+
+    <div class="recommendation">
+      <div class="recommendation-title">Recommendation</div>
+      <div class="recommendation-text">
+        For Dark Mode: Option 1 (Higher Contrast) is recommended for maximum readability on your very dark (#050505) background.<br>
+        For Light Mode: Current Apple Style is already excellent and follows industry best practices.
+      </div>
+    </div>
+  </div>
+</body>
+</html>

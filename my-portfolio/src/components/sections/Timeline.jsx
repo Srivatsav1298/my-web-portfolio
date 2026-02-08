@@ -1,46 +1,7 @@
 import React, { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
+import { experienceData } from '../../data/portfolioData';
 import './Timeline.css';
-
-// Experience data
-const timelineData = [
-  {
-    id: 1,
-    year: '2025',
-    title: 'Teaching Assistant - DBMS',
-    company: 'NMBU',
-    description: 'Mentored 40+ students in SQL optimization, database design, and system thinking. Designed exercises simulating production-level data challenges.',
-    technologies: ['SQL', 'PostgreSQL', 'Database Design', 'Mentoring'],
-    type: 'work',
-  },
-  {
-    id: 2,
-    year: '2024',
-    title: "Master's in Data Science",
-    company: 'Norwegian University of Life Sciences (NMBU)',
-    description: 'Pursuing advanced studies in Data Science. Coursework: Python Programming, Data-to-Decision, SQL for Data Handling and Analysis.',
-    technologies: ['Python', 'SQL', 'Data Analytics', 'Machine Learning'],
-    type: 'education',
-  },
-  {
-    id: 3,
-    year: '2020-24',
-    title: 'Software Engineer',
-    company: 'Orion Innovation',
-    description: 'Developed backend services and APIs with clean coding practices. Migrated large-scale sports application reducing costs by 30%. Contributed to Tennis Australia architecture.',
-    technologies: ['Python', 'Flask', 'Microservices', 'Azure'],
-    type: 'work',
-  },
-  {
-    id: 4,
-    year: '2016-20',
-    title: 'B.Tech Computer Science',
-    company: 'India',
-    description: 'Bachelor of Technology in Computer Science and Engineering. Coursework: Software Engineering, Web Development, System Design.',
-    technologies: ['Software Engineering', 'Web Dev', 'System Design'],
-    type: 'education',
-  },
-];
 
 /**
  * Single timeline item
@@ -176,7 +137,7 @@ export default function Timeline() {
 
       {/* Timeline items */}
       <div className="timeline__items">
-        {timelineData.map((item, index) => (
+        {experienceData.map((item, index) => (
           <TimelineItem
             key={item.id}
             item={item}

@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Financial AI Agent - Project Preview</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      background: #1a1a1a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+    .canvas {
+      width: 800px;
+      height: 600px;
+      background: linear-gradient(135deg, #2d1b4e 0%, #4a2c6d 50%, #2d1b4e 100%);
+      position: relative;
+      overflow: hidden;
+      border-radius: 8px;
+    }
+    /* Neural network nodes */
+    .node {
+      position: absolute;
+      width: 12px;
+      height: 12px;
+      background: #a78bfa;
+      border-radius: 50%;
+      box-shadow: 0 0 20px rgba(167, 139, 250, 0.8);
+      animation: glow 3s ease-in-out infinite;
+    }
+    @keyframes glow {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.6; transform: scale(1.2); }
+    }
+    .n1 { top: 20%; left: 15%; animation-delay: 0s; }
+    .n2 { top: 35%; left: 20%; animation-delay: 0.3s; }
+    .n3 { top: 50%; left: 18%; animation-delay: 0.6s; }
+    .n4 { top: 65%; left: 22%; animation-delay: 0.9s; }
+    .n5 { top: 30%; left: 50%; animation-delay: 0.2s; }
+    .n6 { top: 45%; left: 48%; animation-delay: 0.5s; }
+    .n7 { top: 60%; left: 52%; animation-delay: 0.8s; }
+    .n8 { top: 25%; left: 80%; animation-delay: 0.4s; }
+    .n9 { top: 45%; left: 82%; animation-delay: 0.7s; }
+    .n10 { top: 60%; left: 78%; animation-delay: 1s; }
+    /* Connection lines */
+    .connections {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+    }
+    svg {
+      width: 100%;
+      height: 100%;
+    }
+    .connection-line {
+      stroke: rgba(167, 139, 250, 0.2);
+      stroke-width: 1;
+      animation: flow 4s linear infinite;
+    }
+    @keyframes flow {
+      0% { stroke-dashoffset: 0; }
+      100% { stroke-dashoffset: 40; }
+    }
+    /* AI Chat Interface mockup */
+    .chat-interface {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 500px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 16px;
+      padding: 24px;
+      backdrop-filter: blur(20px);
+    }
+    .chat-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .ai-icon {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, #a78bfa 0%, #c084fc 100%);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+    .chat-title {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 18px;
+      font-weight: 600;
+      color: #ffffff;
+    }
+    .chat-message {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 12px;
+    }
+    .message-text {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 14px;
+      color: #d0d0d0;
+      line-height: 1.6;
+    }
+    .typing-indicator {
+      display: flex;
+      gap: 6px;
+      padding: 12px;
+    }
+    .typing-dot {
+      width: 8px;
+      height: 8px;
+      background: #a78bfa;
+      border-radius: 50%;
+      animation: typing 1.4s ease-in-out infinite;
+    }
+    .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+    .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes typing {
+      0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+      30% { transform: translateY(-8px); opacity: 1; }
+    }
+    /* Title overlay */
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.6) 70%, rgba(0, 0, 0, 0.9) 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 40px;
+      pointer-events: none;
+    }
+    .title {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 32px;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 8px;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+    }
+    .subtitle {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 16px;
+      font-weight: 400;
+      color: #d0d0d0;
+      max-width: 600px;
+    }
+    .tech-badge {
+      display: inline-block;
+      padding: 6px 14px;
+      background: rgba(167, 139, 250, 0.2);
+      border: 1px solid rgba(167, 139, 250, 0.4);
+      border-radius: 16px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #a78bfa;
+      margin-top: 16px;
+      margin-right: 8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="canvas">
+    <!-- Neural network visualization -->
+    <div class="connections">
+      <svg viewBox="0 0 800 600">
+        <line class="connection-line" x1="120" y1="120" x2="400" y2="180" stroke-dasharray="5 5" />
+        <line class="connection-line" x1="120" y1="120" x2="400" y2="270" stroke-dasharray="5 5" />
+        <line class="connection-line" x1="160" y1="210" x2="400" y2="180" stroke-dasharray="5 5" />
+        <line class="connection-line" x1="160" y1="210" x2="400" y2="270" stroke-dasharray="5 5" />
+        <line class="connection-line" x1="144" y1="300" x2="400" y2="270" stroke-dasharray="5 5" />
+        <line class="connection-line" x1="176" y1="390" x2="400" y2="360" stroke-dasharray="5 5" />
+        <line class="connection-line" x1="400" y1="180" x2="640" y2="150" stroke-dasharray="5 5" />
+        <line class="connection-line" x1="400" y1="270" x2="656" y2="270" stroke-dasharray="5 5" />
+        <line class="connection-line" x1="400" y1="360" x2="624" y2="360" stroke-dasharray="5 5" />
+      </svg>
+    </div>
+
+    <div class="node n1"></div>
+    <div class="node n2"></div>
+    <div class="node n3"></div>
+    <div class="node n4"></div>
+    <div class="node n5"></div>
+    <div class="node n6"></div>
+    <div class="node n7"></div>
+    <div class="node n8"></div>
+    <div class="node n9"></div>
+    <div class="node n10"></div>
+
+    <!-- AI Chat Interface -->
+    <div class="chat-interface">
+      <div class="chat-header">
+        <div class="ai-icon">🤖</div>
+        <div class="chat-title">Financial AI Assistant</div>
+      </div>
+      <div class="chat-message">
+        <div class="message-text">
+          Based on SSB data, your household budget analysis shows optimal savings potential in energy costs...
+        </div>
+      </div>
+      <div class="typing-indicator">
+        <div class="typing-dot"></div>
+        <div class="typing-dot"></div>
+        <div class="typing-dot"></div>
+      </div>
+    </div>
+
+    <div class="overlay">
+      <div class="title">Financial AI Agent</div>
+      <div class="subtitle">Norwegian household budget insights powered by Statistics Norway data</div>
+      <div>
+        <span class="tech-badge">LangChain</span>
+        <span class="tech-badge">LLaMA</span>
+        <span class="tech-badge">AI Agent</span>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Energy Analytics Dashboard - Project Preview</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      background: #1a1a1a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+    .canvas {
+      width: 800px;
+      height: 600px;
+      background: linear-gradient(135deg, #1e3a5f 0%, #2d5a8f 50%, #1e3a5f 100%);
+      position: relative;
+      overflow: hidden;
+      border-radius: 8px;
+    }
+    /* Dashboard grid */
+    .dashboard-grid {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      padding: 30px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: auto 1fr 1fr;
+      gap: 16px;
+    }
+    /* Stats cards */
+    .stat-card {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 12px;
+      padding: 20px;
+      backdrop-filter: blur(10px);
+    }
+    .stat-value {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 32px;
+      font-weight: 700;
+      color: #60d394;
+      margin-bottom: 4px;
+    }
+    .stat-label {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      color: #b0b0b0;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    /* Chart area */
+    .chart-area {
+      grid-column: 1 / -1;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+    /* Line chart simulation */
+    .chart-line {
+      position: absolute;
+      bottom: 30px;
+      left: 30px;
+      right: 30px;
+      height: 150px;
+    }
+    svg {
+      width: 100%;
+      height: 100%;
+    }
+    .line {
+      fill: none;
+      stroke: #60d394;
+      stroke-width: 3;
+      filter: drop-shadow(0 0 8px rgba(96, 211, 148, 0.6));
+      animation: draw 3s ease-in-out infinite;
+    }
+    @keyframes draw {
+      0%, 100% { stroke-dashoffset: 0; }
+      50% { stroke-dashoffset: 20; }
+    }
+    .area {
+      fill: url(#gradient);
+      opacity: 0.3;
+    }
+    /* Axis lines */
+    .axis {
+      stroke: rgba(255, 255, 255, 0.1);
+      stroke-width: 1;
+    }
+    /* Title overlay */
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.6) 70%, rgba(0, 0, 0, 0.9) 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 40px;
+      pointer-events: none;
+    }
+    .title {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 32px;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 8px;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+    }
+    .subtitle {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 16px;
+      font-weight: 400;
+      color: #d0d0d0;
+      max-width: 600px;
+    }
+    .tech-badge {
+      display: inline-block;
+      padding: 6px 14px;
+      background: rgba(96, 211, 148, 0.2);
+      border: 1px solid rgba(96, 211, 148, 0.4);
+      border-radius: 16px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #60d394;
+      margin-top: 16px;
+      margin-right: 8px;
+    }
+    /* Pulsing dots */
+    .pulse-dot {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      background: #60d394;
+      border-radius: 50%;
+      animation: pulse 2s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(96, 211, 148, 0.7); }
+      50% { opacity: 0.6; box-shadow: 0 0 0 8px rgba(96, 211, 148, 0); }
+    }
+    .pd-1 { top: 15%; right: 10%; animation-delay: 0s; }
+    .pd-2 { top: 25%; right: 25%; animation-delay: 0.5s; }
+    .pd-3 { top: 35%; right: 15%; animation-delay: 1s; }
+  </style>
+</head>
+<body>
+  <div class="canvas">
+    <div class="pulse-dot pd-1"></div>
+    <div class="pulse-dot pd-2"></div>
+    <div class="pulse-dot pd-3"></div>
+
+    <div class="dashboard-grid">
+      <div class="stat-card">
+        <div class="stat-value">1M+</div>
+        <div class="stat-label">Records</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">3x</div>
+        <div class="stat-label">Faster</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">Real-time</div>
+        <div class="stat-label">Processing</div>
+      </div>
+
+      <div class="chart-area">
+        <div class="chart-line">
+          <svg viewBox="0 0 700 150" preserveAspectRatio="none">
+            <defs>
+              <linearGradient id="gradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" style="stop-color:#60d394;stop-opacity:0.6" />
+                <stop offset="100%" style="stop-color:#60d394;stop-opacity:0" />
+              </linearGradient>
+            </defs>
+            <!-- Axis lines -->
+            <line class="axis" x1="0" y1="150" x2="700" y2="150" />
+            <line class="axis" x1="0" y1="0" x2="0" y2="150" />
+            <!-- Area fill -->
+            <path class="area" d="M 0 150 L 0 110 Q 100 90, 150 70 T 300 50 T 450 60 T 600 40 L 700 30 L 700 150 Z" />
+            <!-- Line -->
+            <path class="line" d="M 0 110 Q 100 90, 150 70 T 300 50 T 450 60 T 600 40 L 700 30"
+                  stroke-dasharray="10 5" />
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <div class="overlay">
+      <div class="title">Energy Analytics Dashboard</div>
+      <div class="subtitle">Processing 1M+ electricity records with near real-time monitoring</div>
+      <div>
+        <span class="tech-badge">Python</span>
+        <span class="tech-badge">PySpark</span>
+        <span class="tech-badge">ETL</span>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

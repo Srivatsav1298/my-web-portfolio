@@ -1,30 +1,9 @@
 /* ============================================
-   Sections CSS - New AI Theme
-   Metallic Grey Text - Enhanced Visibility
+   Sections CSS - Silver for Dark, Apple for Light
    ============================================ */
 
 /* ============================================
-   Metallic Text Gradient - Brighter for Readability
-   ============================================ */
-
-.metallic-text {
-  background: linear-gradient(
-    90deg,
-    #808080 0%,
-    #b0b0b0 15%,
-    #e0e0e0 35%,
-    #f5f5f5 50%,
-    #e0e0e0 65%,
-    #b0b0b0 85%,
-    #808080 100%
-  );
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-
-/* ============================================
-   Section Base Styles
+   Section Base Styles - Dark Mode (Silver)
    ============================================ */
 
 .section {
@@ -55,15 +34,7 @@
   font-weight: 400;
   letter-spacing: 0.1em;
   margin-right: 12px;
-  background: linear-gradient(
-    90deg,
-    #707070 0%,
-    #a0a0a0 50%,
-    #707070 100%
-  );
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  color: #b0b0b0;
 }
 
 .section__title {
@@ -72,7 +43,7 @@
   font-weight: 600;
   margin: 0;
   display: inline-block;
-  color: #e0e0e0;
+  color: #f0f0f0;
 }
 
 .section__subtitle {
@@ -81,19 +52,7 @@
   font-weight: 400;
   margin-top: 16px;
   max-width: 600px;
-  background: linear-gradient(
-    90deg,
-    #707070 0%,
-    #a0a0a0 15%,
-    #d8d8d8 35%,
-    #f0f0f0 50%,
-    #d8d8d8 65%,
-    #a0a0a0 85%,
-    #707070 100%
-  );
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  color: #d0d0d0;
 }
 
 /* ============================================
@@ -124,13 +83,68 @@
   font-size: 18px;
   font-weight: 400;
   line-height: 1.9;
-  color: #d0d0d0;
+  color: #e0e0e0;
   margin: 0;
 }
 
 /* ============================================
    Projects Section
    ============================================ */
+
+/* Filter Buttons */
+.projects__filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+  margin-bottom: 48px;
+}
+
+.projects__filter-btn {
+  padding: 12px 24px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 24px;
+  font-family: var(--font-primary);
+  font-size: 14px;
+  font-weight: 500;
+  color: #b0b0b0;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.projects__filter-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.2);
+  color: #e0e0e0;
+}
+
+.projects__filter-btn--active {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.3);
+  color: #f0f0f0;
+}
+
+.projects__filter-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 24px;
+  height: 24px;
+  padding: 0 8px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.projects__filter-btn--active .projects__filter-count {
+  background: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+}
 
 .projects__grid {
   display: grid;
@@ -150,34 +164,230 @@
 }
 
 .project-card {
-  padding: 32px;
+  padding: 0;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  min-height: 300px;
+  min-height: 420px;
   transition: transform 0.4s ease, box-shadow 0.4s ease;
+  overflow: hidden;
+  transform-style: preserve-3d;
+  perspective: 1000px;
 }
 
 .project-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+  transform: translateY(-12px) rotateX(2deg);
+  box-shadow:
+    0 30px 60px rgba(0, 0, 0, 0.5),
+    0 0 40px rgba(255, 255, 255, 0.05);
+}
+
+/* Project Image */
+.project-card__image-wrapper {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+  background: radial-gradient(ellipse at top, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 50%, transparent 100%);
+}
+
+.project-card__image {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+  transition: transform 0.4s ease;
+  transform-style: preserve-3d;
+  perspective: 1000px;
+}
+
+/* 3D Glassmorphism layers */
+.project-card__image::before {
+  content: '';
+  position: absolute;
+  top: 10%;
+  left: 10%;
+  right: 10%;
+  bottom: 10%;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  transform: translateZ(20px);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.2),
+    inset 0 0 20px rgba(255, 255, 255, 0.05);
+  transition: transform 0.4s ease;
+}
+
+.project-card:hover .project-card__image::before {
+  transform: translateZ(40px);
+}
+
+/* Floating glass panel effect */
+.project-card__image::after {
+  content: '';
+  position: absolute;
+  top: 20%;
+  left: 15%;
+  right: 15%;
+  bottom: 20%;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.1) 0%,
+    rgba(255, 255, 255, 0.05) 50%,
+    rgba(255, 255, 255, 0.02) 100%
+  );
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
+  transform: translateZ(40px) rotateX(5deg);
+  box-shadow:
+    0 15px 50px rgba(0, 0, 0, 0.3),
+    inset 0 0 15px rgba(255, 255, 255, 0.1);
+  transition: all 0.4s ease;
+  animation: float3d 6s ease-in-out infinite;
+}
+
+.project-card:hover .project-card__image::after {
+  transform: translateZ(60px) rotateX(8deg);
+}
+
+@keyframes float3d {
+  0%, 100% {
+    transform: translateZ(40px) rotateX(5deg) translateY(0);
+  }
+  50% {
+    transform: translateZ(40px) rotateX(5deg) translateY(-10px);
+  }
+}
+
+/* Remove old styling */
+
+.project-card__image-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(5, 5, 5, 0.3) 60%,
+    rgba(5, 5, 5, 0.8) 100%
+  );
+  backdrop-filter: blur(2px);
+}
+
+/* Add glowing particles for depth */
+.project-card__image-wrapper::before {
+  content: '';
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 50%;
+  top: 30%;
+  left: 20%;
+  box-shadow:
+    0 0 10px rgba(255, 255, 255, 0.8),
+    40px 30px 0 0 rgba(255, 255, 255, 0.4),
+    80px -20px 0 0 rgba(255, 255, 255, 0.5),
+    -30px 50px 0 0 rgba(255, 255, 255, 0.3),
+    120px 60px 0 0 rgba(255, 255, 255, 0.4),
+    60px -10px 0 0 rgba(255, 255, 255, 0.35);
+  animation: twinkle 4s ease-in-out infinite;
+  z-index: 1;
+}
+
+.project-card__image-wrapper::after {
+  content: '';
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  top: 60%;
+  right: 30%;
+  box-shadow:
+    0 0 8px rgba(255, 255, 255, 0.6),
+    -50px -30px 0 0 rgba(255, 255, 255, 0.35),
+    30px 20px 0 0 rgba(255, 255, 255, 0.4),
+    -70px 10px 0 0 rgba(255, 255, 255, 0.3);
+  animation: twinkle 5s ease-in-out infinite 1s;
+  z-index: 1;
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+/* Metrics Badges */
+.project-card__metrics {
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+  right: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  z-index: 3;
+}
+
+.project-card__metric-badge {
+  padding: 8px 14px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  color: #ffffff;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  box-shadow:
+    0 4px 15px rgba(0, 0, 0, 0.2),
+    inset 0 0 10px rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+}
+
+.project-card:hover .project-card__metric-badge {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+  box-shadow:
+    0 6px 20px rgba(0, 0, 0, 0.3),
+    inset 0 0 15px rgba(255, 255, 255, 0.15);
+}
+
+/* Project Content */
+.project-card__content {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-grow: 1;
 }
 
 .project-card__header {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  margin-bottom: 24px;
+  margin-bottom: 16px;
 }
 
 .project-card__icon {
-  color: #a0a0a0;
+  color: #c0c0c0;
   opacity: 0.9;
   transition: color 0.3s ease;
 }
 
 .project-card:hover .project-card__icon {
-  color: #d0d0d0;
+  color: #e8e8e8;
 }
 
 .project-card__links {
@@ -186,12 +396,12 @@
 }
 
 .project-card__link {
-  color: #808080;
+  color: #b0b0b0;
   transition: color 0.3s ease, transform 0.3s ease;
 }
 
 .project-card__link:hover {
-  color: #e0e0e0;
+  color: #f0f0f0;
   transform: translateY(-2px);
 }
 
@@ -201,19 +411,7 @@
   font-weight: 600;
   margin: 0 0 14px 0;
   transition: all 0.3s ease;
-  background: linear-gradient(
-    90deg,
-    #707070 0%,
-    #a0a0a0 15%,
-    #d8d8d8 35%,
-    #f0f0f0 50%,
-    #d8d8d8 65%,
-    #a0a0a0 85%,
-    #707070 100%
-  );
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  color: #f0f0f0;
 }
 
 .project-card__description {
@@ -223,19 +421,7 @@
   line-height: 1.8;
   margin-bottom: 24px;
   flex-grow: 1;
-  background: linear-gradient(
-    90deg,
-    #808080 0%,
-    #a8a8a8 15%,
-    #d0d0d0 35%,
-    #e8e8e8 50%,
-    #d0d0d0 65%,
-    #a8a8a8 85%,
-    #808080 100%
-  );
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  color: #d0d0d0;
 }
 
 .project-card__tags {
@@ -254,13 +440,13 @@
   padding: 4px 10px;
   background: rgba(255, 255, 255, 0.05);
   border-radius: 4px;
-  color: #a0a0a0;
+  color: #b8b8b8;
   transition: all 0.3s ease;
 }
 
 .project-card:hover .project-card__tags li {
   background: rgba(255, 255, 255, 0.08);
-  color: #c0c0c0;
+  color: #d8d8d8;
 }
 
 /* ============================================
@@ -280,12 +466,12 @@
 
 .skill-card {
   padding: 32px;
-  border-left: 3px solid #606060;
+  border-left: 3px solid #808080;
   transition: border-color 0.4s ease, transform 0.4s ease;
 }
 
 .skill-card:hover {
-  border-left-color: #a0a0a0;
+  border-left-color: #c0c0c0;
   transform: translateX(8px);
 }
 
@@ -297,32 +483,20 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  background: linear-gradient(
-    90deg,
-    #707070 0%,
-    #a0a0a0 15%,
-    #d8d8d8 35%,
-    #f0f0f0 50%,
-    #d8d8d8 65%,
-    #a0a0a0 85%,
-    #707070 100%
-  );
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  color: #f0f0f0;
 }
 
 .skill-card__dot {
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: #a0a0a0;
+  background: #c0c0c0;
   transition: background 0.3s ease, box-shadow 0.3s ease;
 }
 
 .skill-card:hover .skill-card__dot {
-  background: #d0d0d0;
-  box-shadow: 0 0 12px rgba(200, 200, 200, 0.4);
+  background: #e8e8e8;
+  box-shadow: 0 0 12px rgba(232, 232, 232, 0.4);
 }
 
 .skill-card__list {
@@ -340,13 +514,13 @@
   font-size: 14px;
   font-weight: 400;
   transition: all 0.3s ease;
-  color: #b0b0b0;
+  color: #c8c8c8;
 }
 
 .skill-card__item:hover {
   border-color: rgba(255, 255, 255, 0.2);
   background: rgba(255, 255, 255, 0.06);
-  color: #e0e0e0;
+  color: #f0f0f0;
   transform: translateY(-2px);
 }
 
@@ -372,15 +546,7 @@
   letter-spacing: 0.15em;
   text-transform: uppercase;
   margin-bottom: 20px;
-  background: linear-gradient(
-    90deg,
-    #707070 0%,
-    #a0a0a0 50%,
-    #707070 100%
-  );
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  color: #b0b0b0;
 }
 
 .contact__title {
@@ -388,19 +554,7 @@
   font-size: clamp(40px, 10vw, 64px);
   font-weight: 600;
   margin: 0 0 28px 0;
-  background: linear-gradient(
-    90deg,
-    #707070 0%,
-    #a0a0a0 15%,
-    #d8d8d8 35%,
-    #f0f0f0 50%,
-    #d8d8d8 65%,
-    #a0a0a0 85%,
-    #707070 100%
-  );
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  color: #f5f5f5;
 }
 
 .contact__text {
@@ -410,19 +564,7 @@
   line-height: 1.8;
   max-width: 520px;
   margin-bottom: 48px;
-  background: linear-gradient(
-    90deg,
-    #808080 0%,
-    #b0b0b0 15%,
-    #e0e0e0 35%,
-    #f0f0f0 50%,
-    #e0e0e0 65%,
-    #b0b0b0 85%,
-    #808080 100%
-  );
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  color: #d8d8d8;
 }
 
 .contact__details {
@@ -439,12 +581,12 @@
   gap: 10px;
   font-family: var(--font-mono);
   font-size: 14px;
-  color: #a0a0a0;
+  color: #b8b8b8;
   transition: color 0.3s ease;
 }
 
 .contact__detail-item:hover {
-  color: #d0d0d0;
+  color: #e8e8e8;
 }
 
 .contact__detail-item svg {
@@ -466,15 +608,7 @@
   font-family: var(--font-mono);
   font-size: 13px;
   letter-spacing: 0.08em;
-  background: linear-gradient(
-    90deg,
-    #606060 0%,
-    #909090 50%,
-    #606060 100%
-  );
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  color: #a8a8a8;
 }
 
 /* ============================================
@@ -513,7 +647,7 @@
   border-radius: 20px;
   font-family: var(--font-mono);
   font-size: 12px;
-  color: var(--text-secondary);
+  color: #b0b0b0;
   cursor: pointer;
   transition: all var(--transition-fast);
   text-transform: uppercase;
@@ -522,108 +656,74 @@
 
 .skills__toggle-btn:hover {
   background: var(--glass-bg-hover);
-  color: var(--text-primary);
+  color: #e0e0e0;
 }
 
 .skills__toggle-btn--active {
-  background: rgba(150, 150, 150, 0.15);
-  border-color: var(--accent-light);
-  color: var(--text-primary);
+  background: rgba(200, 200, 200, 0.15);
+  border-color: rgba(255, 255, 255, 0.3);
+  color: #f0f0f0;
 }
 
 /* ============================================
    Light Mode Overrides - Apple Style
-   Clean, solid colors, no gradients
    ============================================ */
 
-.light-mode .section__title {
-  color: #1d1d1f;
-  background: none;
-  -webkit-background-clip: unset;
-  background-clip: unset;
-}
-
-.light-mode .metallic-text,
-.light-mode .section__number,
-.light-mode .section__subtitle {
-  color: #6e6e73;
-  background: none;
-  -webkit-background-clip: unset;
-  background-clip: unset;
-}
-
+/* Primary text - Apple dark */
+.light-mode .section__title,
+.light-mode .project-card__title,
+.light-mode .skill-card__title,
+.light-mode .contact__title,
+.light-mode .contact__text,
 .light-mode .about__text p {
   color: #1d1d1f;
-  background: none;
-  -webkit-background-clip: unset;
-  background-clip: unset;
-  font-weight: 400;
-  line-height: 1.8;
 }
 
-.light-mode .project-card__title {
-  color: #1d1d1f;
-  background: none;
-  -webkit-background-clip: unset;
-  background-clip: unset;
-}
-
-.light-mode .project-card__description {
-  color: #6e6e73;
-  background: none;
-  -webkit-background-clip: unset;
-  background-clip: unset;
-}
-
-.light-mode .skill-card__title {
-  color: #1d1d1f;
-  background: none;
-  -webkit-background-clip: unset;
-  background-clip: unset;
-}
-
-.light-mode .contact__pre {
-  color: #86868b;
-  background: none;
-  -webkit-background-clip: unset;
-  background-clip: unset;
-}
-
-.light-mode .contact__title {
-  color: #1d1d1f;
-  background: none;
-  -webkit-background-clip: unset;
-  background-clip: unset;
-}
-
-.light-mode .contact__text {
-  color: #1d1d1f;
-  background: none;
-  -webkit-background-clip: unset;
-  background-clip: unset;
-}
-
-.light-mode .footer {
-  color: #86868b;
-  background: none;
-  -webkit-background-clip: unset;
-  background-clip: unset;
-}
-
-/* Apple-style skill items */
+/* Secondary text - Apple medium gray */
+.light-mode .section__number,
+.light-mode .section__subtitle,
+.light-mode .project-card__description,
+.light-mode .contact__detail-item,
+.light-mode .project-card__tags li,
 .light-mode .skill-card__item {
+  color: #6e6e73;
+}
+
+/* Tertiary text - Apple light gray */
+.light-mode .contact__pre,
+.light-mode .footer,
+.light-mode .project-card__icon,
+.light-mode .project-card__link {
+  color: #86868b;
+}
+
+/* Hover states for light mode */
+.light-mode .project-card__link:hover,
+.light-mode .contact__detail-item:hover {
+  color: #1d1d1f;
+}
+
+.light-mode .project-card:hover .project-card__icon {
+  color: #1d1d1f;
+}
+
+/* Apple-style pill buttons and tags */
+.light-mode .skill-card__item,
+.light-mode .project-card__tags li,
+.light-mode .skills__toggle-btn {
   background: #f5f5f7;
   border-color: transparent;
-  color: #1d1d1f;
   border-radius: 980px;
-  font-weight: 500;
 }
 
-.light-mode .skill-card__item:hover {
+.light-mode .skill-card__item:hover,
+.light-mode .project-card:hover .project-card__tags li,
+.light-mode .skills__toggle-btn:hover {
   background: #e8e8ed;
   color: #1d1d1f;
 }
 
+/* Skill cards */
 .light-mode .skill-card {
   border-left-color: #d2d2d7;
   background: rgba(255, 255, 255, 0.6);
@@ -634,51 +734,101 @@
   background: rgba(255, 255, 255, 0.9);
 }
 
-.light-mode .skill-card__dot {
-  background: #1d1d1f;
-}
-
+.light-mode .skill-card__dot,
 .light-mode .skill-card:hover .skill-card__dot {
   background: #1d1d1f;
   box-shadow: none;
 }
 
-/* Apple-style project tags */
-.light-mode .project-card__tags li {
-  background: #f5f5f7;
-  color: #6e6e73;
-  border-radius: 980px;
-}
-
-.light-mode .project-card:hover .project-card__tags li {
-  background: #e8e8ed;
-  color: #1d1d1f;
-}
-
-/* Apple-style contact */
-.light-mode .contact__detail-item {
-  color: #6e6e73;
-}
-
-.light-mode .contact__detail-item:hover {
-  color: #1d1d1f;
-}
-
-/* Apple-style toggle buttons */
+/* Toggle button states */
 .light-mode .skills__toggle-btn {
-  background: #f5f5f7;
-  border: none;
-  color: #6e6e73;
   font-weight: 500;
-  border-radius: 980px;
-}
-
-.light-mode .skills__toggle-btn:hover {
-  background: #e8e8ed;
-  color: #1d1d1f;
+  border: none;
 }
 
 .light-mode .skills__toggle-btn--active {
   background: #1d1d1f;
   color: #ffffff;
 }
+
+/* Project filters */
+.light-mode .projects__filter-btn {
+  background: #f5f5f7;
+  border-color: transparent;
+  color: #6e6e73;
+}
+
+.light-mode .projects__filter-btn:hover {
+  background: #e8e8ed;
+  color: #1d1d1f;
+}
+
+.light-mode .projects__filter-btn--active {
+  background: #1d1d1f;
+  color: #ffffff;
+  border-color: #1d1d1f;
+}
+
+.light-mode .projects__filter-count {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.light-mode .projects__filter-btn--active .projects__filter-count {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* Project cards - Light Mode Glassmorphism */
+.light-mode .project-card__image-wrapper {
+  background: radial-gradient(ellipse at top, rgba(0, 0, 0, 0.06) 0%, rgba(0, 0, 0, 0.02) 50%, transparent 100%);
+}
+
+.light-mode .project-card__image::before {
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.1),
+    inset 0 0 20px rgba(255, 255, 255, 0.3);
+}
+
+.light-mode .project-card__image::after {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.5) 0%,
+    rgba(255, 255, 255, 0.3) 50%,
+    rgba(255, 255, 255, 0.2) 100%
+  );
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  box-shadow:
+    0 15px 50px rgba(0, 0, 0, 0.15),
+    inset 0 0 15px rgba(255, 255, 255, 0.5);
+}
+
+.light-mode .project-card__image-overlay {
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.3) 60%,
+    rgba(255, 255, 255, 0.8) 100%
+  );
+  backdrop-filter: blur(2px);
+}
+
+.light-mode .project-card__image-wrapper::before,
+.light-mode .project-card__image-wrapper::after {
+  background: rgba(100, 100, 255, 0.4);
+  box-shadow:
+    0 0 10px rgba(100, 100, 255, 0.6),
+    40px 30px 0 0 rgba(100, 100, 255, 0.3),
+    80px -20px 0 0 rgba(100, 100, 255, 0.35),
+    -30px 50px 0 0 rgba(100, 100, 255, 0.25);
+}
+
+.light-mode .project-card__metric-badge {
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(10px);
+  border-color: rgba(0, 0, 0, 0.1);
+  color: #1d1d1f;
+}
+

@@ -1,40 +1,48 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MessageCircle, X, Send, Sparkles } from 'lucide-react';
+import {
+  personalInfo,
+  skillCategories,
+  projects,
+  experienceData,
+  education,
+  certifications,
+} from '../data/portfolioData';
 import './AIChatAssistant.css';
 
-// Knowledge base about Srivatsav
+// Build knowledge base from centralized data
 const knowledgeBase = {
-  name: 'Srivatsav Saravanan',
-  role: 'Data Science Graduate Student & Software Engineer',
-  education: {
-    masters: "Master's in Data Science at NMBU, Norway (2024-2026)",
-    bachelors: "B.Tech Computer Science from India (2016-2020)",
-  },
-  location: 'Ås, Norway',
+  name: personalInfo.name,
+  role: personalInfo.role,
+  education,
+  location: personalInfo.location,
   skills: {
-    backend: ['Python', 'Flask', 'RestAPI', 'Microservices'],
-    datascience: ['Pandas', 'Matplotlib', 'Seaborn', 'Data Modeling', 'Data Analytics'],
-    databases: ['SQL', 'PostgreSQL', 'Data Modelling'],
-    cloud: ['Azure', 'AWS', 'Docker', 'CI/CD', 'Cloud Architecture'],
-    dev: ['Git', 'Clean Coding', 'Software Architecture', 'Testing'],
-    ai: ['LangChain', 'LLM APIs', 'Claude', 'LLaMA'],
+    backend: skillCategories.find(s => s.id === 'backend')?.items || [],
+    datascience: skillCategories.find(s => s.id === 'data')?.items || [],
+    databases: skillCategories.find(s => s.id === 'database')?.items || [],
+    cloud: skillCategories.find(s => s.id === 'cloud')?.items || [],
+    dev: skillCategories.find(s => s.id === 'dev')?.items || [],
+    ai: skillCategories.find(s => s.id === 'ai')?.items || [],
   },
-  certifications: ['3rd Place GenAI Hackathon AWS Norway', 'AWS Cloud Computing Badge', 'GenAI Concepts - DataCamp', 'Star of the Month (2x) - Orion Innovation'],
-  projects: [
-    { name: 'Oil Spill Simulation System', tech: ['Python', 'Pandas', 'Matplotlib'], desc: 'Environmental impact modeling for offshore operations' },
-    { name: 'Energy Analytics Dashboard', tech: ['Python', 'PySpark', 'ETL'], desc: '1M+ hourly electricity records from Elhub Norway' },
-    { name: 'Financial AI Agent', tech: ['Python', 'LLaMA', 'SSB Data'], desc: 'Norwegian household budget insights with AI' },
-    { name: 'AV Danse Studio Platform', tech: ['AWS', 'JavaScript', 'CI/CD'], desc: '99.99% uptime, 50% cost reduction' },
-  ],
-  experience: [
-    { role: 'Teaching Assistant - DBMS', company: 'NMBU', period: 'Sept - Dec 2025', desc: 'Mentored 40+ students in SQL and database design' },
-    { role: 'Software Engineer', company: 'Orion Innovation', period: 'Nov 2020 - Jul 2024', desc: 'Backend services, Tennis Australia app, 30% cost reduction' },
-  ],
-  languages: ['English (Fluent)', 'Norwegian (B1)'],
+  certifications,
+  projects: projects.map(p => ({
+    name: p.title,
+    tech: p.tags.slice(0, 3),
+    desc: p.description.split('.')[0],
+  })),
+  experience: experienceData
+    .filter(e => e.type === 'work')
+    .map(e => ({
+      role: e.title,
+      company: e.company,
+      period: e.year,
+      desc: e.description.split('.')[0],
+    })),
+  languages: personalInfo.languages,
   contact: {
-    email: 'srivatsavsaravanan@gmail.com',
-    linkedin: 'linkedin.com/in/srivatsav-saravanan',
+    email: personalInfo.email,
+    linkedin: personalInfo.linkedin,
   },
 };
 
@@ -43,9 +51,9 @@ const intents = [
   {
     patterns: [/hi|hello|hey|howdy|greetings/i],
     responses: [
-      "Hello! I'm Srivatsav's AI assistant. How can I help you learn more about his work?",
-      "Hey there! Ask me anything about Srivatsav's skills, projects, or experience.",
-      "Hi! I'm here to help you explore Srivatsav's portfolio. What would you like to know?",
+      "Hello! I'm Starc, Vatsav's AI assistant. How can I help you learn more about his work?",
+      "Hey there! Ask me anything about Vatsav's skills, projects, or experience.",
+      "Hi! I'm Starc, here to help you explore Vatsav's portfolio. What would you like to know?",
     ],
   },
   {
@@ -57,95 +65,95 @@ const intents = [
   {
     patterns: [/experience|work|job|orion|company/i],
     responses: [
-      `Srivatsav's professional experience:\n\n${knowledgeBase.experience.map(e => `• ${e.role} at ${e.company} (${e.period}): ${e.desc}`).join('\n\n')}`,
+      `Vatsav's professional experience:\n\n${knowledgeBase.experience.map(e => `• ${e.role} at ${e.company} (${e.period}): ${e.desc}`).join('\n\n')}`,
     ],
   },
   {
     patterns: [/skill|tech|stack|know|proficient|expertise/i],
     responses: [
-      `Srivatsav's technical expertise:\n\n• Backend: ${knowledgeBase.skills.backend.join(', ')}\n• Data Science: ${knowledgeBase.skills.datascience.slice(0, 4).join(', ')}\n• Cloud: ${knowledgeBase.skills.cloud.slice(0, 4).join(', ')}\n• AI: ${knowledgeBase.skills.ai.join(', ')}`,
+      `Vatsav's technical expertise:\n\n• Backend: ${knowledgeBase.skills.backend.join(', ')}\n• Data Science: ${knowledgeBase.skills.datascience.slice(0, 4).join(', ')}\n• Cloud: ${knowledgeBase.skills.cloud.slice(0, 4).join(', ')}\n• AI: ${knowledgeBase.skills.ai.join(', ')}`,
     ],
   },
   {
     patterns: [/python|flask|backend/i],
     responses: [
-      "Python is Srivatsav's primary language! He uses it extensively for backend development (Flask, RestAPI), data science (Pandas, Matplotlib), and AI applications (LangChain, LLaMA). He built scalable microservices at Orion Innovation.",
+      "Python is Vatsav's primary language! He uses it extensively for backend development (Flask, RestAPI), data science (Pandas, Matplotlib), and AI applications (LangChain, LLaMA). He built scalable microservices at Orion Innovation.",
     ],
   },
   {
     patterns: [/ai|langchain|llm|llama|claude/i],
     responses: [
-      `Srivatsav has strong AI/LLM skills:\n\n• LangChain for building AI agents\n• LLM APIs: Claude, LLaMA\n• Built Financial AI Agent with SSB data\n• 3rd Place at AWS Norway GenAI Hackathon`,
+      `Vatsav has strong AI/LLM skills:\n\n• LangChain for building AI agents\n• LLM APIs: Claude, LLaMA\n• Built Financial AI Agent with SSB data\n• 3rd Place at AWS Norway GenAI Hackathon`,
     ],
   },
   {
     patterns: [/data|pandas|analytics|matplotlib/i],
     responses: [
-      `Srivatsav's Data Science stack:\n\n• Analysis: Pandas, Data Modeling, Data Analytics\n• Visualization: Matplotlib, Seaborn\n• Processing: PySpark, ETL pipelines\n• Built Energy Analytics Dashboard processing 1M+ records`,
+      `Vatsav's Data Science stack:\n\n• Analysis: Pandas, Data Modeling, Data Analytics\n• Visualization: Matplotlib, Seaborn\n• Processing: PySpark, ETL pipelines\n• Built Energy Analytics Dashboard processing 1M+ records`,
     ],
   },
   {
     patterns: [/project|work|built|portfolio|showcase/i],
     responses: [
-      `Here are Srivatsav's notable projects:\n\n${knowledgeBase.projects.map(p => `• ${p.name}: ${p.desc} (${p.tech.join(', ')})`).join('\n\n')}`,
+      `Here are Vatsav's notable projects:\n\n${knowledgeBase.projects.map(p => `• ${p.name}: ${p.desc} (${p.tech.join(', ')})`).join('\n\n')}`,
     ],
   },
   {
     patterns: [/cloud|aws|azure|docker|devops/i],
     responses: [
-      `Srivatsav's Cloud & DevOps skills:\n\n• Azure: App Services, Cloud Architecture\n• AWS: S3, CloudFront, Route 53\n• Docker & CI/CD pipelines\n• Built AV Danse platform with 99.99% uptime`,
+      `Vatsav's Cloud & DevOps skills:\n\n• Azure: App Services, Cloud Architecture\n• AWS: S3, CloudFront, Route 53\n• Docker & CI/CD pipelines\n• Built AV Danse platform with 99.99% uptime`,
     ],
   },
   {
     patterns: [/database|sql|postgres/i],
     responses: [
-      `Srivatsav's database expertise:\n\n• SQL & PostgreSQL\n• Data Modelling\n• Teaching Assistant for DBMS at NMBU\n• Mentored 40+ students in SQL optimization`,
+      `Vatsav's database expertise:\n\n• SQL & PostgreSQL\n• Data Modelling\n• Teaching Assistant for DBMS at NMBU\n• Mentored 40+ students in SQL optimization`,
     ],
   },
   {
     patterns: [/education|degree|college|nmbu|university|masters/i],
     responses: [
-      `Education:\n\n• Master's in Data Science - NMBU, Norway (2024-2026)\n  Coursework: Python, Data-to-Decision, SQL\n\n• B.Tech Computer Science - India (2016-2020)\n  Coursework: Software Engineering, Web Dev, System Design`,
+      `Education:\n\n• ${knowledgeBase.education.masters}\n  Coursework: Python, Data-to-Decision, SQL\n\n• ${knowledgeBase.education.bachelors}\n  Coursework: Software Engineering, Web Dev, System Design`,
     ],
   },
   {
     patterns: [/certif|award|hackathon/i],
     responses: [
-      `Srivatsav's certifications & awards:\n\n• 3rd Place: GenAI Hackathon - AWS Norway (Nov 2025)\n• AWS Cloud Computing Badge\n• GenAI Concepts - DataCamp\n• Star of the Month (2x) - Orion Innovation`,
+      `Vatsav's certifications & awards:\n\n${knowledgeBase.certifications.map(c => `• ${c}`).join('\n')}`,
     ],
   },
   {
     patterns: [/contact|email|reach|hire|connect|linkedin/i],
     responses: [
-      `You can connect with Srivatsav:\n\n• Email: ${knowledgeBase.contact.email}\n• LinkedIn: ${knowledgeBase.contact.linkedin}\n• Location: Ås, Norway\n\nFeel free to reach out!`,
+      `You can connect with Vatsav:\n\n• Email: ${knowledgeBase.contact.email}\n• LinkedIn: ${knowledgeBase.contact.linkedin}\n• Location: ${knowledgeBase.location}\n\nFeel free to reach out!`,
     ],
   },
   {
     patterns: [/language|norwegian|english/i],
     responses: [
-      `Languages:\n\n• English - Fluent\n• Norwegian - B1 (Actively Improving)\n\nSrivatsav is currently studying in Norway and improving his Norwegian language skills.`,
+      `Languages:\n\n• ${knowledgeBase.languages.join('\n• ')}\n\nVatsav is currently studying in Norway and improving his Norwegian language skills.`,
     ],
   },
   {
     patterns: [/thank|thanks|bye|goodbye/i],
     responses: [
       "You're welcome! Feel free to ask if you have more questions. Have a great day!",
-      "Glad I could help! Don't hesitate to reach out to Srivatsav directly for more detailed discussions.",
+      "Glad I could help! Don't hesitate to reach out to Vatsav directly for more detailed discussions.",
     ],
   },
   {
     patterns: [/help|what can you|how do i|options/i],
     responses: [
-      "I can help you learn about:\n\n• Srivatsav's skills (Python, Data Science, AI, Cloud)\n• His projects (Oil Spill Simulation, Energy Analytics, AI Agent)\n• Work experience at Orion Innovation\n• Education at NMBU, Norway\n• How to contact him\n\nJust ask naturally!",
+      "I can help you learn about:\n\n• Vatsav's skills (Python, Data Science, AI, Cloud)\n• His projects (Oil Spill Simulation, Energy Analytics, AI Agent)\n• Work experience at Orion Innovation\n• Education at NMBU, Norway\n• How to contact him\n\nJust ask naturally!",
     ],
   },
 ];
 
 // Default fallback responses
 const fallbackResponses = [
-  "I'm not sure about that specific topic, but I'd be happy to tell you about Srivatsav's skills, projects, or experience at Orion Innovation and NMBU. What would you like to know?",
-  "That's an interesting question! I'm best at answering questions about Srivatsav's technical skills, projects, and background. Try asking about his data science or AI experience!",
-  "I don't have information on that, but I can tell you all about Srivatsav's expertise in Python, Data Science, Cloud, and AI. What interests you?",
+  "I'm not sure about that specific topic, but I'd be happy to tell you about Vatsav's skills, projects, or experience at Orion Innovation and NMBU. What would you like to know?",
+  "That's an interesting question! I'm best at answering questions about Vatsav's technical skills, projects, and background. Try asking about his data science or AI experience!",
+  "I don't have information on that, but I can tell you all about Vatsav's expertise in Python, Data Science, Cloud, and AI. What interests you?",
 ];
 
 // Suggested questions
@@ -199,7 +207,7 @@ export default function AIChatAssistant() {
     {
       id: 1,
       type: 'bot',
-      text: "Hi! I'm Srivatsav's AI assistant. Ask me about his skills, projects, or experience in Data Science and Software Engineering!",
+      text: "Hi! I'm Starc, Vatsav's AI assistant. Ask me about his skills, projects, or experience in Data Science and Software Engineering!",
       timestamp: new Date(),
     },
   ]);

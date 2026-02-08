@@ -1,0 +1,79 @@
+/* ============================================
+   Utilities CSS - Reusable CSS Classes
+   ============================================ */
+
+/* Metallic gradient text effect
+   Used in: section titles, subtitles, project cards, contact */
+.metallic-gradient {
+  background: linear-gradient(
+    90deg,
+    #707070 0%,
+    #a0a0a0 15%,
+    #d8d8d8 35%,
+    #f0f0f0 50%,
+    #d8d8d8 65%,
+    #a0a0a0 85%,
+    #707070 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Lighter metallic gradient for descriptions */
+.metallic-gradient--light {
+  background: linear-gradient(
+    90deg,
+    #808080 0%,
+    #a8a8a8 15%,
+    #d0d0d0 35%,
+    #e8e8e8 50%,
+    #d0d0d0 65%,
+    #a8a8a8 85%,
+    #808080 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Brighter metallic gradient for high contrast text */
+.metallic-gradient--bright {
+  background: linear-gradient(
+    90deg,
+    #808080 0%,
+    #b0b0b0 15%,
+    #e0e0e0 35%,
+    #f5f5f5 50%,
+    #e0e0e0 65%,
+    #b0b0b0 85%,
+    #808080 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Simple metallic gradient (two-stop) */
+.metallic-gradient--simple {
+  background: linear-gradient(
+    90deg,
+    #707070 0%,
+    #a0a0a0 50%,
+    #707070 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Light mode override - remove gradients */
+.light-mode .metallic-gradient,
+.light-mode .metallic-gradient--light,
+.light-mode .metallic-gradient--bright,
+.light-mode .metallic-gradient--simple {
+  color: #6e6e73;
+  background: none;
+  -webkit-background-clip: unset;
+  background-clip: unset;
+}

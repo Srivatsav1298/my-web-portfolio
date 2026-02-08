@@ -20,12 +20,41 @@
   justify-content: center;
   z-index: 1000;
   transition: all var(--transition-normal);
+  animation: chatButtonEntrance 1s ease-out 2s both, chatButtonPulse 3s ease-in-out 3s infinite;
+  box-shadow: 0 4px 20px rgba(150, 150, 150, 0.3);
 }
 
 .chat-toggle:hover {
   background: var(--glass-bg-hover);
   border-color: var(--glass-border-hover);
-  transform: translateY(-2px);
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 8px 30px rgba(150, 150, 150, 0.4);
+  animation: none;
+}
+
+@keyframes chatButtonEntrance {
+  0% {
+    opacity: 0;
+    transform: translateY(20px) scale(0.8);
+  }
+  60% {
+    transform: translateY(-10px) scale(1.1);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes chatButtonPulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 4px 20px rgba(150, 150, 150, 0.3);
+  }
+  50% {
+    transform: scale(1.08);
+    box-shadow: 0 6px 30px rgba(180, 180, 180, 0.5);
+  }
 }
 
 .chat-toggle__icon {
@@ -40,12 +69,19 @@
   top: -4px;
   right: -4px;
   color: var(--accent-highlight);
-  animation: sparkle 2s ease-in-out infinite;
+  animation: sparkle 2s ease-in-out 2.5s infinite;
+  filter: drop-shadow(0 0 4px rgba(200, 200, 200, 0.6));
 }
 
 @keyframes sparkle {
-  0%, 100% { opacity: 0.5; transform: scale(1); }
-  50% { opacity: 1; transform: scale(1.2); }
+  0%, 100% {
+    opacity: 0.6;
+    transform: scale(1) rotate(0deg);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.4) rotate(180deg);
+  }
 }
 
 /* Chat Window */
@@ -306,7 +342,26 @@
 /* Light Mode */
 .light-mode .chat-toggle {
   background: rgba(255, 255, 255, 0.9);
-  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.light-mode .chat-toggle:hover {
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+}
+
+@keyframes chatButtonPulseLightMode {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  }
+  50% {
+    transform: scale(1.08);
+    box-shadow: 0 6px 30px rgba(0, 0, 0, 0.25);
+  }
+}
+
+.light-mode .chat-toggle {
+  animation: chatButtonEntrance 1s ease-out 2s both, chatButtonPulseLightMode 3s ease-in-out 3s infinite;
 }
 
 .light-mode .chat-window {

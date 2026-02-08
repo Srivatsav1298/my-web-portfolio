@@ -1,6 +1,5 @@
 /* ============================================
-   Navbar Styles - AI Theme
-   Metallic Grey Text with Dark Edges
+   Navbar Styles - Silver & Apple Theme
    ============================================ */
 
 .navbar {
@@ -24,7 +23,7 @@
   background: rgba(10, 10, 10, 0.9);
 }
 
-/* Logo */
+/* Logo - Silver for Dark Mode */
 .navbar__logo {
   flex-shrink: 0;
 }
@@ -37,22 +36,10 @@
   letter-spacing: 0.4em;
   user-select: none;
   transition: opacity var(--transition-normal);
-  background: linear-gradient(
-    90deg,
-    #505050 0%,
-    #909090 15%,
-    #d0d0d0 35%,
-    #e8e8e8 50%,
-    #d0d0d0 65%,
-    #909090 85%,
-    #505050 100%
-  );
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  color: #e0e0e0;
 }
 
-/* Navigation Links */
+/* Navigation Links - Silver for Dark Mode */
 .navbar__links {
   display: flex;
   gap: 32px;
@@ -65,34 +52,14 @@
   font-weight: 500;
   text-decoration: none;
   transition: all var(--transition-normal);
-  background: linear-gradient(
-    90deg,
-    #505050 0%,
-    #808080 25%,
-    #a0a0a0 50%,
-    #808080 75%,
-    #505050 100%
-  );
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  color: #b8b8b8;
 }
 
 .navbar__links a:hover {
-  background: linear-gradient(
-    90deg,
-    #606060 0%,
-    #a0a0a0 25%,
-    #d0d0d0 50%,
-    #a0a0a0 75%,
-    #606060 100%
-  );
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  color: #f0f0f0;
 }
 
-/* Icons */
+/* Icons - Silver for Dark Mode */
 .navbar__icons {
   display: flex;
   gap: 16px;
@@ -100,14 +67,31 @@
 }
 
 .navbar__icon {
-  color: #808080;
+  color: #b0b0b0;
   transition: color var(--transition-normal);
   display: flex;
   align-items: center;
 }
 
 .navbar__icon:hover {
-  color: #d0d0d0;
+  color: #e8e8e8;
+}
+
+/* Resume Download - Special styling */
+.navbar__resume {
+  position: relative;
+  padding: 8px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all var(--transition-normal);
+}
+
+.navbar__resume:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-1px);
+  color: #ffffff;
 }
 
 /* Theme Toggle */
@@ -131,7 +115,7 @@
   right: 4px;
   width: 6px;
   height: 6px;
-  background: #808080;
+  background: #b0b0b0;
   border-radius: 50%;
   animation: autoPulse 2s ease-in-out infinite;
 }
@@ -142,7 +126,7 @@
 }
 
 /* ============================================
-   Light Mode Overrides
+   Light Mode Overrides - Apple Style
    ============================================ */
 
 .light-mode .navbar--scrolled {
@@ -150,55 +134,34 @@
 }
 
 .light-mode .navbar__logo-text {
-  background: linear-gradient(
-    90deg,
-    #808080 0%,
-    #505050 15%,
-    #303030 35%,
-    #1a1a1a 50%,
-    #303030 65%,
-    #505050 85%,
-    #808080 100%
-  );
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  color: #000000;
 }
 
 .light-mode .navbar__links a {
-  background: linear-gradient(
-    90deg,
-    #808080 0%,
-    #606060 25%,
-    #404040 50%,
-    #606060 75%,
-    #808080 100%
-  );
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  color: #1d1d1f;
 }
 
 .light-mode .navbar__links a:hover {
-  background: linear-gradient(
-    90deg,
-    #606060 0%,
-    #404040 25%,
-    #1a1a1a 50%,
-    #404040 75%,
-    #606060 100%
-  );
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  color: #000000;
 }
 
 .light-mode .navbar__icon {
-  color: #606060;
+  color: #1d1d1f;
 }
 
 .light-mode .navbar__icon:hover {
-  color: #2a2a2a;
+  color: #000000;
+}
+
+.light-mode .navbar__resume {
+  background: rgba(0, 0, 0, 0.05);
+  border-color: rgba(0, 0, 0, 0.1);
+}
+
+.light-mode .navbar__resume:hover {
+  background: rgba(0, 0, 0, 0.1);
+  border-color: rgba(0, 0, 0, 0.2);
+  color: #000000;
 }
 
 .light-mode .navbar__theme-toggle:hover {
@@ -206,7 +169,7 @@
 }
 
 .light-mode .navbar__auto-indicator {
-  background: #505050;
+  background: #1d1d1f;
 }
 
 /* ============================================

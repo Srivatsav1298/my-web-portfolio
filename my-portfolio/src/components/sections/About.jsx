@@ -76,21 +76,8 @@ const About = () => {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.6 }}
+          style={{ marginTop: '80px' }}
         >
-          <motion.h3
-            className="section__subtitle"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.7 }}
-            style={{
-              textAlign: 'center',
-              marginTop: '80px',
-              marginBottom: '20px',
-            }}
-          >
-            Experience Journey
-          </motion.h3>
           <Timeline />
         </motion.div>
       </motion.div>

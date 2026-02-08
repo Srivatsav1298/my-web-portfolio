@@ -1,0 +1,66 @@
+/* LoadTimeIndicator - Top left load time display */
+
+.load-time-indicator {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 1000;
+  padding: 10px 14px;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  font-family: var(--font-mono, 'SF Mono', 'Fira Code', monospace);
+  pointer-events: none;
+}
+
+.load-time-indicator__content {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.load-time-indicator__label {
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  color: rgba(255, 255, 255, 0.5);
+  text-transform: uppercase;
+}
+
+.load-time-indicator__time {
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+}
+
+.load-time-indicator__bar {
+  margin-top: 6px;
+  height: 2px;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 1px;
+  overflow: hidden;
+}
+
+.load-time-indicator__fill {
+  height: 100%;
+  width: 100%;
+  border-radius: 1px;
+}
+
+/* Light mode */
+.light-mode .load-time-indicator {
+  background: rgba(255, 255, 255, 0.8);
+  border-color: rgba(0, 0, 0, 0.1);
+}
+
+.light-mode .load-time-indicator__label {
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.light-mode .load-time-indicator__bar {
+  background: rgba(0, 0, 0, 0.1);
+}

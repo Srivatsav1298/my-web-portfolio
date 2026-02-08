@@ -39,7 +39,7 @@ const Navbar = forwardRef(({ showName = false }, ref) => {
             ease: [0.16, 1, 0.3, 1],
           }}
         >
-          SRIVATSAV
+          VATSAV
         </motion.span>
       </div>
 
@@ -51,6 +51,16 @@ const Navbar = forwardRef(({ showName = false }, ref) => {
       </nav>
 
       <div className="navbar__icons">
+        {/* Resume Download */}
+        <a
+          href="/my-web-portfolio/resume.pdf"
+          download="Vatsav_Saravanan_Resume.pdf"
+          title="Download Resume"
+          className="navbar__icon navbar__resume"
+        >
+          <FileText size={18} />
+        </a>
+
         {/* Theme toggle */}
         <button
           onClick={toggleTheme}

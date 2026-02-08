@@ -5,8 +5,8 @@ import profileImage from '../../assets/profile.jpg';
 import './IntroAnimation.css';
 
 /**
- * IntroAnimation - Centered Impact Hero
- * Everything visible immediately on load, exits on scroll
+ * IntroAnimation - Split Layout Hero
+ * Content on left, profile picture on right, exits on scroll
  */
 export default function IntroAnimation({ onIntroComplete }) {
   const { greeting } = useTheme();
@@ -86,23 +86,12 @@ export default function IntroAnimation({ onIntroComplete }) {
       <AnimatePresence>
         {isInView && (
           <>
-            {/* Background photo - very subtle */}
-            <motion.div
-              className="intro-section__bg-photo"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 0.06 * animations.contentOpacity }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.8 }}
-            >
-              <img src={profileImage} alt="" />
-            </motion.div>
-
             {/* Ambient glow */}
             <div className="intro-section__ambient-glow" />
 
-            {/* Main content - centered */}
+            {/* Main container - split layout */}
             <motion.div
-              className="intro-section__content"
+              className="intro-section__container"
               initial={{ opacity: 0 }}
               animate={{
                 opacity: animations.contentOpacity,
@@ -111,96 +100,99 @@ export default function IntroAnimation({ onIntroComplete }) {
               exit={{ opacity: 0, y: -50 }}
               transition={{ duration: 0.5, ease: "easeOut" }}
             >
-              {/* Small photo accent */}
+              {/* Left side - Content */}
+              <div className="intro-section__content">
+                {/* Greeting */}
+                <motion.p
+                  className="intro-section__greeting"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.6, delay: 0.2 }}
+                >
+                  {greeting}, I'm
+                </motion.p>
+
+                {/* Name */}
+                <motion.h1
+                  className="intro-section__name"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.7, delay: 0.3 }}
+                >
+                  Vatsav
+                </motion.h1>
+
+                {/* Role */}
+                <motion.p
+                  className="intro-section__role"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.6, delay: 0.5 }}
+                >
+                  Software Engineer
+                </motion.p>
+
+                {/* Tagline */}
+                <motion.p
+                  className="intro-section__tagline"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.6, delay: 0.7 }}
+                >
+                  Building systems at the intersection of AI and Data
+                </motion.p>
+
+                {/* Stats row */}
+                <motion.div
+                  className="intro-section__stats"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.6, delay: 0.9 }}
+                >
+                  <div className="intro-section__stat">
+                    <span className="intro-section__stat-value">3+</span>
+                    <span className="intro-section__stat-label">Years Exp</span>
+                  </div>
+                  <div className="intro-section__stat">
+                    <span className="intro-section__stat-value">20+</span>
+                    <span className="intro-section__stat-label">Projects</span>
+                  </div>
+                  <div className="intro-section__stat">
+                    <span className="intro-section__stat-value">AI</span>
+                    <span className="intro-section__stat-label">& Data</span>
+                  </div>
+                </motion.div>
+
+                {/* CTA buttons */}
+                <motion.div
+                  className="intro-section__cta-row"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.6, delay: 1.1 }}
+                >
+                  <button
+                    className="intro-section__cta-primary"
+                    onClick={scrollToProjects}
+                  >
+                    View Work
+                  </button>
+                  <button
+                    className="intro-section__cta-secondary"
+                    onClick={scrollToContact}
+                  >
+                    Get in Touch
+                  </button>
+                </motion.div>
+              </div>
+
+              {/* Right side - Profile Picture */}
               <motion.div
-                className="intro-section__photo-accent"
-                initial={{ opacity: 0, scale: 0.8 }}
+                className="intro-section__profile"
+                initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5, delay: 0.1 }}
+                transition={{ duration: 0.8, delay: 0.1 }}
               >
                 <img src={profileImage} alt="Srivatsav" />
-              </motion.div>
-
-              {/* Greeting */}
-              <motion.p
-                className="intro-section__greeting"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.6, delay: 0.3 }}
-              >
-                {greeting}, I'm
-              </motion.p>
-
-              {/* Name */}
-              <motion.h1
-                className="intro-section__name"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.7, delay: 0.2 }}
-              >
-                Srivatsav
-              </motion.h1>
-
-              {/* Role */}
-              <motion.p
-                className="intro-section__role"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.6, delay: 0.5 }}
-              >
-                Software Engineer
-              </motion.p>
-
-              {/* Tagline */}
-              <motion.p
-                className="intro-section__tagline"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.6, delay: 0.7 }}
-              >
-                Building systems at the intersection of AI and Data
-              </motion.p>
-
-              {/* Stats row */}
-              <motion.div
-                className="intro-section__stats"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.6, delay: 0.9 }}
-              >
-                <div className="intro-section__stat">
-                  <span className="intro-section__stat-value">3+</span>
-                  <span className="intro-section__stat-label">Years Exp</span>
-                </div>
-                <div className="intro-section__stat">
-                  <span className="intro-section__stat-value">20+</span>
-                  <span className="intro-section__stat-label">Projects</span>
-                </div>
-                <div className="intro-section__stat">
-                  <span className="intro-section__stat-value">AI</span>
-                  <span className="intro-section__stat-label">& Data</span>
-                </div>
-              </motion.div>
-
-              {/* CTA buttons */}
-              <motion.div
-                className="intro-section__cta-row"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.6, delay: 1.1 }}
-              >
-                <button
-                  className="intro-section__cta-primary"
-                  onClick={scrollToProjects}
-                >
-                  View Work
-                </button>
-                <button
-                  className="intro-section__cta-secondary"
-                  onClick={scrollToContact}
-                >
-                  Get in Touch
-                </button>
               </motion.div>
             </motion.div>
 
