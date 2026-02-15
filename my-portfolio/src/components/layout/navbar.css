@@ -17,10 +17,21 @@
   border-radius: 28px;
   z-index: 200;
   transition: all var(--transition-smooth);
+  background: rgba(30, 30, 30, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.light-mode .navbar {
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .navbar--scrolled {
-  background: rgba(10, 10, 10, 0.9);
+  background: rgba(30, 30, 30, 0.95);
+}
+
+.light-mode .navbar--scrolled {
+  background: rgba(255, 255, 255, 0.95);
 }
 
 /* Logo - Silver for Dark Mode */

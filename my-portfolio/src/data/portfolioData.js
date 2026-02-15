@@ -24,42 +24,74 @@ export const skillCategories = [
   {
     id: 'backend',
     category: 'Programming & Backend',
-    items: ['Python', 'Flask', 'RestAPI', 'Microservices'],
+    items: [
+      { name: 'Python', icon: 'python' },
+      { name: 'Flask', icon: 'flask' },
+      { name: 'RestAPI', icon: 'fastapi' },
+      { name: 'Microservices', icon: 'diagramsdotnet' },
+    ],
     color: '#b0b0b5',
     shortName: 'Backend',
   },
   {
     id: 'data',
     category: 'Data Science',
-    items: ['Pandas', 'Matplotlib', 'Seaborn', 'Data Modeling', 'Distributed Systems', 'Data Analytics'],
+    items: [
+      { name: 'Pandas', icon: 'pandas' },
+      { name: 'Matplotlib', icon: 'plotly' },
+      { name: 'Seaborn', icon: 'anaconda' },
+      { name: 'Data Modeling', icon: 'databricks' },
+      { name: 'PySpark', icon: 'apachespark' },
+      { name: 'Data Analytics', icon: 'googleanalytics' },
+    ],
     color: '#8a9aaa',
     shortName: 'Data Science',
   },
   {
     id: 'database',
     category: 'Databases',
-    items: ['SQL', 'PostgreSQL', 'Data Modelling'],
+    items: [
+      { name: 'SQL', icon: 'postgresql' },
+      { name: 'PostgreSQL', icon: 'postgresql' },
+      { name: 'Data Modelling', icon: 'dbt' },
+    ],
     color: '#9aaa8a',
     shortName: 'Databases',
   },
   {
     id: 'cloud',
     category: 'Cloud & DevOps',
-    items: ['Azure', 'AWS', 'Docker', 'CI/CD', 'Cloud Architecture'],
+    items: [
+      { name: 'Azure', icon: 'microsoftazure' },
+      { name: 'AWS', icon: 'amazonaws' },
+      { name: 'Docker', icon: 'docker' },
+      { name: 'CI/CD', icon: 'githubactions' },
+      { name: 'Cloud Architecture', icon: 'terraform' },
+    ],
     color: '#8aaa8a',
     shortName: 'Cloud',
   },
   {
     id: 'dev',
     category: 'Software Development',
-    items: ['Git', 'Clean Coding', 'Software Architecture', 'Testing'],
+    items: [
+      { name: 'Git', icon: 'git' },
+      { name: 'Clean Coding', icon: 'sonarlint' },
+      { name: 'Software Architecture', icon: 'linkedin' },
+      { name: 'Testing', icon: 'pytest' },
+    ],
     color: '#9a8aaa',
     shortName: 'Dev',
   },
   {
     id: 'ai',
     category: 'AI',
-    items: ['LangChain', 'LLM APIs', 'Claude', 'LLaMA'],
+    items: [
+      { name: 'LangChain', icon: 'chainlink' },
+      { name: 'LLM APIs', icon: 'openai' },
+      { name: 'Claude', icon: 'anthropic' },
+      { name: 'LLaMA', icon: 'meta' },
+    ],
     color: '#aa9a8a',
     shortName: 'AI',
   },
@@ -68,7 +100,8 @@ export const skillCategories = [
 // For Skills grid view - uses category and items
 export const skillsForGrid = skillCategories.map(({ category, items }) => ({
   category,
-  items,
+  items: items.map(item => typeof item === 'string' ? item : item.name),
+  itemsWithIcons: items,
 }));
 
 // Category colors lookup for SkillsNetwork
@@ -184,7 +217,7 @@ export const projects = [
     description: 'Data-driven simulation system to model oil spill scenarios in offshore environments, visualize environmental impact, and support real-time monitoring for early detection and decision-making.',
     tags: ['Python', 'Pandas', 'Matplotlib', 'Mesh Data', 'Simulation'],
     category: 'data-science',
-    image: '/my-web-portfolio/project-previews/oil-spill.jpg',
+    image: '/my-web-portfolio/src/assets/project-images/oil-spill.png',
     github: '#',
     live: '#',
     metrics: {
@@ -196,7 +229,7 @@ export const projects = [
     description: 'Data-intensive analytics platform processing 1M+ hourly electricity records from Elhub Norway. Engineered scalable ETL pipelines for near real-time monitoring and decision-making.',
     tags: ['Python', 'PySpark', 'ETL', 'Data Analytics'],
     category: 'data-science',
-    image: '/my-web-portfolio/project-previews/energy-dashboard.jpg',
+    image: '/my-web-portfolio/src/assets/project-images/energy-data-analytics.png',
     github: '#',
     live: '#',
     metrics: {
@@ -208,7 +241,7 @@ export const projects = [
     description: 'AI agent providing Norwegian household budget insights with explainable reasoning, leveraging real-world Statistics Norway (SSB) data for financial planning.',
     tags: ['Python', 'LLaMA', 'LangChain', 'AI Agent'],
     category: 'ai-ml',
-    image: '/my-web-portfolio/project-previews/financial-ai.jpg',
+    image: '/my-web-portfolio/src/assets/project-images/financial-ai.png',
     github: '#',
     live: '#',
     metrics: {

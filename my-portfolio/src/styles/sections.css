@@ -506,7 +506,7 @@
 }
 
 .skill-card__item {
-  padding: 10px 18px;
+  padding: 10px 16px;
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 24px;
@@ -515,6 +515,19 @@
   font-weight: 400;
   transition: all 0.3s ease;
   color: #c8c8c8;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: default;
+}
+
+.skill-card__icon {
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+}
+
+.skill-card__item:hover .skill-card__icon {
+  opacity: 1;
 }
 
 .skill-card__item:hover {
