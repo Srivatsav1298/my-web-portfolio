@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { ChevronDown } from 'lucide-react';
 import { useTheme } from '../../context/ThemeContext';
 import profileImage from '../../assets/profile.jpg';
 import './IntroAnimation.css';
@@ -20,7 +21,8 @@ export default function IntroAnimation({ onIntroComplete }) {
     const handleScroll = () => {
       const newScrollY = window.scrollY;
       setScrollY(newScrollY);
-      setIsInView(newScrollY < windowHeight * 1.5);
+      // Hide section after scrolling past 1 viewport height
+      setIsInView(newScrollY < windowHeight * 0.9);
     };
 
     const handleResize = () => {
@@ -40,25 +42,25 @@ export default function IntroAnimation({ onIntroComplete }) {
   // Smooth easing
   const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3);
 
-  // Calculate scroll progress (shorter section now - 1.5x viewport)
-  const rawProgress = Math.min(scrollY / (windowHeight * 1.5), 1);
+  // Calculate scroll progress (gentle fade - 1x viewport)
+  const rawProgress = Math.min(scrollY / windowHeight, 1);
 
-  // Animation values
+  // Animation values - softer, more gradual
   const animations = useMemo(() => {
-    // Content fades out and moves up as user scrolls
-    const contentOpacity = rawProgress < 0.6
+    // Content fades out gradually as user scrolls past 50%
+    const contentOpacity = rawProgress < 0.5
       ? 1
-      : 1 - easeOutCubic((rawProgress - 0.6) / 0.4);
+      : 1 - ((rawProgress - 0.5) * 1.5);
 
     const contentY = rawProgress > 0.3
-      ? -easeOutCubic((rawProgress - 0.3) / 0.7) * 100
+      ? -((rawProgress - 0.3) * 50)
       : 0;
 
     // Scroll indicator fades out quickly
-    const scrollHintOpacity = Math.max(0, 1 - rawProgress * 3);
+    const scrollHintOpacity = Math.max(0, 1 - rawProgress * 2);
 
     return {
-      contentOpacity,
+      contentOpacity: Math.max(0, contentOpacity),
       contentY,
       scrollHintOpacity,
     };
@@ -74,7 +76,7 @@ export default function IntroAnimation({ onIntroComplete }) {
   }, [rawProgress, onIntroComplete]);
 
   const scrollToProjects = () => {
-    document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' });
+    document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' });
   };
 
   const scrollToContact = () => {
@@ -196,17 +198,23 @@ export default function IntroAnimation({ onIntroComplete }) {
               </motion.div>
             </motion.div>
 
-            {/* Scroll indicator - mouse style */}
+            {/* Scroll indicator - Minimal Arrow */}
             <motion.div
               className="intro-section__scroll-hint"
               initial={{ opacity: 0 }}
               animate={{ opacity: animations.scrollHintOpacity }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.3, delay: 1.4 }}
+              onClick={() => window.scrollTo({ top: windowHeight, behavior: 'smooth' })}
+              style={{ cursor: 'pointer' }}
             >
-              <div className="intro-section__scroll-mouse">
-                <div className="intro-section__scroll-wheel" />
-              </div>
+              <motion.div
+                className="intro-section__scroll-arrow"
+                animate={{ y: [0, 8, 0] }}
+                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+              >
+                <ChevronDown size={28} strokeWidth={1.5} />
+              </motion.div>
             </motion.div>
           </>
         )}

@@ -6,15 +6,16 @@
 .intro-section {
   position: relative;
   width: 100%;
-  min-height: 150vh;
+  min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: visible;
   z-index: 1;
+  padding: 80px 0;
 }
 
-/* Fixed elements during scroll */
+/* Fixed elements during scroll - shorter duration */
 .intro-section__ambient-glow,
 .intro-section__container,
 .intro-section__scroll-hint {
@@ -209,46 +210,48 @@
   color: #fff;
 }
 
-/* Scroll indicator - mouse style */
+/* Scroll indicator - Minimal Arrow */
 .intro-section__scroll-hint {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-end;
-  padding-bottom: 40px;
+  padding-bottom: 32px;
   z-index: 15;
-  pointer-events: none;
 }
 
-.intro-section__scroll-mouse {
-  width: 24px;
-  height: 38px;
-  border: 2px solid rgba(255, 255, 255, 0.2);
-  border-radius: 12px;
-  position: relative;
+.intro-section__scroll-arrow {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(4px);
+  transition: all 0.3s ease;
 }
 
-.intro-section__scroll-wheel {
-  position: absolute;
-  top: 8px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 3px;
-  height: 8px;
-  background: rgba(255, 255, 255, 0.4);
-  border-radius: 2px;
-  animation: scrollWheel 2s ease-in-out infinite;
+.intro-section__scroll-hint:hover .intro-section__scroll-arrow {
+  border-color: rgba(255, 255, 255, 0.4);
+  color: rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.08);
+  transform: scale(1.1);
 }
 
-@keyframes scrollWheel {
-  0%, 100% {
-    opacity: 1;
-    transform: translateX(-50%) translateY(0);
-  }
-  50% {
-    opacity: 0.3;
-    transform: translateX(-50%) translateY(10px);
-  }
+/* Light Mode */
+.light-mode .intro-section__scroll-arrow {
+  border-color: rgba(0, 0, 0, 0.15);
+  color: rgba(0, 0, 0, 0.4);
+  background: rgba(0, 0, 0, 0.03);
+}
+
+.light-mode .intro-section__scroll-hint:hover .intro-section__scroll-arrow {
+  border-color: rgba(0, 0, 0, 0.3);
+  color: rgba(0, 0, 0, 0.7);
+  background: rgba(0, 0, 0, 0.06);
 }
 
 /* ============================================
@@ -273,6 +276,41 @@
 
 .light-mode .intro-section__stat-label {
   color: #6e6e73;
+}
+
+.light-mode .intro-section__scroll-text {
+  color: rgba(0, 0, 0, 0.4);
+}
+
+.light-mode .intro-section__scroll-hint:hover .intro-section__scroll-text {
+  color: rgba(0, 0, 0, 0.7);
+}
+
+.light-mode .neural-node {
+  fill: rgba(0, 0, 0, 0.08);
+  stroke: rgba(0, 0, 0, 0.2);
+}
+
+.light-mode .neural-node--end {
+  fill: rgba(0, 0, 0, 0.15);
+  stroke: rgba(0, 0, 0, 0.35);
+}
+
+.light-mode .neural-line {
+  stroke: rgba(0, 0, 0, 0.12);
+}
+
+.light-mode .intro-section__scroll-arrows {
+  color: rgba(0, 0, 0, 0.4);
+}
+
+.light-mode .intro-section__scroll-hint:hover .intro-section__scroll-arrows {
+  color: rgba(0, 0, 0, 0.7);
+}
+
+.light-mode .neural-pulse {
+  fill: rgba(80, 80, 80, 0.7);
+  filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.3));
 }
 
 /* ============================================

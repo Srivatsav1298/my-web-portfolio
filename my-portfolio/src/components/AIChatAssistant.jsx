@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MessageCircle, X, Send, Sparkles } from 'lucide-react';
 import {
@@ -11,195 +11,444 @@ import {
 } from '../data/portfolioData';
 import './AIChatAssistant.css';
 
-// Build knowledge base from centralized data
+// ============================================
+// ENHANCED NLP KNOWLEDGE BASE
+// ============================================
+
 const knowledgeBase = {
   name: personalInfo.name,
   role: personalInfo.role,
   education,
   location: personalInfo.location,
-  skills: {
-    backend: skillCategories.find(s => s.id === 'backend')?.items || [],
-    datascience: skillCategories.find(s => s.id === 'data')?.items || [],
-    databases: skillCategories.find(s => s.id === 'database')?.items || [],
-    cloud: skillCategories.find(s => s.id === 'cloud')?.items || [],
-    dev: skillCategories.find(s => s.id === 'dev')?.items || [],
-    ai: skillCategories.find(s => s.id === 'ai')?.items || [],
-  },
-  certifications,
+  email: personalInfo.email,
+  linkedin: personalInfo.linkedin,
+  languages: personalInfo.languages,
+
+  // Flattened skills for easier search
+  skills: skillCategories.flatMap(cat =>
+    cat.items.map(item => ({ name: item, category: cat.title, categoryId: cat.id }))
+  ),
+
+  // Detailed project info
   projects: projects.map(p => ({
     name: p.title,
-    tech: p.tags.slice(0, 3),
-    desc: p.description.split('.')[0],
+    shortName: p.title.split(' ').slice(0, 2).join(' ').toLowerCase(),
+    tech: p.tags,
+    category: p.category,
+    description: p.description,
+    metrics: p.metrics || {},
   })),
+
+  // Work experience
   experience: experienceData
     .filter(e => e.type === 'work')
     .map(e => ({
       role: e.title,
       company: e.company,
       period: e.year,
-      desc: e.description.split('.')[0],
+      description: e.description,
     })),
-  languages: personalInfo.languages,
+
+  certifications,
+};
+
+// ============================================
+// ADVANCED INTENT CLASSIFICATION
+// ============================================
+
+const intentPatterns = {
+  greeting: {
+    keywords: ['hi', 'hello', 'hey', 'howdy', 'greetings', 'morning', 'afternoon', 'evening', 'sup', 'yo'],
+    responses: () => [
+      `Hello! I'm Starc, ${knowledgeBase.name}'s AI assistant. How can I help you explore his portfolio?`,
+      `Hey there! Ask me anything about ${knowledgeBase.name}'s work in AI, Data Science, and Software Engineering.`,
+      `Hi! I'm here to help you learn about ${knowledgeBase.name}'s skills and projects. What interests you?`,
+    ],
+  },
+
+  identity: {
+    keywords: ['who', 'about', 'introduce', 'tell me about', 'who is', 'yourself', 'starc', 'what are you'],
+    responses: () => [
+      `${knowledgeBase.name} is a ${knowledgeBase.role} currently pursuing his Master's at NMBU, Norway. He has 4 years of experience at Orion Innovation and specializes in Python, Data Science, and AI applications.`,
+    ],
+  },
+
+  skills: {
+    keywords: ['skill', 'tech', 'stack', 'know', 'proficient', 'expertise', 'technology', 'good at', 'capable', 'can you do'],
+    responses: (query) => {
+      // Check for specific skill category
+      const categories = {
+        python: ['python', 'flask', 'backend'],
+        data: ['data', 'pandas', 'analytics', 'matplotlib', 'visualization'],
+        ai: ['ai', 'langchain', 'llm', 'machine learning', 'ml', 'artificial intelligence'],
+        cloud: ['cloud', 'aws', 'azure', 'docker', 'devops'],
+        database: ['database', 'sql', 'postgres', 'db'],
+        web: ['web', 'frontend', 'react', 'javascript', 'html', 'css'],
+      };
+
+      for (const [cat, keywords] of Object.entries(categories)) {
+        if (keywords.some(k => query.includes(k))) {
+          return getCategoryResponse(cat);
+        }
+      }
+
+      return [`${knowledgeBase.name}'s technical expertise spans:\n\n` +
+        `• Backend: Python, Flask, RestAPI\n` +
+        `• Data Science: Pandas, NumPy, Matplotlib, Data Analytics\n` +
+        `• AI/Machine Learning: LangChain, LLMs, Claude, LLaMA\n` +
+        `• Cloud & DevOps: Azure, AWS, Docker, CI/CD\n` +
+        `• Databases: SQL, PostgreSQL, Data Modeling\n\n` +
+        `Want details on any specific area?`];
+    },
+  },
+
+  projects: {
+    keywords: ['project', 'work', 'built', 'portfolio', 'showcase', 'created', 'developed', 'made', 'oil', 'energy', 'financial', 'dance'],
+    responses: (query) => {
+      // Check for specific project
+      const projectMatches = knowledgeBase.projects.filter(p =>
+        query.includes(p.shortName) ||
+        p.name.toLowerCase().includes(query) ||
+        query.includes(p.category.toLowerCase())
+      );
+
+      if (projectMatches.length === 1) {
+        const p = projectMatches[0];
+        const metrics = Object.entries(p.metrics).map(([k, v]) => v).join(' | ');
+        return [`**${p.name}**\n\n${p.description}\n\nTechnologies: ${p.tech.join(', ')}${metrics ? `\nKey metrics: ${metrics}` : ''}`];
+      }
+
+      if (projectMatches.length > 1) {
+        return [`I found ${projectMatches.length} relevant projects:\n\n` +
+          projectMatches.map(p => `• **${p.name}**: ${p.description.slice(0, 80)}...`).join('\n\n') +
+          `\n\nAsk about a specific one for more details!`];
+      }
+
+      return [`Here are ${knowledgeBase.name}'s key projects:\n\n` +
+        knowledgeBase.projects.map(p => `• **${p.name}**: ${p.tech.slice(0, 3).join(', ')}`).join('\n\n') +
+        `\n\nAsk me about any specific project for more details!`];
+    },
+  },
+
+  experience: {
+    keywords: ['experience', 'work', 'job', 'career', 'orion', 'company', 'employed', 'professional', 'history', 'background'],
+    responses: () => [
+      `${knowledgeBase.name}'s professional experience:\n\n` +
+      knowledgeBase.experience.map(e =>
+        `**${e.role}** at ${e.company}\n${e.period}: ${e.description.slice(0, 100)}...`
+      ).join('\n\n'),
+    ],
+  },
+
+  education: {
+    keywords: ['education', 'degree', 'college', 'university', 'study', 'school', 'masters', 'bachelor', 'nmbu', 'learn'],
+    responses: () => [
+      `**Education:**\n\n` +
+      `🎓 ${knowledgeBase.education.masters}\n` +
+      `Courses: Python, Data-to-Decision, SQL\n\n` +
+      `🎓 ${knowledgeBase.education.bachelors}\n` +
+      `Courses: Software Engineering, System Design, Web Development`,
+    ],
+  },
+
+  certifications: {
+    keywords: ['certification', 'certified', 'award', 'hackathon', 'achievement', 'accomplishment', 'won', 'place'],
+    responses: () => [
+      `**Certifications & Achievements:**\n\n` +
+      knowledgeBase.certifications.map(c => `• ${c}`).join('\n'),
+    ],
+  },
+
   contact: {
-    email: personalInfo.email,
-    linkedin: personalInfo.linkedin,
+    keywords: ['contact', 'email', 'reach', 'hire', 'connect', 'linkedin', 'talk to', 'get in touch', 'message'],
+    responses: () => [
+      `You can connect with ${knowledgeBase.name}:\n\n` +
+      `📧 ${knowledgeBase.email}\n` +
+      `🔗 ${knowledgeBase.linkedin}\n` +
+      `📍 ${knowledgeBase.location}\n\n` +
+      `He's open to opportunities in Data Science, AI, and Software Engineering!`,
+    ],
+  },
+
+  location: {
+    keywords: ['where', 'location', 'live', 'based', 'from', 'norway', 'country', 'place'],
+    responses: () => [
+      `${knowledgeBase.name} is currently based in **${knowledgeBase.location}**, pursuing his Master's in Data Science at NMBU. He's originally from India and is currently learning Norwegian!`,
+    ],
+  },
+
+  languages: {
+    keywords: ['language', 'speak', 'english', 'norwegian', 'tamil', 'hindi', 'multilingual'],
+    responses: () => [
+      `${knowledgeBase.name} speaks:\n\n` +
+      knowledgeBase.languages.map(l => `• ${l}`).join('\n') +
+      `\n\nHe's actively improving his Norwegian while studying!`,
+    ],
+  },
+
+  help: {
+    keywords: ['help', 'what can', 'how do', 'options', 'assist', 'what do you', 'capabilities', 'features'],
+    responses: () => [
+      `I can help you with:\n\n` +
+      `🔹 **Skills & Expertise** - Python, Data Science, AI, Cloud\n` +
+      `🔹 **Projects** - Oil Spill Sim, Energy Dashboard, AI Agent\n` +
+      `🔹 **Experience** - Orion Innovation, product development\n` +
+      `🔹 **Education** - NMBU Master's, BS Computer Science\n` +
+      `🔹 **Contact** - Email, LinkedIn, location\n\n` +
+      `Just ask naturally! Try: "Tell me about his AI projects" or "What Python experience?"`,
+    ],
+  },
+
+  thanks: {
+    keywords: ['thank', 'thanks', 'appreciate', 'grateful', 'helpful'],
+    responses: () => [
+      "You're welcome! Feel free to ask more questions about Vatsav's work.",
+      "Glad I could help! You can reach out to Vatsav directly for detailed discussions.",
+    ],
+  },
+
+  goodbye: {
+    keywords: ['bye', 'goodbye', 'see you', 'later', 'ciao', 'farewell'],
+    responses: () => [
+      "Goodbye! Have a great day! 👋",
+      "See you later! Feel free to come back if you have more questions.",
+    ],
   },
 };
 
-// Intent patterns and responses
-const intents = [
-  {
-    patterns: [/hi|hello|hey|howdy|greetings/i],
-    responses: [
-      "Hello! I'm Starc, Vatsav's AI assistant. How can I help you learn more about his work?",
-      "Hey there! Ask me anything about Vatsav's skills, projects, or experience.",
-      "Hi! I'm Starc, here to help you explore Vatsav's portfolio. What would you like to know?",
-    ],
-  },
-  {
-    patterns: [/who is|about|tell me about|introduce/i],
-    responses: [
-      `${knowledgeBase.name} is a Data Science graduate student at NMBU, Norway, with 4 years of software engineering experience at Orion Innovation. He specializes in Python, data analytics, and AI applications.`,
-    ],
-  },
-  {
-    patterns: [/experience|work|job|orion|company/i],
-    responses: [
-      `Vatsav's professional experience:\n\n${knowledgeBase.experience.map(e => `• ${e.role} at ${e.company} (${e.period}): ${e.desc}`).join('\n\n')}`,
-    ],
-  },
-  {
-    patterns: [/skill|tech|stack|know|proficient|expertise/i],
-    responses: [
-      `Vatsav's technical expertise:\n\n• Backend: ${knowledgeBase.skills.backend.join(', ')}\n• Data Science: ${knowledgeBase.skills.datascience.slice(0, 4).join(', ')}\n• Cloud: ${knowledgeBase.skills.cloud.slice(0, 4).join(', ')}\n• AI: ${knowledgeBase.skills.ai.join(', ')}`,
-    ],
-  },
-  {
-    patterns: [/python|flask|backend/i],
-    responses: [
-      "Python is Vatsav's primary language! He uses it extensively for backend development (Flask, RestAPI), data science (Pandas, Matplotlib), and AI applications (LangChain, LLaMA). He built scalable microservices at Orion Innovation.",
-    ],
-  },
-  {
-    patterns: [/ai|langchain|llm|llama|claude/i],
-    responses: [
-      `Vatsav has strong AI/LLM skills:\n\n• LangChain for building AI agents\n• LLM APIs: Claude, LLaMA\n• Built Financial AI Agent with SSB data\n• 3rd Place at AWS Norway GenAI Hackathon`,
-    ],
-  },
-  {
-    patterns: [/data|pandas|analytics|matplotlib/i],
-    responses: [
-      `Vatsav's Data Science stack:\n\n• Analysis: Pandas, Data Modeling, Data Analytics\n• Visualization: Matplotlib, Seaborn\n• Processing: PySpark, ETL pipelines\n• Built Energy Analytics Dashboard processing 1M+ records`,
-    ],
-  },
-  {
-    patterns: [/project|work|built|portfolio|showcase/i],
-    responses: [
-      `Here are Vatsav's notable projects:\n\n${knowledgeBase.projects.map(p => `• ${p.name}: ${p.desc} (${p.tech.join(', ')})`).join('\n\n')}`,
-    ],
-  },
-  {
-    patterns: [/cloud|aws|azure|docker|devops/i],
-    responses: [
-      `Vatsav's Cloud & DevOps skills:\n\n• Azure: App Services, Cloud Architecture\n• AWS: S3, CloudFront, Route 53\n• Docker & CI/CD pipelines\n• Built AV Danse platform with 99.99% uptime`,
-    ],
-  },
-  {
-    patterns: [/database|sql|postgres/i],
-    responses: [
-      `Vatsav's database expertise:\n\n• SQL & PostgreSQL\n• Data Modelling\n• Teaching Assistant for DBMS at NMBU\n• Mentored 40+ students in SQL optimization`,
-    ],
-  },
-  {
-    patterns: [/education|degree|college|nmbu|university|masters/i],
-    responses: [
-      `Education:\n\n• ${knowledgeBase.education.masters}\n  Coursework: Python, Data-to-Decision, SQL\n\n• ${knowledgeBase.education.bachelors}\n  Coursework: Software Engineering, Web Dev, System Design`,
-    ],
-  },
-  {
-    patterns: [/certif|award|hackathon/i],
-    responses: [
-      `Vatsav's certifications & awards:\n\n${knowledgeBase.certifications.map(c => `• ${c}`).join('\n')}`,
-    ],
-  },
-  {
-    patterns: [/contact|email|reach|hire|connect|linkedin/i],
-    responses: [
-      `You can connect with Vatsav:\n\n• Email: ${knowledgeBase.contact.email}\n• LinkedIn: ${knowledgeBase.contact.linkedin}\n• Location: ${knowledgeBase.location}\n\nFeel free to reach out!`,
-    ],
-  },
-  {
-    patterns: [/language|norwegian|english/i],
-    responses: [
-      `Languages:\n\n• ${knowledgeBase.languages.join('\n• ')}\n\nVatsav is currently studying in Norway and improving his Norwegian language skills.`,
-    ],
-  },
-  {
-    patterns: [/thank|thanks|bye|goodbye/i],
-    responses: [
-      "You're welcome! Feel free to ask if you have more questions. Have a great day!",
-      "Glad I could help! Don't hesitate to reach out to Vatsav directly for more detailed discussions.",
-    ],
-  },
-  {
-    patterns: [/help|what can you|how do i|options/i],
-    responses: [
-      "I can help you learn about:\n\n• Vatsav's skills (Python, Data Science, AI, Cloud)\n• His projects (Oil Spill Simulation, Energy Analytics, AI Agent)\n• Work experience at Orion Innovation\n• Education at NMBU, Norway\n• How to contact him\n\nJust ask naturally!",
-    ],
-  },
-];
+function getCategoryResponse(category) {
+  const responses = {
+    python: `Python is ${knowledgeBase.name}'s primary language! He uses it for:\n\n• Backend development (Flask, RestAPI, Microservices)\n• Data Science (Pandas, NumPy, Matplotlib)\n• AI applications (LangChain, LLaMA, Claude integration)\n• 4+ years of professional experience at Orion Innovation`,
 
-// Default fallback responses
-const fallbackResponses = [
-  "I'm not sure about that specific topic, but I'd be happy to tell you about Vatsav's skills, projects, or experience at Orion Innovation and NMBU. What would you like to know?",
-  "That's an interesting question! I'm best at answering questions about Vatsav's technical skills, projects, and background. Try asking about his data science or AI experience!",
-  "I don't have information on that, but I can tell you all about Vatsav's expertise in Python, Data Science, Cloud, and AI. What interests you?",
-];
+    data: `His Data Science expertise includes:\n\n• Analysis: Pandas, Data Modeling, Statistical Analysis\n• Visualization: Matplotlib, Seaborn, Dashboard Creation\n• Processing: PySpark, ETL Pipelines\n• Real-world project: Energy Analytics Dashboard with 1M+ Norwegian records`,
 
-// Suggested questions
-const suggestedQuestions = [
-  "What are his main skills?",
-  "Tell me about his projects",
-  "What's his experience?",
-  "How can I contact him?",
-];
+    ai: `${knowledgeBase.name}'s AI/ML capabilities:\n\n• LangChain for building intelligent agents\n• LLM integrations: Claude, LLaMA, OpenAI APIs\n• Built Financial AI Agent using SSB data\n• 3rd Place at AWS Norway GenAI Hackathon`,
 
-function getResponse(message) {
-  const lowerMessage = message.toLowerCase();
+    cloud: `Cloud & DevOps skills:\n\n• Azure: App Services, Cloud Architecture\n• AWS: S3, CloudFront, Route 53, Lambda\n• Docker containerization & CI/CD pipelines\n• Built AV Danse platform with high availability`,
 
-  for (const intent of intents) {
-    for (const pattern of intent.patterns) {
-      if (pattern.test(lowerMessage)) {
-        const responses = intent.responses;
-        return responses[Math.floor(Math.random() * responses.length)];
+    database: `Database expertise:\n\n• SQL & PostgreSQL (primary)\n• Data Modeling and Normalization\n• Query optimization and indexing\n• Teaching Assistant for DBMS at NMBU`,
+
+    web: `Web Development skills:\n\n• Frontend: React, JavaScript, HTML/CSS\n• Backend: Flask, RESTful APIs\n• Full-stack projects including AV Danse Studio\n• Responsive design and modern UI patterns`,
+  };
+
+  return [responses[category] || responses.python];
+}
+
+// ============================================
+// INTELLIGENT QUERY PROCESSING
+// ============================================
+
+function calculateSimilarity(query, keywords) {
+  const words = query.toLowerCase().split(/\s+/);
+  let matches = 0;
+
+  for (const keyword of keywords) {
+    const keywordWords = keyword.toLowerCase().split(/\s+/);
+    for (const kw of keywordWords) {
+      if (words.some(w => w.includes(kw) || kw.includes(w))) {
+        matches++;
       }
     }
   }
 
-  return fallbackResponses[Math.floor(Math.random() * fallbackResponses.length)];
+  return matches / Math.max(words.length, 1);
 }
 
-// Simple text formatter (safe - only handles our predefined content)
+function extractEntities(query) {
+  const entities = {
+    skills: [],
+    projects: [],
+    companies: [],
+    technologies: [],
+  };
+
+  const q = query.toLowerCase();
+
+  // Extract skills
+  knowledgeBase.skills.forEach(skill => {
+    if (q.includes(skill.name.toLowerCase())) {
+      entities.skills.push(skill);
+    }
+  });
+
+  // Extract projects
+  knowledgeBase.projects.forEach(project => {
+    if (q.includes(project.shortName) || project.name.toLowerCase().includes(q)) {
+      entities.projects.push(project);
+    }
+  });
+
+  return entities;
+}
+
+function findBestIntent(query) {
+  let bestIntent = null;
+  let bestScore = 0;
+
+  for (const [intentName, intentData] of Object.entries(intentPatterns)) {
+    const score = calculateSimilarity(query, intentData.keywords);
+    if (score > bestScore) {
+      bestScore = score;
+      bestIntent = { name: intentName, data: intentData };
+    }
+  }
+
+  // Also check for project/technology matches
+  const entities = extractEntities(query);
+  if (entities.projects.length > 0 && bestScore < 0.3) {
+    return { name: 'projects', data: intentPatterns.projects };
+  }
+
+  return bestIntent;
+}
+
+function getResponse(query) {
+  const lowerQuery = query.toLowerCase().trim();
+
+  // Empty query
+  if (!lowerQuery) {
+    return "I'm here to help! Ask me about Vatsav's skills, projects, or experience.";
+  }
+
+  // Find best matching intent
+  const intent = findBestIntent(lowerQuery);
+
+  if (intent && calculateSimilarity(lowerQuery, intent.data.keywords) > 0.1) {
+    const responses = intent.data.responses(lowerQuery);
+    return responses[Math.floor(Math.random() * responses.length)];
+  }
+
+  // Check for partial matches (keywords in query)
+  for (const [name, data] of Object.entries(intentPatterns)) {
+    if (data.keywords.some(k => lowerQuery.includes(k))) {
+      const responses = data.responses(lowerQuery);
+      return responses[Math.floor(Math.random() * responses.length)];
+    }
+  }
+
+  // Fallback with context-aware suggestions
+  return getContextualFallback(lowerQuery);
+}
+
+function getContextualFallback(query) {
+  const suggestions = [];
+
+  if (query.length > 10) {
+    suggestions.push("I understand you're asking about something specific");
+    suggestions.push("Could you rephrase? Try asking about:");
+  } else {
+    suggestions.push("I'm not sure I understood that correctly");
+  }
+
+  return `${suggestions[0]}. ${knowledgeBase.name}'s portfolio focuses on Data Science, AI, and Software Engineering. Try asking:\n\n` +
+    `• "What are his skills?"\n` +
+    `• "Tell me about his projects"\n` +
+    `• "What's his experience?"\n` +
+    `• "How can I contact him?"`;
+}
+
+// ============================================
+// MESSAGE FORMATTING
+// ============================================
+
 function formatMessage(text) {
-  return text.split('\n').map((line, i) => {
-    // Handle bullet points
+  if (!text) return null;
+
+  const lines = text.split('\n');
+  const elements = [];
+  let key = 0;
+
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i];
+
+    // Empty line
+    if (!line.trim()) {
+      elements.push(<br key={key++} />);
+      continue;
+    }
+
+    // Bold headers (lines starting with ** or containing **)
+    if (line.startsWith('**') && line.endsWith('**')) {
+      const content = line.slice(2, -2);
+      elements.push(
+        <p key={key++} className="chat-message__line chat-message__line--header">
+          {content}
+        </p>
+      );
+      continue;
+    }
+
+    // Bullet points with bold labels
     if (line.startsWith('• ')) {
       const content = line.substring(2);
       const colonIndex = content.indexOf(':');
-      if (colonIndex > 0) {
+
+      if (colonIndex > 0 && !content.startsWith('**')) {
         const label = content.substring(0, colonIndex);
         const rest = content.substring(colonIndex + 1);
-        return (
-          <p key={i} className="chat-message__line chat-message__line--bullet">
+        elements.push(
+          <p key={key++} className="chat-message__line chat-message__line--bullet">
             <strong>{label}:</strong>{rest}
           </p>
         );
+      } else {
+        elements.push(
+          <p key={key++} className="chat-message__line chat-message__line--bullet">
+            {formatInlineBold(content)}
+          </p>
+        );
       }
-      return <p key={i} className="chat-message__line chat-message__line--bullet">{content}</p>;
+      continue;
     }
-    return line ? <p key={i} className="chat-message__line">{line}</p> : <br key={i} />;
+
+    // Section headers (emoji + text)
+    if (/^[🔹🎓📧🔗📍•]/.test(line)) {
+      elements.push(
+        <p key={key++} className="chat-message__line chat-message__line--section">
+          {line}
+        </p>
+      );
+      continue;
+    }
+
+    // Regular line with inline bold
+    elements.push(
+      <p key={key++} className="chat-message__line">
+        {formatInlineBold(line)}
+      </p>
+    );
+  }
+
+  return elements;
+}
+
+function formatInlineBold(text) {
+  if (!text.includes('**')) return text;
+
+  const parts = text.split(/(\*\*.*?\*\*)/g);
+  return parts.map((part, i) => {
+    if (part.startsWith('**') && part.endsWith('**')) {
+      return <strong key={i}>{part.slice(2, -2)}</strong>;
+    }
+    return part;
   });
 }
+
+// ============================================
+// SUGGESTED QUESTIONS (DYNAMIC)
+// ============================================
+
+const suggestedQuestions = [
+  "What are his main skills?",
+  "Tell me about his projects",
+  "What's his experience at Orion?",
+  "What AI projects has he built?",
+  "How can I contact him?",
+];
+
+// ============================================
+// MAIN COMPONENT
+// ============================================
 
 export default function AIChatAssistant() {
   const [isOpen, setIsOpen] = useState(false);
@@ -207,7 +456,7 @@ export default function AIChatAssistant() {
     {
       id: 1,
       type: 'bot',
-      text: "Hi! I'm Starc, Vatsav's AI assistant. Ask me about his skills, projects, or experience in Data Science and Software Engineering!",
+      text: `Hi! I'm Starc, ${knowledgeBase.name}'s AI assistant. I can tell you about his skills in AI/Data Science, his projects, or how to get in touch. What interests you?`,
       timestamp: new Date(),
     },
   ]);
@@ -216,27 +465,28 @@ export default function AIChatAssistant() {
   const messagesEndRef = useRef(null);
   const inputRef = useRef(null);
 
-  const scrollToBottom = () => {
+  const scrollToBottom = useCallback(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  };
+  }, []);
 
   useEffect(() => {
     scrollToBottom();
-  }, [messages]);
+  }, [messages, scrollToBottom]);
 
   useEffect(() => {
     if (isOpen && inputRef.current) {
-      inputRef.current.focus();
+      setTimeout(() => inputRef.current?.focus(), 100);
     }
   }, [isOpen]);
 
   const handleSend = async () => {
-    if (!inputValue.trim()) return;
+    const query = inputValue.trim();
+    if (!query) return;
 
     const userMessage = {
       id: Date.now(),
       type: 'user',
-      text: inputValue,
+      text: query,
       timestamp: new Date(),
     };
 
@@ -244,10 +494,11 @@ export default function AIChatAssistant() {
     setInputValue('');
     setIsTyping(true);
 
-    // Simulate AI thinking time
-    await new Promise(resolve => setTimeout(resolve, 800 + Math.random() * 700));
+    // Simulate realistic typing delay based on response length
+    const response = getResponse(query);
+    const typingDelay = Math.min(800 + response.length * 10, 2000);
 
-    const response = getResponse(inputValue);
+    await new Promise(resolve => setTimeout(resolve, typingDelay));
 
     setIsTyping(false);
     setMessages(prev => [
@@ -280,8 +531,10 @@ export default function AIChatAssistant() {
       setMessages(prev => [...prev, userMessage]);
       setIsTyping(true);
 
+      const response = getResponse(question);
+      const typingDelay = Math.min(600 + response.length * 8, 1500);
+
       setTimeout(() => {
-        const response = getResponse(question);
         setIsTyping(false);
         setMessages(prev => [
           ...prev,
@@ -292,9 +545,18 @@ export default function AIChatAssistant() {
             timestamp: new Date(),
           },
         ]);
-      }, 800 + Math.random() * 700);
-    }, 100);
+      }, typingDelay);
+    }, 50);
     setInputValue('');
+  };
+
+  const clearChat = () => {
+    setMessages([{
+      id: Date.now(),
+      type: 'bot',
+      text: `Chat reset! How can I help you learn about ${knowledgeBase.name}?`,
+      timestamp: new Date(),
+    }]);
   };
 
   return (
@@ -362,24 +624,29 @@ export default function AIChatAssistant() {
                   <Sparkles size={18} />
                 </div>
                 <div>
-                  <h3 className="chat-window__title">AI Assistant</h3>
+                  <h3 className="chat-window__title">Starc</h3>
                   <span className="chat-window__status">
                     <span className="chat-window__status-dot" />
-                    Online
+                    AI Assistant
                   </span>
                 </div>
               </div>
+              {messages.length > 2 && (
+                <button className="chat-window__clear" onClick={clearChat} title="Clear chat">
+                  Clear
+                </button>
+              )}
             </div>
 
             {/* Messages */}
             <div className="chat-window__messages">
-              {messages.map((message) => (
+              {messages.map((message, index) => (
                 <motion.div
                   key={message.id}
                   className={`chat-message chat-message--${message.type}`}
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.3 }}
+                  transition={{ duration: 0.3, delay: index === messages.length - 1 ? 0 : 0 }}
                 >
                   <div className="chat-message__content">
                     {formatMessage(message.text)}
@@ -405,9 +672,9 @@ export default function AIChatAssistant() {
             </div>
 
             {/* Suggestions */}
-            {messages.length <= 2 && (
+            {!isTyping && messages.length <= 3 && (
               <div className="chat-window__suggestions">
-                {suggestedQuestions.map((question, i) => (
+                {suggestedQuestions.slice(0, 3).map((question, i) => (
                   <motion.button
                     key={i}
                     className="chat-suggestion"
@@ -430,7 +697,7 @@ export default function AIChatAssistant() {
                 ref={inputRef}
                 type="text"
                 className="chat-window__input"
-                placeholder="Ask about skills, projects, experience..."
+                placeholder="Ask about Python, AI projects, experience..."
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
                 onKeyPress={handleKeyPress}
