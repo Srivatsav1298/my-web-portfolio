@@ -1,6 +1,7 @@
-import React, { useState, useRef, useEffect, useCallback } from 'react';
+import React, { useState, useRef, useEffect, useCallback, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MessageCircle, X, Send, Sparkles } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
 import {
   personalInfo,
   skillCategories,
@@ -50,6 +51,10 @@ const knowledgeBase = {
     })),
 
   certifications,
+  funFacts: {
+    en: "He absolutely loves chocolates! 🍫",
+    no: "Han elsker sjokolade over alt på jord! 🍫"
+  }
 };
 
 // ============================================
@@ -58,8 +63,11 @@ const knowledgeBase = {
 
 const intentPatterns = {
   greeting: {
-    keywords: ['hi', 'hello', 'hey', 'howdy', 'greetings', 'morning', 'afternoon', 'evening', 'sup', 'yo'],
-    responses: () => [
+    keywords: ['hi', 'hello', 'hey', 'howdy', 'greetings', 'morning', 'afternoon', 'evening', 'sup', 'yo', 'hei', 'hallo'],
+    responses: (language) => language === 'no' ? [
+      "Hei! Jeg er Starc, Vatsavs AI-assistent. Hvordan kan jeg hjelpe deg?",
+      "Hei der! Spør meg om hva som helst angående Vatsavs arbeid.",
+    ] : [
       `Hello! I'm Starc, ${knowledgeBase.name}'s AI assistant. How can I help you explore his portfolio?`,
       `Hey there! Ask me anything about ${knowledgeBase.name}'s work in AI, Data Science, and Software Engineering.`,
       `Hi! I'm here to help you learn about ${knowledgeBase.name}'s skills and projects. What interests you?`,
@@ -74,8 +82,8 @@ const intentPatterns = {
   },
 
   skills: {
-    keywords: ['skill', 'tech', 'stack', 'know', 'proficient', 'expertise', 'technology', 'good at', 'capable', 'can you do'],
-    responses: (query) => {
+    keywords: ['skill', 'tech', 'stack', 'know', 'proficient', 'expertise', 'technology', 'good at', 'capable', 'can you do', 'ferdighet', 'kan'],
+    responses: (language, query) => {
       // Check for specific skill category
       const categories = {
         python: ['python', 'flask', 'backend'],
@@ -88,8 +96,16 @@ const intentPatterns = {
 
       for (const [cat, keywords] of Object.entries(categories)) {
         if (keywords.some(k => query.includes(k))) {
-          return getCategoryResponse(cat);
+          return getCategoryResponse(cat, language);
         }
+      }
+
+      if (language === 'no') {
+        return [`Vatsavs tekniske ekspertise inkluderer:\n\n` +
+          `• Backend: Python, Flask, RestAPI\n` +
+          `• Datavitenskap: Pandas, NumPy, Matplotlib\n` +
+          `• AI: LangChain, LLMs, Claude, LLaMA\n\n` +
+          `Vil du ha detaljer om et spesifikt område?`];
       }
 
       return [`${knowledgeBase.name}'s technical expertise spans:\n\n` +
@@ -214,24 +230,32 @@ const intentPatterns = {
       "See you later! Feel free to come back if you have more questions.",
     ],
   },
+
+  funFact: {
+    keywords: ['chocolate', 'sjokolade', 'love', 'like', 'food'],
+    responses: (language) => [knowledgeBase.funFacts[language] || knowledgeBase.funFacts.en],
+  }
 };
 
-function getCategoryResponse(category) {
+function getCategoryResponse(category, language = 'en') {
   const responses = {
-    python: `Python is ${knowledgeBase.name}'s primary language! He uses it for:\n\n• Backend development (Flask, RestAPI, Microservices)\n• Data Science (Pandas, NumPy, Matplotlib)\n• AI applications (LangChain, LLaMA, Claude integration)\n• 4+ years of professional experience at Orion Innovation`,
-
-    data: `His Data Science expertise includes:\n\n• Analysis: Pandas, Data Modeling, Statistical Analysis\n• Visualization: Matplotlib, Seaborn, Dashboard Creation\n• Processing: PySpark, ETL Pipelines\n• Real-world project: Energy Analytics Dashboard with 1M+ Norwegian records`,
-
-    ai: `${knowledgeBase.name}'s AI/ML capabilities:\n\n• LangChain for building intelligent agents\n• LLM integrations: Claude, LLaMA, OpenAI APIs\n• Built Financial AI Agent using SSB data\n• 3rd Place at AWS Norway GenAI Hackathon`,
-
-    cloud: `Cloud & DevOps skills:\n\n• Azure: App Services, Cloud Architecture\n• AWS: S3, CloudFront, Route 53, Lambda\n• Docker containerization & CI/CD pipelines\n• Built AV Danse platform with high availability`,
-
-    database: `Database expertise:\n\n• SQL & PostgreSQL (primary)\n• Data Modeling and Normalization\n• Query optimization and indexing\n• Teaching Assistant for DBMS at NMBU`,
-
-    web: `Web Development skills:\n\n• Frontend: React, JavaScript, HTML/CSS\n• Backend: Flask, RESTful APIs\n• Full-stack projects including AV Danse Studio\n• Responsive design and modern UI patterns`,
+    en: {
+      python: `Python is ${knowledgeBase.name}'s primary language! He uses it for:\n\n• Backend development (Flask, RestAPI, Microservices)\n• Data Science (Pandas, NumPy, Matplotlib)\n• AI applications (LangChain, LLaMA, Claude integration)\n• 4+ years of professional experience at Orion Innovation`,
+      data: `His Data Science expertise includes:\n\n• Analysis: Pandas, Data Modeling, Statistical Analysis\n• Visualization: Matplotlib, Seaborn, Dashboard Creation\n• Processing: PySpark, ETL Pipelines\n• Real-world project: Energy Analytics Dashboard with 1M+ Norwegian records`,
+      ai: `${knowledgeBase.name}'s AI/ML capabilities:\n\n• LangChain for building intelligent agents\n• LLM integrations: Claude, LLaMA, OpenAI APIs\n• Built Financial AI Agent using SSB data\n• 3rd Place at AWS Norway GenAI Hackathon`,
+      cloud: `Cloud & DevOps skills:\n\n• Azure: App Services, Cloud Architecture\n• AWS: S3, CloudFront, Route 53, Lambda\n• Docker containerization & CI/CD pipelines\n• Built AV Danse platform with high availability`,
+      database: `Database expertise:\n\n• SQL & PostgreSQL (primary)\n• Data Modeling and Normalization\n• Query optimization and indexing\n• Teaching Assistant for DBMS at NMBU`,
+      web: `Web Development skills:\n\n• Frontend: React, JavaScript, HTML/CSS\n• Backend: Flask, RESTful APIs\n• Full-stack projects including AV Danse Studio\n• Responsive design and modern UI patterns`,
+    },
+    no: {
+      python: `Python er ${knowledgeBase.name}s hovedspråk! Han bruker det til:\n\n• Backend-utvikling (Flask, RestAPI, Mikrotjenester)\n• Datavitenskap (Pandas, NumPy, Matplotlib)\n• AI-applikasjoner (LangChain, LLaMA, Claude-integrasjon)\n• Over 3 års erfaring`,
+      data: `Hans kompetanse innen datavitenskap inkluderer:\n\n• Analyse: Pandas, Datamodellering, Statistisk analyse\n• Visualisering: Matplotlib, Seaborn\n• Behandling: PySpark, ETL-pipelines`,
+      ai: `${knowledgeBase.name}s AI/ML-kapasiteter:\n\n• LangChain for å bygge intelligente agenter\n• LLM-integrasjoner: Claude, LLaMA, OpenAI APIs\n• Bygget finansiell AI-agent med SSB-data`,
+    }
   };
 
-  return [responses[category] || responses.python];
+  const langResponses = responses[language] || responses.en;
+  return [langResponses[category] || langResponses.python];
 }
 
 // ============================================
@@ -239,6 +263,7 @@ function getCategoryResponse(category) {
 // ============================================
 
 function calculateSimilarity(query, keywords) {
+  if (!keywords || !Array.isArray(keywords)) return 0;
   const words = query.toLowerCase().split(/\s+/);
   let matches = 0;
 
@@ -302,35 +327,46 @@ function findBestIntent(query) {
   return bestIntent;
 }
 
-function getResponse(query) {
+function getResponse(query, language = 'en') {
   const lowerQuery = query.toLowerCase().trim();
 
   // Empty query
   if (!lowerQuery) {
-    return "I'm here to help! Ask me about Vatsav's skills, projects, or experience.";
+    return language === 'no' ? "Jeg er her for å hjelpe! Spør meg om Vatsavs ferdigheter." : "I'm here to help! Ask me about Vatsav's skills, projects, or experience.";
   }
 
   // Find best matching intent
   const intent = findBestIntent(lowerQuery);
 
-  if (intent && calculateSimilarity(lowerQuery, intent.data.keywords) > 0.1) {
-    const responses = intent.data.responses(lowerQuery);
-    return responses[Math.floor(Math.random() * responses.length)];
+  if (intent) {
+    // If it's a fun fact or has enough similarity
+    if (intent.name === 'funFact' || calculateSimilarity(lowerQuery, intent.data.keywords || []) > 0.05) {
+      const responses = intent.data.responses(language, lowerQuery);
+      return responses[Math.floor(Math.random() * responses.length)];
+    }
   }
 
   // Check for partial matches (keywords in query)
   for (const [name, data] of Object.entries(intentPatterns)) {
     if (data.keywords.some(k => lowerQuery.includes(k))) {
-      const responses = data.responses(lowerQuery);
+      const responses = data.responses(language, lowerQuery);
       return responses[Math.floor(Math.random() * responses.length)];
     }
   }
 
   // Fallback with context-aware suggestions
-  return getContextualFallback(lowerQuery);
+  return getContextualFallback(lowerQuery, language);
 }
 
-function getContextualFallback(query) {
+function getContextualFallback(query, language) {
+  if (language === 'no') {
+    return `Jeg er ikke sikker på om jeg forstod det helt. Vatsavs portefølje fokuserer på Datavitenskap, AI og Programvareutvikling. Prøv å spørre:\n\n` +
+      `• "Hva er hans ferdigheter?"\n` +
+      `• "Fortell meg om hans prosjekter"\n` +
+      `• "Hva er hans erfaring?"\n` +
+      `• "Hvordan kan jeg kontakte ham?"`;
+  }
+
   const suggestions = [];
 
   if (query.length > 10) {
@@ -438,28 +474,46 @@ function formatInlineBold(text) {
 // SUGGESTED QUESTIONS (DYNAMIC)
 // ============================================
 
-const suggestedQuestions = [
-  "What are his main skills?",
-  "Tell me about his projects",
-  "What's his experience at Orion?",
-  "What AI projects has he built?",
-  "How can I contact him?",
-];
+const suggestedQuestions = {
+  en: [
+    "What are his main skills?",
+    "Tell me about his projects",
+    "What's his experience at Orion?",
+    "What AI projects has he built?",
+    "How can I contact him?",
+  ],
+  no: [
+    "Hva er hans ferdigheter?",
+    "Fortell meg om hans prosjekter",
+    "Hva er hans erfaring?",
+    "Hvilke AI-prosjekter har han bygget?",
+    "Hvordan kan jeg kontakte ham?",
+  ]
+};
 
 // ============================================
 // MAIN COMPONENT
 // ============================================
 
 export default function AIChatAssistant() {
+  const { language, t } = useLanguage();
   const [isOpen, setIsOpen] = useState(false);
-  const [messages, setMessages] = useState([
-    {
-      id: 1,
-      type: 'bot',
-      text: `Hi! I'm Starc, ${knowledgeBase.name}'s AI assistant. I can tell you about his skills in AI/Data Science, his projects, or how to get in touch. What interests you?`,
-      timestamp: new Date(),
-    },
-  ]);
+
+  const initialMessage = useMemo(() => ({
+    id: 1,
+    type: 'bot',
+    text: t('assistant.greeting'),
+    timestamp: new Date(),
+  }), [t]);
+
+  const [messages, setMessages] = useState([initialMessage]);
+
+  // Update initial message when language changes if it's the only one
+  useEffect(() => {
+    if (messages.length === 1 && messages[0].type === 'bot') {
+      setMessages([initialMessage]);
+    }
+  }, [language, initialMessage]);
   const [inputValue, setInputValue] = useState('');
   const [isTyping, setIsTyping] = useState(false);
   const messagesEndRef = useRef(null);
@@ -495,7 +549,7 @@ export default function AIChatAssistant() {
     setIsTyping(true);
 
     // Simulate realistic typing delay based on response length
-    const response = getResponse(query);
+    const response = getResponse(query, language);
     const typingDelay = Math.min(800 + response.length * 10, 2000);
 
     await new Promise(resolve => setTimeout(resolve, typingDelay));
@@ -531,7 +585,7 @@ export default function AIChatAssistant() {
       setMessages(prev => [...prev, userMessage]);
       setIsTyping(true);
 
-      const response = getResponse(question);
+      const response = getResponse(question, language);
       const typingDelay = Math.min(600 + response.length * 8, 1500);
 
       setTimeout(() => {
@@ -554,7 +608,7 @@ export default function AIChatAssistant() {
     setMessages([{
       id: Date.now(),
       type: 'bot',
-      text: `Chat reset! How can I help you learn about ${knowledgeBase.name}?`,
+      text: t('assistant.reset'),
       timestamp: new Date(),
     }]);
   };
@@ -632,8 +686,8 @@ export default function AIChatAssistant() {
                 </div>
               </div>
               {messages.length > 2 && (
-                <button className="chat-window__clear" onClick={clearChat} title="Clear chat">
-                  Clear
+                <button className="chat-window__clear" onClick={clearChat} title={t('assistant.clear')}>
+                  {t('assistant.clear')}
                 </button>
               )}
             </div>
@@ -674,7 +728,7 @@ export default function AIChatAssistant() {
             {/* Suggestions */}
             {!isTyping && messages.length <= 3 && (
               <div className="chat-window__suggestions">
-                {suggestedQuestions.slice(0, 3).map((question, i) => (
+                {suggestedQuestions[language].slice(0, 3).map((question, i) => (
                   <motion.button
                     key={i}
                     className="chat-suggestion"
@@ -697,7 +751,7 @@ export default function AIChatAssistant() {
                 ref={inputRef}
                 type="text"
                 className="chat-window__input"
-                placeholder="Ask about Python, AI projects, experience..."
+                placeholder={t('assistant.placeholder')}
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
                 onKeyPress={handleKeyPress}

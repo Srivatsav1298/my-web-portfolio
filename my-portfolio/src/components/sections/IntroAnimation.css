@@ -104,13 +104,11 @@
   letter-spacing: -0.03em;
   line-height: 0.95;
   margin: 0 0 24px 0;
-  background: linear-gradient(
-    180deg,
-    #ffffff 0%,
-    #f0f0f0 30%,
-    #d0d0d0 60%,
-    #b0b0b0 100%
-  );
+  background: linear-gradient(180deg,
+      #ffffff 0%,
+      #f0f0f0 30%,
+      #d0d0d0 60%,
+      #b0b0b0 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -136,6 +134,22 @@
   max-width: 500px;
   line-height: 1.6;
   margin: 0 0 40px 0;
+}
+
+/* Fun Fact - Chocolate */
+.intro-section__chocolate {
+  font-family: var(--font-primary);
+  font-size: 14px;
+  font-weight: 500;
+  color: #ff9dcc;
+  /* Soft pink for fun */
+  margin: -20px 0 40px 0;
+  font-style: italic;
+  opacity: 0.9;
+}
+
+.light-mode .intro-section__chocolate {
+  color: #d15694;
 }
 
 /* Stats row */

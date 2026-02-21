@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { experienceData } from '../../data/portfolioData';
+import { useLanguage } from '../../context/LanguageContext';
 import './Timeline.css';
 
 /**
@@ -96,7 +97,7 @@ function TimelineItem({ item, index, isLast }) {
           animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0 }}
           transition={{ duration: 0.4, delay: 0.8 }}
         >
-          <span>Present</span>
+          <span>{index === 0 ? (index === 0 ? 'Present' : 'Nå') : (index === 0 ? 'Present' : 'Nå')}</span>
         </motion.div>
       )}
     </div>
@@ -107,6 +108,7 @@ function TimelineItem({ item, index, isLast }) {
  * Timeline Component
  */
 export default function Timeline() {
+  const { t, language } = useLanguage();
   const containerRef = useRef(null);
   const isInView = useInView(containerRef, { once: true, margin: '-50px' });
 
@@ -154,7 +156,7 @@ export default function Timeline() {
         animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0 }}
         transition={{ duration: 0.5, delay: 1.5 }}
       >
-        <span>Journey Begins</span>
+        <span>{language === 'no' ? 'Reisen begynner' : 'Journey Begins'}</span>
       </motion.div>
     </div>
   );

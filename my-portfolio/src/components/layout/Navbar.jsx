@@ -1,13 +1,15 @@
 import React, { forwardRef, useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Github, Linkedin, FileText, Sun, Moon } from 'lucide-react';
+import { Github, Linkedin, FileText, Sun, Moon, Languages } from 'lucide-react';
 import { useTheme } from '../../context/ThemeContext';
+import { useLanguage } from '../../context/LanguageContext';
 import '../../styles/glass.css';
 import './navbar.css';
 
 const Navbar = forwardRef(({ showName = false }, ref) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const { isDark, toggleTheme, isAutoTheme, resetToAutoTheme } = useTheme();
+  const { language, toggleLanguage, t } = useLanguage();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -44,10 +46,10 @@ const Navbar = forwardRef(({ showName = false }, ref) => {
       </div>
 
       <nav className="navbar__links">
-        <a href="#about">About</a>
-        <a href="#projects">Work</a>
-        <a href="#skills">Skills</a>
-        <a href="#contact">Contact</a>
+        <a href="#about">{t('nav.about')}</a>
+        <a href="#projects">{t('nav.work')}</a>
+        <a href="#skills">{t('nav.skills')}</a>
+        <a href="#contact">{t('nav.contact')}</a>
       </nav>
 
       <div className="navbar__icons">
@@ -77,6 +79,18 @@ const Navbar = forwardRef(({ showName = false }, ref) => {
           </motion.div>
           {isAutoTheme && <span className="navbar__auto-indicator" />}
         </button>
+        {/* Language toggle */}
+        <button
+          onClick={toggleLanguage}
+          title={language === 'en' ? 'Slipp til Norsk' : 'Switch to English'}
+          className="navbar__icon navbar__language-toggle"
+        >
+          <div className="navbar__language-content">
+            <Languages size={18} />
+            <span className="navbar__language-code">{language.toUpperCase()}</span>
+          </div>
+        </button>
+
         <a href="https://linkedin.com/in/srivatsav-saravanan" target="_blank" rel="noopener noreferrer" title="LinkedIn" className="navbar__icon">
           <Linkedin size={18} />
         </a>

@@ -2,6 +2,7 @@ import React, { useEffect, useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDown } from 'lucide-react';
 import { useTheme } from '../../context/ThemeContext';
+import { useLanguage } from '../../context/LanguageContext';
 import profileImage from '../../assets/profile.jpg';
 import './IntroAnimation.css';
 
@@ -11,6 +12,7 @@ import './IntroAnimation.css';
  */
 export default function IntroAnimation({ onIntroComplete }) {
   const { greeting } = useTheme();
+  const { language, t } = useLanguage();
   const [scrollY, setScrollY] = useState(0);
   const [windowHeight, setWindowHeight] = useState(1);
   const [isInView, setIsInView] = useState(true);
@@ -111,7 +113,7 @@ export default function IntroAnimation({ onIntroComplete }) {
                   animate={{ opacity: 1 }}
                   transition={{ duration: 0.6, delay: 0.2 }}
                 >
-                  {greeting}, I'm
+                  {language === 'en' ? `${greeting}, ${t('intro.greeting')}` : `${greeting}, ${t('intro.greeting')}`}
                 </motion.p>
 
                 {/* Name */}
@@ -131,7 +133,7 @@ export default function IntroAnimation({ onIntroComplete }) {
                   animate={{ opacity: 1 }}
                   transition={{ duration: 0.6, delay: 0.5 }}
                 >
-                  Software Engineer
+                  {t('intro.role')}
                 </motion.p>
 
                 {/* Tagline */}
@@ -141,7 +143,17 @@ export default function IntroAnimation({ onIntroComplete }) {
                   animate={{ opacity: 1 }}
                   transition={{ duration: 0.6, delay: 0.7 }}
                 >
-                  Building systems at the intersection of AI and Data
+                  {t('intro.tagline')}
+                </motion.p>
+
+                {/* Fun Fact - Chocolate */}
+                <motion.p
+                  className="intro-section__chocolate"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.6, delay: 0.8 }}
+                >
+                  {t('intro.chocolate')}
                 </motion.p>
 
                 {/* Stats row */}
@@ -153,15 +165,11 @@ export default function IntroAnimation({ onIntroComplete }) {
                 >
                   <div className="intro-section__stat">
                     <span className="intro-section__stat-value">3+</span>
-                    <span className="intro-section__stat-label">Years Exp</span>
-                  </div>
-                  <div className="intro-section__stat">
-                    <span className="intro-section__stat-value">20+</span>
-                    <span className="intro-section__stat-label">Projects</span>
+                    <span className="intro-section__stat-label">{t('intro.yearsExp')}</span>
                   </div>
                   <div className="intro-section__stat">
                     <span className="intro-section__stat-value">AI</span>
-                    <span className="intro-section__stat-label">& Data</span>
+                    <span className="intro-section__stat-label">{t('intro.aiData')}</span>
                   </div>
                 </motion.div>
 
@@ -176,13 +184,13 @@ export default function IntroAnimation({ onIntroComplete }) {
                     className="intro-section__cta-primary"
                     onClick={scrollToProjects}
                   >
-                    View Work
+                    {t('intro.viewWork')}
                   </button>
                   <button
                     className="intro-section__cta-secondary"
                     onClick={scrollToContact}
                   >
-                    Get in Touch
+                    {t('intro.getInTouch')}
                   </button>
                 </motion.div>
               </div>

@@ -1,9 +1,12 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import Timeline from './Timeline';
+import { useLanguage } from '../../context/LanguageContext';
 import '../../styles/sections.css';
 
 const About = () => {
+  const { t } = useLanguage();
+
   return (
     <section id="about" className="section about">
       <motion.div
@@ -21,7 +24,7 @@ const About = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.7, delay: 0.1 }}
           >
-            About Me
+            {t('about.title')}
           </motion.h2>
           <motion.div
             style={{
@@ -44,9 +47,7 @@ const About = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.3 }}
           >
-            I'm an engineer focused on building intelligent systems at the intersection of data and AI.
-            My work spans from architecting scalable data pipelines to developing machine learning
-            solutions that deliver real impact.
+            {t('about.p1')}
           </motion.p>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -54,9 +55,7 @@ const About = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.4 }}
           >
-            With a foundation in full-stack development and data engineering, I approach problems
-            with both technical depth and product thinking. I believe the best systems are those
-            that balance sophistication with simplicity.
+            {t('about.p2')}
           </motion.p>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -64,8 +63,7 @@ const About = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.5 }}
           >
-            Currently exploring the frontiers of AI engineering, from LLM applications to
-            real-time data processing systems.
+            {t('about.p3')}
           </motion.p>
         </div>
 

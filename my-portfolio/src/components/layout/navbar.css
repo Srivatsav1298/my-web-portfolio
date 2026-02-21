@@ -131,6 +131,48 @@
   animation: autoPulse 2s ease-in-out infinite;
 }
 
+/* Language Toggle */
+.navbar__language-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 12px;
+  transition: all var(--transition-fast);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.navbar__language-toggle:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.navbar__language-content {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.navbar__language-code {
+  font-size: 10px;
+  font-weight: 700;
+  font-family: var(--font-primary);
+  color: #b0b0b0;
+}
+
+.light-mode .navbar__language-toggle {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.light-mode .navbar__language-toggle:hover {
+  background: rgba(0, 0, 0, 0.05);
+  border-color: rgba(0, 0, 0, 0.2);
+}
+
+.light-mode .navbar__language-code {
+  color: #1d1d1f;
+}
+
 @keyframes autoPulse {
   0%, 100% { opacity: 0.5; }
   50% { opacity: 1; }

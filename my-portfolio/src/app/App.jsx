@@ -3,6 +3,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 
 // Context
 import { ThemeProvider } from '../context/ThemeContext';
+import { LanguageProvider } from '../context/LanguageContext';
 
 // Light components (load immediately)
 import CursorTrail from '../components/CursorTrail';
@@ -59,40 +60,42 @@ const App = () => {
 
   return (
     <ThemeProvider>
-      <Router>
-        <div className="app">
-          {/* Load Time Indicator - top left */}
-          <LoadTimeIndicator />
+      <LanguageProvider>
+        <Router>
+          <div className="app">
+            {/* Load Time Indicator - top left */}
+            <LoadTimeIndicator />
 
-          {/* Cursor Trail Effect */}
-          <CursorTrail />
+            {/* Cursor Trail Effect */}
+            <CursorTrail />
 
-          {/* Layer 0: Constellation Background (lazy loaded) */}
-          <Suspense fallback={<CanvasFallback />}>
-            <ConstellationCanvas />
-          </Suspense>
+            {/* Layer 0: Constellation Background (lazy loaded) */}
+            <Suspense fallback={<CanvasFallback />}>
+              <ConstellationCanvas />
+            </Suspense>
 
-          {/* Layer 1: HUD Overlay (fixed, z-index: 100) */}
-          <HUDOverlay sections={sections} />
+            {/* Layer 1: HUD Overlay (fixed, z-index: 100) */}
+            <HUDOverlay sections={sections} />
 
-          {/* Layer 2: Navbar (fixed, z-index: 200) */}
-          <Navbar showName={showNavName} />
+            {/* Layer 2: Navbar (fixed, z-index: 200) */}
+            <Navbar showName={showNavName} />
 
-          {/* Layer 3: Scrollable Content (z-index: 10) */}
-          <main className="main-content">
-            <IntroAnimation onIntroComplete={setShowNavName} />
-            <About />
-            <Projects />
-            <Skills />
-            <Contact />
-          </main>
+            {/* Layer 3: Scrollable Content (z-index: 10) */}
+            <main className="main-content">
+              <IntroAnimation onIntroComplete={setShowNavName} />
+              <About />
+              <Projects />
+              <Skills />
+              <Contact />
+            </main>
 
-          {/* AI Chat Assistant (lazy loaded) */}
-          <Suspense fallback={null}>
-            <AIChatAssistant />
-          </Suspense>
-        </div>
-      </Router>
+            {/* AI Chat Assistant (lazy loaded) */}
+            <Suspense fallback={null}>
+              <AIChatAssistant />
+            </Suspense>
+          </div>
+        </Router>
+      </LanguageProvider>
     </ThemeProvider>
   );
 };
