@@ -1,7 +1,9 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Github, ExternalLink, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Github, ExternalLink, ChevronLeft, ChevronRight, Info } from 'lucide-react';
+import { useLanguage } from '../../context/LanguageContext';
 import { projects } from '../../data/portfolioData';
+import ProjectModal from '../ui/ProjectModal';
 import {
   containerVariantsWide,
   titleVariants,
@@ -12,27 +14,22 @@ import {
 import '../../styles/sections.css';
 import './ProjectsGallery.css';
 
-const filterCategories = [
-  { id: 'all', label: 'All Projects', count: projects.length },
-  { id: 'ai-ml', label: 'AI & ML', count: projects.filter(p => p.category === 'ai-ml').length },
-  { id: 'data-science', label: 'Data Science', count: projects.filter(p => p.category === 'data-science').length },
-  { id: 'full-stack', label: 'Full Stack', count: projects.filter(p => p.category === 'full-stack').length },
-];
-
-const getProjectIcon = (title) => {
-  if (title.includes('Oil')) return '🌊';
-  if (title.includes('Energy')) return '⚡';
-  if (title.includes('Financial') || title.includes('AI')) return '🤖';
-  if (title.includes('Danse') || title.includes('Dance')) return '💃';
-  return '📁';
-};
-
 const Projects = () => {
+  const { t } = useLanguage();
+
+  const filterCategories = [
+    { id: 'all', label: t('projects.all') || 'All Projects', count: projects.length },
+    { id: 'ai-ml', label: t('projects.ai') || 'AI & ML', count: projects.filter(p => p.category === 'ai-ml').length },
+    { id: 'data-science', label: t('projects.data') || 'Data Science', count: projects.filter(p => p.category === 'data-science').length },
+    { id: 'full-stack', label: t('projects.fullstack') || 'Full Stack', count: projects.filter(p => p.category === 'full-stack').length },
+  ];
   const [activeFilter, setActiveFilter] = useState('all');
   const [activeIndex, setActiveIndex] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
   const [startX, setStartX] = useState(0);
   const [scrollLeft, setScrollLeft] = useState(0);
+  const [selectedProject, setSelectedProject] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const galleryRef = useRef(null);
 
   const filteredProjects = activeFilter === 'all'
@@ -91,6 +88,19 @@ const Projects = () => {
     scrollToCard(activeIndex + 1);
   };
 
+  const openModal = (project) => {
+    setSelectedProject(project);
+    setIsModalOpen(true);
+    // Prevent body scroll
+    document.body.style.overflow = 'hidden';
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    // Restore body scroll
+    document.body.style.overflow = 'auto';
+  };
+
   // Update active index on scroll
   useEffect(() => {
     const handleScroll = () => {
@@ -138,9 +148,8 @@ const Projects = () => {
           {filterCategories.map((category) => (
             <motion.button
               key={category.id}
-              className={`projects__filter-btn ${
-                activeFilter === category.id ? 'projects__filter-btn--active' : ''
-              }`}
+              className={`projects__filter-btn ${activeFilter === category.id ? 'projects__filter-btn--active' : ''
+                }`}
               onClick={() => handleFilterChange(category.id)}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
@@ -223,14 +232,12 @@ const Projects = () => {
                       </div>
 
                       <div className="gallery-card__actions">
-                        <a
-                          href={project.live}
+                        <button
+                          onClick={() => openModal(project)}
                           className="gallery-card__btn gallery-card__btn--primary"
-                          target="_blank"
-                          rel="noopener noreferrer"
                         >
-                          View Project <ExternalLink size={16} />
-                        </a>
+                          {t('ui.caseStudy')} <Info size={16} />
+                        </button>
                         <a
                           href={project.github}
                           className="gallery-card__btn gallery-card__btn--secondary"
@@ -293,6 +300,12 @@ const Projects = () => {
             </div>
           </motion.div>
         </AnimatePresence>
+
+        <ProjectModal
+          project={selectedProject}
+          isOpen={isModalOpen}
+          onClose={closeModal}
+        />
       </motion.div>
     </section>
   );

@@ -3,6 +3,7 @@ import Navbar from "./components/layout/Navbar";
 import Hero from "./components/hero/Hero";
 
 import "./styles/globals.css";
+import './styles/datasheet.css';
 
 export default function App() {
   return (

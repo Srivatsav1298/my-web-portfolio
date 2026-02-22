@@ -1,6 +1,6 @@
 import React, { forwardRef, useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Github, Linkedin, FileText, Sun, Moon, Languages } from 'lucide-react';
+import { Github, Linkedin, FileText, Sun, Moon, Languages, Table2, LayoutGrid } from 'lucide-react';
 import { useTheme } from '../../context/ThemeContext';
 import { useLanguage } from '../../context/LanguageContext';
 import '../../styles/glass.css';
@@ -8,7 +8,7 @@ import './navbar.css';
 
 const Navbar = forwardRef(({ showName = false }, ref) => {
   const [isScrolled, setIsScrolled] = useState(false);
-  const { isDark, toggleTheme, isAutoTheme, resetToAutoTheme } = useTheme();
+  const { isDark, toggleTheme, isAutoTheme, resetToAutoTheme, isDatasheet, toggleDatasheet } = useTheme();
   const { language, toggleLanguage, t } = useLanguage();
 
   useEffect(() => {
@@ -79,6 +79,16 @@ const Navbar = forwardRef(({ showName = false }, ref) => {
           </motion.div>
           {isAutoTheme && <span className="navbar__auto-indicator" />}
         </button>
+
+        {/* Datasheet Toggle */}
+        <button
+          onClick={toggleDatasheet}
+          title={isDatasheet ? "Switch to Immersive Mode" : "Switch to Datasheet Mode (Recruiter View)"}
+          className={`navbar__icon navbar__datasheet-toggle ${isDatasheet ? 'navbar__icon--active' : ''}`}
+        >
+          {isDatasheet ? <LayoutGrid size={18} /> : <Table2 size={18} />}
+        </button>
+
         {/* Language toggle */}
         <button
           onClick={toggleLanguage}

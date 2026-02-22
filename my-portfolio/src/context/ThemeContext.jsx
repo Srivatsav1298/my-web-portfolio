@@ -81,17 +81,39 @@ export function ThemeProvider({ children }) {
     setTheme(info.isDark ? 'dark' : 'light');
   }, []);
 
+  const [isDatasheet, setIsDatasheet] = useState(() => {
+    return localStorage.getItem('isDatasheet') === 'true';
+  });
+
+  const toggleDatasheet = useCallback(() => {
+    setIsDatasheet(prev => {
+      const newVal = !prev;
+      localStorage.setItem('isDatasheet', newVal);
+      return newVal;
+    });
+  }, []);
+
+  useEffect(() => {
+    if (isDatasheet) {
+      document.body.classList.add('datasheet-mode');
+    } else {
+      document.body.classList.remove('datasheet-mode');
+    }
+  }, [isDatasheet]);
+
   const value = {
     theme,
     isDark: theme === 'dark',
     isLight: theme === 'light',
     isAutoTheme,
+    isDatasheet,
     greeting: timeInfo.greeting,
     timeOfDay: timeInfo.timeOfDay,
     hour: timeInfo.hour,
     toggleTheme,
     resetToAutoTheme,
     setTheme,
+    toggleDatasheet,
   };
 
   return (

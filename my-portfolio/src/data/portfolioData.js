@@ -214,51 +214,148 @@ export const skillConnections = [
 export const projects = [
   {
     title: 'Oil Spill Simulation System',
-    description: 'Data-driven simulation system to model oil spill scenarios in offshore environments, visualize environmental impact, and support real-time monitoring for early detection and decision-making.',
+    shortName: 'oil-spill',
+    description: 'Data-driven simulation system to model oil spill scenarios in offshore environments, visualize environmental impact, and support real-time monitoring.',
     tags: ['Python', 'Pandas', 'Matplotlib', 'Mesh Data', 'Simulation'],
     category: 'data-science',
+    categoryLabel: 'Data Science',
     image: '/my-web-portfolio/src/assets/project-images/oil-spill.png',
     github: '#',
     live: '#',
     metrics: {
       type: 'Environmental Monitoring',
+      impact: 'Early Detection',
     },
+    details: {
+      problem: "Traditional oil spill monitoring systems often react too late. There was a need for a predictive system that could simulate multiple environmental scenarios to support preemptive decision-making.",
+      solution: "Developed a Python-based simulation engine that processes complex mesh data to model spill trajectories. The system integrates real-time environmental variables to provide dynamic visual impact assessments.",
+      highlights: [
+        "Modeled complex fluid dynamics using advanced mesh data structures.",
+        "Created a custom visualization suite for spatio-temporal impact maps.",
+        "Optimized computation time allowing for multi-scenario parallel testing.",
+      ],
+      techStack: ['Python', 'Pandas', 'NumPy', 'Matplotlib', 'Geospatial Data'],
+      techSnippet: {
+        title: "Simulation Engine Logic",
+        language: "python",
+        code: `def simulate_spill(mesh, wind, current, dt=3600):
+    # Calculate trajectory based on environmental vectors
+    vector = (wind * 0.03) + (current * 1.1)
+    new_positions = mesh.coords + (vector * dt)
+    
+    # Update concentration grid
+    concentration = calculate_diffusion(new_positions)
+    return update_mesh_state(mesh, concentration)`
+      }
+    }
   },
   {
     title: 'Energy Analytics Dashboard',
-    description: 'Data-intensive analytics platform processing 1M+ hourly electricity records from Elhub Norway. Engineered scalable ETL pipelines for near real-time monitoring and decision-making.',
+    shortName: 'energy-data',
+    description: 'Data-intensive analytics platform processing 1M+ hourly electricity records from Elhub Norway. Engineered scalable ETL pipelines for monitoring.',
     tags: ['Python', 'PySpark', 'ETL', 'Data Analytics'],
     category: 'data-science',
+    categoryLabel: 'Data Science',
     image: '/my-web-portfolio/src/assets/project-images/energy-data-analytics.png',
     github: '#',
     live: '#',
     metrics: {
-      records: '1M+ Records',
+      records: '1M+ Hourly Records',
+      market: 'Elhub Norway',
     },
+    details: {
+      problem: "Elhub produces massive amounts of electricity data. Processing over 1 million records hourly for real-time analytics required a high-performance, scalable solution.",
+      solution: "Built a distributed processing pipeline using PySpark. The solution automates data ingestion, cleaning, and aggregation, serving a real-time dashboard for market monitoring.",
+      highlights: [
+        "Engineered ETL pipelines capable of processing millions of records in sub-minute intervals.",
+        "Implemented distributed data processing using PySpark for horizontal scalability.",
+        "Developed custom statistical models to identify consumption anomalies.",
+      ],
+      techStack: ['Python', 'PySpark', 'Apache Spark', 'PostgreSQL', 'Grafana'],
+      techSnippet: {
+        title: "PySpark Aggregation Logic",
+        language: "python",
+        code: `df = spark.read.parquet("s3://elhub-raw-data/")
+aggregated_df = df.groupBy("region", "hour") \\
+    .agg(sum("consumption").alias("total_load")) \\
+    .withColumn("timestamp", current_timestamp())
+
+aggregated_df.write.mode("append").saveAsTable("meter_readings")`
+      }
+    }
   },
   {
     title: 'Financial AI Agent',
-    description: 'AI agent providing Norwegian household budget insights with explainable reasoning, leveraging real-world Statistics Norway (SSB) data for financial planning.',
+    shortName: 'financial-ai',
+    description: 'AI agent providing Norwegian household budget insights with explainable reasoning, leveraging real-world Statistics Norway (SSB) data.',
     tags: ['Python', 'LLaMA', 'LangChain', 'AI Agent'],
     category: 'ai-ml',
+    categoryLabel: 'AI & ML',
     image: '/my-web-portfolio/src/assets/project-images/financial-ai.png',
     github: '#',
     live: '#',
     metrics: {
-      data: 'SSB Data',
+      data: 'SSB Official Data',
+      engine: 'ReAct Agent',
     },
+    details: {
+      problem: "Household budgeting often lacks personalized, data-backed advice. Users need a way to understand how their spending compares to national statistics in a conversational way.",
+      solution: "Architecture a ReAct agent using LangChain and LLaMA. The agent queries SSB datasets, performs comparative analysis, and provides natural language budgeting advice.",
+      highlights: [
+        "Implemented a custom ReAct (Reason + Act) loop for complex financial reasoning.",
+        "Integrated official Statistics Norway (SSB) APIs for real-time demographic data.",
+        "Developed a prompt engineering strategy to ensuring financial accuracy and explainability.",
+      ],
+      techStack: ['Python', 'LangChain', 'LLaMA 3', 'SSB API', 'VectorDB'],
+      techSnippet: {
+        title: "Agent Reasoning Loop",
+        language: "python",
+        code: `agent = initialize_agent(
+    tools=[SSBQueryTool(), BudgetCalculator()],
+    llm=ChatOpenAI(model="gpt-4-turbo"),
+    agent=AgentType.CHAT_CONVERSATIONAL_REACT_DESCRIPTION,
+    verbose=True
+)
+
+# Example: "How does my 5k NOK grocery spend compare to Oslo average?"`
+      }
+    }
   },
   {
     title: 'AV Danse Studio Platform',
-    description: 'Digital platform for a dance center in Norway achieving 99.99% uptime and 50% cost reduction. Implemented CI/CD pipeline doubling deployment velocity with 2x concurrent user capacity.',
+    shortName: 'av-danse',
+    description: 'Digital platform for a dance center in Norway achieving 99.99% uptime and 50% cost reduction with 2x concurrent user capacity.',
     tags: ['AWS', 'S3', 'CloudFront', 'JavaScript', 'CI/CD'],
     category: 'full-stack',
+    categoryLabel: 'Full Stack',
     image: '/my-web-portfolio/project-previews/av-danse.jpg',
     github: '#',
     live: '#',
     metrics: {
-      platform: 'Cloud Platform',
+      uptime: '99.99% Uptime',
+      users: '2x Capacity',
     },
+    details: {
+      problem: "The previous hosting infrastructure was costly and prone to downtime during peak enrollment periods. Scaling was manual and inefficient.",
+      solution: "Migrated the entire platform to a serverless AWS architecture using S3 and CloudFront. Automated the entire delivery process with a robust CI/CD pipeline.",
+      highlights: [
+        "Reduced operational costs by 50% via serverless migration.",
+        "Achieved 99.99% uptime during peak registration windows.",
+        "Doubled deployment velocity by implementing GitHub Actions workflows.",
+      ],
+      techStack: ['JavaScript', 'AWS S3', 'CloudFront', 'GitHub Actions', 'Terraform'],
+      techSnippet: {
+        title: "CI/CD Deployment Flow",
+        language: "yaml",
+        code: `deploy:
+  runs-on: ubuntu-latest
+  steps:
+    - uses: actions/checkout@v2
+    - run: npm install && npm run build
+    - name: Deploy to S3
+      run: aws s3 sync ./dist s3://\${{ secrets.AWS_S3_BUCKET }}`
+      }
+    }
   },
 ];
 

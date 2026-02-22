@@ -1,0 +1,98 @@
+.custom-cursor-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 99999;
+}
+
+.custom-cursor-outer {
+    position: fixed;
+    width: 32px;
+    height: 32px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    transition: width 0.3s ease, height 0.3s ease, border-color 0.3s ease, background-color 0.3s ease;
+}
+
+.custom-cursor-inner {
+    position: fixed;
+    width: 6px;
+    height: 6px;
+    background-color: #fff;
+    border-radius: 50%;
+    z-index: 10;
+}
+
+/* Hover States */
+.custom-cursor-outer--hover {
+    width: 60px;
+    height: 60px;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(2px);
+}
+
+.cursor-text {
+    width: 4px;
+    height: 40px;
+    border-radius: 2px;
+    border-width: 0 1px;
+}
+
+.cursor-pointer {
+    border-color: #34d399;
+    /* Neural green */
+}
+
+/* Connectivity Tracer */
+.cursor-connectivity-ring {
+    position: fixed;
+    width: 40px;
+    height: 40px;
+    border: 1px solid #34d399;
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+/* Hide default cursor on desktop */
+@media (hover: hover) and (pointer: fine) {
+
+    body,
+    a,
+    button,
+    [role="button"] {
+        cursor: none !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .custom-cursor-wrapper {
+        display: none;
+    }
+}
+
+/* Light Mode Overrides */
+.light-mode .custom-cursor-outer {
+    border-color: rgba(0, 0, 0, 0.2);
+}
+
+.light-mode .custom-cursor-inner {
+    background-color: #000;
+}
+
+.light-mode .custom-cursor-outer--hover {
+    background-color: rgba(0, 0, 0, 0.03);
+    border-color: rgba(0, 0, 0, 0.4);
+}
+
+.light-mode .cursor-pointer {
+    border-color: #059669;
+    /* Darker neural green */
+}
+
+.light-mode .cursor-connectivity-ring {
+    border-color: #059669;
+}

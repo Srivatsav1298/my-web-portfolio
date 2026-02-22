@@ -29,6 +29,10 @@ export const translations = {
         },
         projects: {
             title: 'Selected Work',
+            all: 'All Projects',
+            ai: 'AI & ML',
+            data: 'Data Science',
+            fullstack: 'Full Stack'
         },
         skills: {
             title: 'Core Expertise',
@@ -38,6 +42,22 @@ export const translations = {
             placeholder: 'Ask Vatsav\'s AI...',
             clear: 'Clear',
             reset: 'Chat reset! How can I help you learn about Vatsav?',
+        },
+        hud: {
+            status: 'STATUS: ONLINE',
+            loc: 'LOC:',
+            latency: 'LATENCY:',
+            focus: 'FOCUS:',
+            init: 'CORE_INITIALIZATION'
+        },
+        ui: {
+            caseStudy: 'Case Study',
+            sourceCode: 'Source Code',
+            liveDemo: 'Live Demo',
+            techStack: 'Tech Stack',
+            problem: 'The Problem',
+            solution: 'The Solution',
+            highlights: 'Technical Highlights'
         }
     },
     no: {
@@ -66,6 +86,10 @@ export const translations = {
         },
         projects: {
             title: 'Utvalgte prosjekter',
+            all: 'Alle prosjekter',
+            ai: 'AI & ML',
+            data: 'Datavitenskap',
+            fullstack: 'Fullstack'
         },
         skills: {
             title: 'Kjernekompetanse',
@@ -80,6 +104,22 @@ export const translations = {
             placeholder: 'Spør Vatsavs AI...',
             clear: 'Nullstill',
             reset: 'Chat tilbakestilt! Hvordan kan jeg hjelpe deg med å lære om Vatsav?',
+        },
+        hud: {
+            status: 'STATUS: ONLINE',
+            loc: 'STED:',
+            latency: 'LATENS:',
+            focus: 'FOKUS:',
+            init: 'KJERNE_INITIALISERING'
+        },
+        ui: {
+            caseStudy: 'Prosjektgjennomgang',
+            sourceCode: 'Kildekode',
+            liveDemo: 'Se demo',
+            techStack: 'Teknologier',
+            problem: 'Problemet',
+            solution: 'Løsningen',
+            highlights: 'Tekniske høydepunkter'
         }
     }
 };

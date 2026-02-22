@@ -27,7 +27,11 @@ const knowledgeBase = {
 
   // Flattened skills for easier search
   skills: skillCategories.flatMap(cat =>
-    cat.items.map(item => ({ name: item, category: cat.title, categoryId: cat.id }))
+    cat.items.map(item => ({
+      name: typeof item === 'string' ? item : (item.name || ''),
+      category: cat.category || cat.title || '',
+      categoryId: cat.id
+    }))
   ),
 
   // Detailed project info
@@ -75,7 +79,7 @@ const intentPatterns = {
   },
 
   identity: {
-    keywords: ['who', 'about', 'introduce', 'tell me about', 'who is', 'yourself', 'starc', 'what are you'],
+    keywords: ['who are you', 'introduce yourself', 'starc identity', 'what is starc', 'vatsav bio'],
     responses: () => [
       `${knowledgeBase.name} is a ${knowledgeBase.role} currently pursuing his Master's at NMBU, Norway. He has 4 years of experience at Orion Innovation and specializes in Python, Data Science, and AI applications.`,
     ],
@@ -120,12 +124,12 @@ const intentPatterns = {
 
   projects: {
     keywords: ['project', 'work', 'built', 'portfolio', 'showcase', 'created', 'developed', 'made', 'oil', 'energy', 'financial', 'dance'],
-    responses: (query) => {
+    responses: (language, query) => {
       // Check for specific project
       const projectMatches = knowledgeBase.projects.filter(p =>
-        query.includes(p.shortName) ||
-        p.name.toLowerCase().includes(query) ||
-        query.includes(p.category.toLowerCase())
+        query.includes(p.shortName.toLowerCase()) ||
+        query.includes(p.name.toLowerCase()) ||
+        (p.category && query.includes(p.category.toLowerCase()))
       );
 
       if (projectMatches.length === 1) {
@@ -291,14 +295,14 @@ function extractEntities(query) {
 
   // Extract skills
   knowledgeBase.skills.forEach(skill => {
-    if (q.includes(skill.name.toLowerCase())) {
+    if (skill.name && typeof skill.name === 'string' && q.includes(skill.name.toLowerCase())) {
       entities.skills.push(skill);
     }
   });
 
   // Extract projects
   knowledgeBase.projects.forEach(project => {
-    if (q.includes(project.shortName) || project.name.toLowerCase().includes(q)) {
+    if (query.includes(project.shortName.toLowerCase()) || project.name.toLowerCase().split(' ').some(word => word.length > 3 && query.includes(word.toLowerCase()))) {
       entities.projects.push(project);
     }
   });
@@ -516,22 +520,31 @@ export default function AIChatAssistant() {
   }, [language, initialMessage]);
   const [inputValue, setInputValue] = useState('');
   const [isTyping, setIsTyping] = useState(false);
+  const [currentThought, setCurrentThought] = useState('');
   const messagesEndRef = useRef(null);
   const inputRef = useRef(null);
 
-  const scrollToBottom = useCallback(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, []);
+  const thoughts = useMemo(() => language === 'no' ? [
+    "Analyserer spørring...",
+    "Søker i Vatsavs kunnskapsbase...",
+    "Evaluerer relevante prosjekter...",
+    "Syntetiserer svar...",
+    "Validerer tekniske detaljer..."
+  ] : [
+    "Analyzing query intent...",
+    "Searching Vatsav's knowledge base...",
+    "Evaluating relevant projects & skills...",
+    "Synthesizing response...",
+    "Validating technical accuracy..."
+  ], [language]);
 
-  useEffect(() => {
-    scrollToBottom();
-  }, [messages, scrollToBottom]);
-
-  useEffect(() => {
-    if (isOpen && inputRef.current) {
-      setTimeout(() => inputRef.current?.focus(), 100);
+  const runThoughtCycle = async (duration) => {
+    const cycleCount = Math.floor(duration / 600);
+    for (let i = 0; i < cycleCount; i++) {
+      setCurrentThought(thoughts[i % thoughts.length]);
+      await new Promise(r => setTimeout(r, 600));
     }
-  }, [isOpen]);
+  };
 
   const handleSend = async () => {
     const query = inputValue.trim();
@@ -548,13 +561,15 @@ export default function AIChatAssistant() {
     setInputValue('');
     setIsTyping(true);
 
-    // Simulate realistic typing delay based on response length
-    const response = getResponse(query, language);
-    const typingDelay = Math.min(800 + response.length * 10, 2000);
+    const responseRaw = getResponse(query, language);
+    const response = typeof responseRaw === 'string' ? responseRaw : "I couldn't process that request correctly.";
+    const typingDelay = Math.min(1200 + response.length * 5, 2500);
 
-    await new Promise(resolve => setTimeout(resolve, typingDelay));
+    // Run the reasoning terminal
+    await runThoughtCycle(typingDelay);
 
     setIsTyping(false);
+    setCurrentThought('');
     setMessages(prev => [
       ...prev,
       {
@@ -573,36 +588,50 @@ export default function AIChatAssistant() {
     }
   };
 
-  const handleSuggestionClick = (question) => {
+  const handleSuggestionClick = async (question) => {
     setInputValue(question);
-    setTimeout(() => {
-      const userMessage = {
-        id: Date.now(),
-        type: 'user',
-        text: question,
-        timestamp: new Date(),
-      };
-      setMessages(prev => [...prev, userMessage]);
-      setIsTyping(true);
-
-      const response = getResponse(question, language);
-      const typingDelay = Math.min(600 + response.length * 8, 1500);
-
-      setTimeout(() => {
-        setIsTyping(false);
-        setMessages(prev => [
-          ...prev,
-          {
-            id: Date.now() + 1,
-            type: 'bot',
-            text: response,
-            timestamp: new Date(),
-          },
-        ]);
-      }, typingDelay);
-    }, 50);
+    const userMessage = {
+      id: Date.now(),
+      type: 'user',
+      text: question,
+      timestamp: new Date(),
+    };
+    setMessages(prev => [...prev, userMessage]);
     setInputValue('');
+    setIsTyping(true);
+
+    const responseRaw = getResponse(question, language);
+    const response = typeof responseRaw === 'string' ? responseRaw : "I couldn't process that request correctly.";
+    const typingDelay = Math.min(1000 + response.length * 5, 2000);
+
+    await runThoughtCycle(typingDelay);
+
+    setIsTyping(false);
+    setCurrentThought('');
+    setMessages(prev => [
+      ...prev,
+      {
+        id: Date.now() + 1,
+        type: 'bot',
+        text: response,
+        timestamp: new Date(),
+      },
+    ]);
   };
+
+  const scrollToBottom = useCallback(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, []);
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages, scrollToBottom]);
+
+  useEffect(() => {
+    if (isOpen && inputRef.current) {
+      setTimeout(() => inputRef.current?.focus(), 100);
+    }
+  }, [isOpen]);
 
   const clearChat = () => {
     setMessages([{
@@ -714,10 +743,16 @@ export default function AIChatAssistant() {
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                 >
-                  <div className="chat-message__typing">
-                    <span />
-                    <span />
-                    <span />
+                  <div className="chat-message__content">
+                    <div className="chat-message__reasoning">
+                      <span className="reasoning-dot" />
+                      <span className="reasoning-text">{currentThought}</span>
+                    </div>
+                    <div className="chat-message__typing">
+                      <span />
+                      <span />
+                      <span />
+                    </div>
                   </div>
                 </motion.div>
               )}

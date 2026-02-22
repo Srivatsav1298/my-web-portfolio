@@ -5,8 +5,6 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { ThemeProvider } from '../context/ThemeContext';
 import { LanguageProvider } from '../context/LanguageContext';
 
-// Light components (load immediately)
-import CursorTrail from '../components/CursorTrail';
 import Navbar from '../components/layout/Navbar';
 import HUDOverlay from '../components/layout/HUDOverlay';
 import LoadTimeIndicator from '../components/LoadTimeIndicator';
@@ -30,6 +28,7 @@ import '../styles/glass.css';
 import '../styles/hud.css';
 import '../styles/utilities.css';
 import '../styles/sections.css';
+import '../styles/datasheet.css';
 
 // Section definitions for HUD
 const sections = [
@@ -65,9 +64,6 @@ const App = () => {
           <div className="app">
             {/* Load Time Indicator - top left */}
             <LoadTimeIndicator />
-
-            {/* Cursor Trail Effect */}
-            <CursorTrail />
 
             {/* Layer 0: Constellation Background (lazy loaded) */}
             <Suspense fallback={<CanvasFallback />}>
