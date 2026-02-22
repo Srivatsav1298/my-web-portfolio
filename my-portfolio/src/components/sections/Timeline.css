@@ -16,14 +16,12 @@
   top: 0;
   bottom: 0;
   width: 2px;
-  background: linear-gradient(
-    180deg,
-    transparent 0%,
-    var(--accent-dark) 10%,
-    var(--accent-mid) 50%,
-    var(--accent-dark) 90%,
-    transparent 100%
-  );
+  background: linear-gradient(180deg,
+      transparent 0%,
+      var(--accent-dark) 10%,
+      var(--accent-mid) 50%,
+      var(--accent-dark) 90%,
+      transparent 100%);
   transform-origin: top;
 }
 
@@ -34,12 +32,10 @@
   width: 6px;
   height: 40px;
   margin-left: -3px;
-  background: linear-gradient(
-    180deg,
-    transparent 0%,
-    var(--accent-highlight) 50%,
-    transparent 100%
-  );
+  background: linear-gradient(180deg,
+      transparent 0%,
+      var(--accent-highlight) 50%,
+      transparent 100%);
   border-radius: 3px;
   filter: blur(2px);
 }
@@ -111,6 +107,7 @@
     transform: scale(1);
     opacity: 0.6;
   }
+
   100% {
     transform: scale(2);
     opacity: 0;
@@ -171,8 +168,9 @@
 }
 
 .timeline-item__company {
-  font-family: var(--font-mono);
-  font-size: 12px;
+  font-family: var(--font-primary);
+  font-size: 14px;
+  font-weight: 600;
   color: var(--accent-highlight);
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -253,14 +251,12 @@
 
 /* Light mode */
 .light-mode .timeline__main-line {
-  background: linear-gradient(
-    180deg,
-    transparent 0%,
-    var(--accent-mid) 10%,
-    var(--accent-dark) 50%,
-    var(--accent-mid) 90%,
-    transparent 100%
-  );
+  background: linear-gradient(180deg,
+      transparent 0%,
+      var(--accent-mid) 10%,
+      var(--accent-dark) 50%,
+      var(--accent-mid) 90%,
+      transparent 100%);
 }
 
 .light-mode .timeline-item__node-inner {
