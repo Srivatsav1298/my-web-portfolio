@@ -16,10 +16,8 @@ export const skillsData = {
 
 // Category filter list for UI
 export const categoryFilters = [
-  { id: 'backend', label: 'Backend', color: categoryColors.backend },
-  { id: 'data', label: 'Data Science', color: categoryColors.data },
-  { id: 'database', label: 'Databases', color: categoryColors.database },
-  { id: 'cloud', label: 'Cloud', color: categoryColors.cloud },
-  { id: 'dev', label: 'Dev', color: categoryColors.dev },
-  { id: 'ai', label: 'AI', color: categoryColors.ai },
+  { id: 'data', label: 'Data Science & Analytics', color: categoryColors.data },
+  { id: 'database', label: 'Data Engineering', color: categoryColors.database },
+  { id: 'cloud', label: 'Cloud & Architecture', color: categoryColors.cloud },
+  { id: 'ai', label: 'AI & LLM', color: categoryColors.ai },
 ];

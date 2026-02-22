@@ -90,6 +90,11 @@ const skillIcons = {
   'Claude': MessageSquare,
   'LLaMA': Brain,
   'Distributed Systems': Cpu,
+  'System Design': LayoutGrid,
+  'ETL/ELT': Workflow,
+  'Story Telling': PieChart,
+  'LLM/AI': Brain,
+  'Data Analysis': LineChart,
 };
 
 // Skill item component with icon

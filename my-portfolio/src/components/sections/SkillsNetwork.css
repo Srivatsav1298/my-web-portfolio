@@ -98,24 +98,24 @@
   height: 450px;
   border-radius: var(--card-radius);
   overflow: hidden;
-  background: rgba(10, 10, 10, 0.2);
-  border: 1px solid var(--glass-border);
+  background: transparent;
+  border: none;
 }
 
 /* Node labels */
 .skill-node__label {
   font-family: var(--font-primary);
-  font-size: 12px;
-  font-weight: 500;
+  font-size: 16px;
+  font-weight: 600;
   color: var(--text-primary);
   white-space: nowrap;
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
+  text-shadow: 0 4px 12px rgba(0, 0, 0, 1), 0 2px 4px rgba(0, 0, 0, 1);
   transition: all 0.2s ease;
 }
 
 .skill-node__label--active {
-  font-size: 14px;
-  font-weight: 600;
+  font-size: 20px;
+  font-weight: 700;
   color: #fff;
 }
 

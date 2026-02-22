@@ -22,79 +22,48 @@ export const personalInfo = {
 
 export const skillCategories = [
   {
-    id: 'backend',
-    category: 'Programming & Backend',
+    id: 'data',
+    category: 'Data Science & Analytics',
     items: [
       { name: 'Python', icon: 'python' },
-      { name: 'Flask', icon: 'flask' },
-      { name: 'RestAPI', icon: 'fastapi' },
-      { name: 'Microservices', icon: 'diagramsdotnet' },
-    ],
-    color: '#b0b0b5',
-    shortName: 'Backend',
-  },
-  {
-    id: 'data',
-    category: 'Data Science',
-    items: [
       { name: 'Pandas', icon: 'pandas' },
-      { name: 'Matplotlib', icon: 'plotly' },
-      { name: 'Seaborn', icon: 'anaconda' },
-      { name: 'Data Modeling', icon: 'databricks' },
       { name: 'PySpark', icon: 'apachespark' },
-      { name: 'Data Analytics', icon: 'googleanalytics' },
+      { name: 'Data Analysis', icon: 'googleanalytics' },
+      { name: 'Story Telling', icon: 'presentation' },
     ],
     color: '#8a9aaa',
-    shortName: 'Data Science',
+    shortName: 'Data',
   },
   {
     id: 'database',
-    category: 'Databases',
+    category: 'Data Engineering',
     items: [
       { name: 'SQL', icon: 'postgresql' },
-      { name: 'PostgreSQL', icon: 'postgresql' },
       { name: 'Data Modelling', icon: 'dbt' },
+      { name: 'ETL/ELT', icon: 'apacheairflow' },
     ],
     color: '#9aaa8a',
-    shortName: 'Databases',
+    shortName: 'Engineering',
   },
   {
     id: 'cloud',
-    category: 'Cloud & DevOps',
+    category: 'Cloud & Architecture',
     items: [
-      { name: 'Azure', icon: 'microsoftazure' },
       { name: 'AWS', icon: 'amazonaws' },
-      { name: 'Docker', icon: 'docker' },
-      { name: 'CI/CD', icon: 'githubactions' },
-      { name: 'Cloud Architecture', icon: 'terraform' },
+      { name: 'System Design', icon: 'architecture' },
     ],
     color: '#8aaa8a',
-    shortName: 'Cloud',
-  },
-  {
-    id: 'dev',
-    category: 'Software Development',
-    items: [
-      { name: 'Git', icon: 'git' },
-      { name: 'Clean Coding', icon: 'sonarlint' },
-      { name: 'Software Architecture', icon: 'linkedin' },
-      { name: 'Testing', icon: 'pytest' },
-    ],
-    color: '#9a8aaa',
-    shortName: 'Dev',
+    shortName: 'Cloud & Arch',
   },
   {
     id: 'ai',
-    category: 'AI',
+    category: 'AI & LLM',
     items: [
-      { name: 'LangChain', icon: 'chainlink' },
-      { name: 'LLM APIs', icon: 'openai' },
-      { name: 'Claude', icon: 'anthropic' },
-      { name: 'LLaMA', icon: 'meta' },
+      { name: 'LLM/AI', icon: 'openai' },
     ],
     color: '#aa9a8a',
     shortName: 'AI',
-  },
+  }
 ];
 
 // For Skills grid view - uses category and items
@@ -119,92 +88,43 @@ export const categoryNames = Object.fromEntries(
 // ============================================
 
 export const skillNodes = [
-  // Programming & Backend (center)
-  { id: 'python', label: 'Python', category: 'backend', x: 0, y: 0, size: 1.3 },
-  { id: 'flask', label: 'Flask', category: 'backend', x: 1.8, y: -0.5, size: 0.95 },
-  { id: 'restapi', label: 'RestAPI', category: 'backend', x: 1.5, y: 0.8, size: 0.9 },
-  { id: 'microservices', label: 'Microservices', category: 'backend', x: 2.5, y: 0, size: 0.85 },
-
   // Data Science
-  { id: 'pandas', label: 'Pandas', category: 'data', x: -1.5, y: -1.5, size: 1.0 },
-  { id: 'matplotlib', label: 'Matplotlib', category: 'data', x: -2.5, y: -0.8, size: 0.9 },
-  { id: 'seaborn', label: 'Seaborn', category: 'data', x: -3, y: -1.8, size: 0.8 },
-  { id: 'datamodeling', label: 'Data Modeling', category: 'data', x: -2, y: 0.5, size: 0.85 },
-  { id: 'analytics', label: 'Data Analytics', category: 'data', x: -3.2, y: 0.2, size: 0.9 },
+  { id: 'python', label: 'Python', category: 'data', x: 0, y: 0, size: 1.6 },
+  { id: 'pandas', label: 'Pandas', category: 'data', x: -2, y: -1, size: 1.2 },
+  { id: 'pyspark', label: 'PySpark', category: 'data', x: -1.5, y: -2.5, size: 1.1 },
+  { id: 'dataanalysis', label: 'Data Analysis', category: 'data', x: -2.5, y: -0.5, size: 1.2 },
+  { id: 'storytelling', label: 'Story Telling', category: 'data', x: -3.5, y: 0, size: 1.1 },
 
-  // Databases
-  { id: 'sql', label: 'SQL', category: 'database', x: 0, y: 2.2, size: 1.1 },
-  { id: 'postgres', label: 'PostgreSQL', category: 'database', x: 1.5, y: 2.5, size: 0.95 },
+  // AI & LLM
+  { id: 'llmai', label: 'LLM/AI', category: 'ai', x: -1, y: 2, size: 1.3 },
 
-  // Cloud & DevOps
-  { id: 'azure', label: 'Azure', category: 'cloud', x: 3.5, y: 1, size: 1.0 },
-  { id: 'aws', label: 'AWS', category: 'cloud', x: 4, y: -0.5, size: 1.0 },
-  { id: 'docker', label: 'Docker', category: 'cloud', x: 3.8, y: -1.5, size: 0.9 },
-  { id: 'cicd', label: 'CI/CD', category: 'cloud', x: 4.5, y: 0.3, size: 0.85 },
+  // Engineering
+  { id: 'sql', label: 'SQL', category: 'database', x: 2, y: -1, size: 1.3 },
+  { id: 'datamodelling', label: 'Data Modelling', category: 'database', x: 3, y: -2.5, size: 1.2 },
+  { id: 'etl', label: 'ETL/ELT', category: 'database', x: 1.5, y: -3, size: 1.1 },
 
-  // Software Development
-  { id: 'git', label: 'Git', category: 'dev', x: -1, y: 1.5, size: 0.9 },
-  { id: 'cleancode', label: 'Clean Code', category: 'dev', x: -1.8, y: 2.2, size: 0.8 },
-  { id: 'architecture', label: 'Software Arch', category: 'dev', x: 0.8, y: -2, size: 0.85 },
-  { id: 'testing', label: 'Testing', category: 'dev', x: 2, y: -1.8, size: 0.8 },
-
-  // AI
-  { id: 'langchain', label: 'LangChain', category: 'ai', x: -0.5, y: -2.5, size: 0.95 },
-  { id: 'llm', label: 'LLM APIs', category: 'ai', x: -2, y: -2.5, size: 0.9 },
-  { id: 'claude', label: 'Claude', category: 'ai', x: -1.2, y: -3.2, size: 0.85 },
-  { id: 'llama', label: 'LLaMA', category: 'ai', x: 0.5, y: -3.2, size: 0.85 },
+  // Cloud & Arch
+  { id: 'aws', label: 'AWS', category: 'cloud', x: 1.5, y: 2, size: 1.4 },
+  { id: 'systemdesign', label: 'System Design', category: 'cloud', x: 3, y: 1.5, size: 1.3 },
 ];
 
-// Skill connections for network visualization
 export const skillConnections = [
-  // Python connections (central hub)
-  { from: 'python', to: 'flask' },
-  { from: 'python', to: 'restapi' },
   { from: 'python', to: 'pandas' },
-  { from: 'python', to: 'langchain' },
+  { from: 'python', to: 'pyspark' },
+  { from: 'python', to: 'dataanalysis' },
+  { from: 'python', to: 'llmai' },
   { from: 'python', to: 'sql' },
-
-  // Backend connections
-  { from: 'flask', to: 'restapi' },
-  { from: 'restapi', to: 'microservices' },
-  { from: 'flask', to: 'docker' },
-
-  // Data Science connections
-  { from: 'pandas', to: 'matplotlib' },
-  { from: 'matplotlib', to: 'seaborn' },
-  { from: 'pandas', to: 'datamodeling' },
-  { from: 'datamodeling', to: 'analytics' },
-  { from: 'analytics', to: 'sql' },
-
-  // Database connections
-  { from: 'sql', to: 'postgres' },
-  { from: 'postgres', to: 'datamodeling' },
-
-  // Cloud connections
-  { from: 'azure', to: 'aws' },
-  { from: 'aws', to: 'docker' },
-  { from: 'docker', to: 'cicd' },
-  { from: 'azure', to: 'cicd' },
-  { from: 'microservices', to: 'azure' },
-  { from: 'microservices', to: 'docker' },
-
-  // Software Dev connections
-  { from: 'git', to: 'cicd' },
-  { from: 'cleancode', to: 'git' },
-  { from: 'architecture', to: 'microservices' },
-  { from: 'testing', to: 'cicd' },
-  { from: 'cleancode', to: 'architecture' },
-
-  // AI connections
-  { from: 'langchain', to: 'llm' },
-  { from: 'llm', to: 'claude' },
-  { from: 'llm', to: 'llama' },
-  { from: 'langchain', to: 'llama' },
-
-  // Cross-category
-  { from: 'flask', to: 'postgres' },
-  { from: 'pandas', to: 'sql' },
-  { from: 'aws', to: 'postgres' },
+  { from: 'python', to: 'aws' },
+  { from: 'pandas', to: 'dataanalysis' },
+  { from: 'dataanalysis', to: 'storytelling' },
+  { from: 'llmai', to: 'aws' },
+  { from: 'sql', to: 'datamodelling' },
+  { from: 'sql', to: 'etl' },
+  { from: 'etl', to: 'pyspark' },
+  { from: 'etl', to: 'aws' },
+  { from: 'systemdesign', to: 'aws' },
+  { from: 'systemdesign', to: 'datamodelling' },
+  { from: 'pyspark', to: 'aws' },
 ];
 
 // ============================================
