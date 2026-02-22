@@ -5,6 +5,8 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { ThemeProvider } from '../context/ThemeContext';
 import { LanguageProvider } from '../context/LanguageContext';
 
+// Light components (load immediately)
+import CustomCursor from '../components/ui/CustomCursor';
 import Navbar from '../components/layout/Navbar';
 import HUDOverlay from '../components/layout/HUDOverlay';
 import LoadTimeIndicator from '../components/LoadTimeIndicator';
@@ -64,6 +66,9 @@ const App = () => {
           <div className="app">
             {/* Load Time Indicator - top left */}
             <LoadTimeIndicator />
+
+            {/* Neural Custom Cursor */}
+            <CustomCursor />
 
             {/* Layer 0: Constellation Background (lazy loaded) */}
             <Suspense fallback={<CanvasFallback />}>
