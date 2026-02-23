@@ -129,7 +129,7 @@ const Projects = () => {
         viewport={sectionViewport}
       >
         <motion.div className="section__header" variants={titleVariants}>
-          <h2 className="section__title">PROJECTS</h2>
+          <h2 className="section__title">{t('projects.title')}</h2>
           <motion.div
             className="section__line"
             variants={lineVariants}
@@ -272,7 +272,7 @@ const Projects = () => {
 
                   {/* Drag Hint */}
                   <div className="gallery-card__drag-hint">
-                    <span>Drag to explore</span>
+                    <span>{t('projects.drag')}</span>
                     <span className="drag-icon">←→</span>
                   </div>
                 </motion.div>

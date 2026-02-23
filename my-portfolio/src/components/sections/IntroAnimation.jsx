@@ -11,7 +11,7 @@ import './IntroAnimation.css';
  * Content on left, profile picture on right, exits on scroll
  */
 export default function IntroAnimation({ onIntroComplete }) {
-  const { greeting } = useTheme();
+  const { timeOfDay } = useTheme();
   const { language, t } = useLanguage();
   const [scrollY, setScrollY] = useState(0);
   const [windowHeight, setWindowHeight] = useState(1);
@@ -113,7 +113,7 @@ export default function IntroAnimation({ onIntroComplete }) {
                   animate={{ opacity: 1 }}
                   transition={{ duration: 0.6, delay: 0.2 }}
                 >
-                  {language === 'en' ? `${greeting}, ${t('intro.greeting')}` : `${greeting}, ${t('intro.greeting')}`}
+                  {language === 'en' ? `${t(`intro.greeting.${timeOfDay}`)}, I'm` : `${t(`intro.greeting.${timeOfDay}`)}, jeg er`}
                 </motion.p>
 
                 {/* Name */}

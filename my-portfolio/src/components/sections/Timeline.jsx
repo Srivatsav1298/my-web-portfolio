@@ -7,7 +7,7 @@ import './Timeline.css';
 /**
  * Single timeline item
  */
-function TimelineItem({ item, index, isLast }) {
+function TimelineItem({ item, index, isLast, t }) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
 
@@ -97,7 +97,7 @@ function TimelineItem({ item, index, isLast }) {
           animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0 }}
           transition={{ duration: 0.4, delay: 0.8 }}
         >
-          <span>{index === 0 ? (index === 0 ? 'Present' : 'Nå') : (index === 0 ? 'Present' : 'Nå')}</span>
+          <span>{t('timeline.present')}</span>
         </motion.div>
       )}
     </div>
@@ -145,6 +145,7 @@ export default function Timeline() {
             item={item}
             index={index}
             isLast={index === 0}
+            t={t}
           />
         ))}
       </div>
@@ -156,7 +157,7 @@ export default function Timeline() {
         animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0 }}
         transition={{ duration: 0.5, delay: 1.5 }}
       >
-        <span>{language === 'no' ? 'Reisen begynner' : 'Journey Begins'}</span>
+        <span>{t('timeline.journeyBegins')}</span>
       </motion.div>
     </div>
   );

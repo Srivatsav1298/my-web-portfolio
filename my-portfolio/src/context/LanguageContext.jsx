@@ -11,7 +11,12 @@ export const translations = {
             contact: 'Contact',
         },
         intro: {
-            greeting: "I'm", // greeting comes from ThemeContext (e.g., "Good night")
+            greeting: {
+                morning: 'Good morning',
+                afternoon: 'Good afternoon',
+                evening: 'Good evening',
+                night: 'Good night'
+            },
             role: 'Software Engineer',
             tagline: 'Building systems at the intersection of AI and Data',
             chocolate: 'I absolutely adore chocolates! 🍫✨',
@@ -23,19 +28,28 @@ export const translations = {
         },
         about: {
             title: 'About Vatsav',
-            p1: 'Vatsav is an engineer focused on building intelligent systems at the intersection of data and AI. His work spans from architecting scalable data pipelines to developing machine learning solutions that deliver real impact.',
-            p2: 'With a foundation in full-stack development and data engineering, he approaches problems with both technical depth and product thinking. He believes the best systems are those that balance sophistication with simplicity.',
-            p3: 'Currently, he is exploring the frontiers of AI engineering, from LLM applications to real-time data processing systems.',
+            p1: 'Vatsav is a Software Engineer and Data Science student who builds stable, data-driven systems. With over three years of industry experience, he focuses on reliable backend architecture and practical machine learning applications. His core approach is to write clean, maintainable code that solves real problems without unnecessary complexity.',
         },
         projects: {
-            title: 'Selected Work',
+            title: 'Projects',
             all: 'All Projects',
             ai: 'AI & ML',
             data: 'Data Science',
-            fullstack: 'Full Stack'
+            fullstack: 'Full Stack',
+            drag: 'Drag to explore',
         },
         skills: {
-            title: 'Core Expertise',
+            title: 'Technical Skills',
+            networkView: 'Network View',
+            gridView: 'Grid View',
+            loading: 'Loading 3D visualization...',
+        },
+        contact: {
+            whatsNext: "What's Next?",
+            title: 'Get In Touch',
+            text: "I'm currently pursuing my Master's in Data Science at NMBU, Norway and open to discussing opportunities, collaborations, or interesting projects. Feel free to reach out!",
+            sayHello: 'Say Hello',
+            footer: 'Designed & Built by Vatsav',
         },
         assistant: {
             greeting: "Hi! I'm Starc, Vatsav's AI assistant. I can tell you about his skills in AI/Data Science, his projects, or how to get in touch. What interests you?",
@@ -58,6 +72,10 @@ export const translations = {
             problem: 'The Problem',
             solution: 'The Solution',
             highlights: 'Technical Highlights'
+        },
+        timeline: {
+            present: 'Present',
+            journeyBegins: 'Journey Begins',
         }
     },
     no: {
@@ -68,7 +86,12 @@ export const translations = {
             contact: 'Kontakt',
         },
         intro: {
-            greeting: "er jeg", // "God kveld, er jeg Vatsav"
+            greeting: {
+                morning: 'God morgen',
+                afternoon: 'God ettermiddag',
+                evening: 'God kveld',
+                night: 'God natt'
+            },
             role: 'Programvareutvikler',
             tagline: 'Bygger systemer i skjæringspunktet mellom AI og Data',
             chocolate: 'Jeg elsker sjokolade over alt på jord! 🍫✨',
@@ -80,24 +103,28 @@ export const translations = {
         },
         about: {
             title: 'Om Vatsav',
-            p1: 'Vatsav er en ingeniør fokusert på å bygge intelligente systemer i skjæringspunktet mellom data og AI. Hans arbeid spenner fra arkitektering av skalerbare datapipelines til utvikling av maskinlæringsløsninger som gir reell effekt.',
-            p2: 'Med et fundament i fullstack-utvikling og datateknikk, tilnærmer han seg problemer med både teknisk dybde og produkttenking. Han tror de beste systemene er de som balanserer sofistikerthet med enkelhet.',
-            p3: 'For øyeblikket utforsker han grensene for AI-ingeniørkunst, fra LLM-applikasjoner til sanntids databehandlingssystemer.',
+            p1: 'Vatsav er en programvareutvikler og datavitenskap-student som bygger stabile, datadrevne systemer. Med over tre års bransjeerfaring fokuserer han på pålitelig backend-arkitektur og praktiske maskinlæringsapplikasjoner. Hans kjernetilnærming er å skrive ren, vedlikeholdbar kode som løser reelle problemer uten unødvendig kompleksitet.',
         },
         projects: {
-            title: 'Utvalgte prosjekter',
+            title: 'Prosjekter',
             all: 'Alle prosjekter',
             ai: 'AI & ML',
             data: 'Datavitenskap',
-            fullstack: 'Fullstack'
+            fullstack: 'Fullstack',
+            drag: 'Dra for å utforske',
         },
         skills: {
-            title: 'Kjernekompetanse',
+            title: 'Tekniske ferdigheter',
+            networkView: 'Nettverksvisning',
+            gridView: 'Rutenettvisning',
+            loading: 'Laster 3D-visualisering...',
         },
         contact: {
-            title: 'La oss koble til',
-            subtitle: 'Interessert i å jobbe sammen eller bare vil si hei?',
-            send: 'Send melding',
+            whatsNext: 'Hva skjer videre?',
+            title: 'Ta kontakt',
+            text: 'Jeg tar for øyeblikket en mastergrad i datavitenskap ved NMBU, Norge, og er åpen for å diskutere muligheter, samarbeid eller interessante prosjekter. Ta gjerne kontakt!',
+            sayHello: 'Si hei',
+            footer: 'Designet & bygget av Vatsav',
         },
         assistant: {
             greeting: "Hei! Jeg er Starc, Vatsavs AI-assistent. Jeg kan fortelle deg om hans ferdigheter innen AI/Datavitenskap, hans prosjekter, eller hvordan du kan komme i kontakt. Hva interesserer deg?",
@@ -120,6 +147,10 @@ export const translations = {
             problem: 'Problemet',
             solution: 'Løsningen',
             highlights: 'Tekniske høydepunkter'
+        },
+        timeline: {
+            present: 'Nå',
+            journeyBegins: 'Reisen begynner',
         }
     }
 };

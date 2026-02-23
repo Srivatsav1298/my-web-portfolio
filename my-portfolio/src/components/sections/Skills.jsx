@@ -27,6 +27,7 @@ import {
 } from 'lucide-react';
 import GlassCard from '../ui/GlassCard';
 import { skillsForGrid } from '../../data/portfolioData';
+import { useLanguage } from '../../context/LanguageContext';
 import {
   containerVariants,
   titleVariants,
@@ -41,7 +42,7 @@ import '../../styles/sections.css';
 const SkillsNetwork = lazy(() => import('./SkillsNetwork'));
 
 // Simple loading fallback for network view
-const NetworkFallback = () => (
+const NetworkFallback = ({ label }) => (
   <div style={{
     height: '500px',
     display: 'flex',
@@ -51,7 +52,7 @@ const NetworkFallback = () => (
     fontFamily: 'var(--font-mono)',
     fontSize: '12px',
   }}>
-    Loading 3D visualization...
+    {label}
   </div>
 );
 
@@ -125,6 +126,7 @@ const SkillItem = ({ skill, index, groupIndex }) => {
 
 const Skills = () => {
   const [showNetwork, setShowNetwork] = useState(true);
+  const { t } = useLanguage();
 
   return (
     <section id="skills" className="section">
@@ -136,7 +138,7 @@ const Skills = () => {
         viewport={sectionViewport}
       >
         <motion.div className="section__header" variants={titleVariants}>
-          <h2 className="section__title">Technical Skills</h2>
+          <h2 className="section__title">{t('skills.title')}</h2>
           <motion.div
             className="section__line"
             variants={lineVariants}
@@ -159,13 +161,13 @@ const Skills = () => {
             className={`skills__toggle-btn ${showNetwork ? 'skills__toggle-btn--active' : ''}`}
             onClick={() => setShowNetwork(true)}
           >
-            Network View
+            {t('skills.networkView')}
           </button>
           <button
             className={`skills__toggle-btn ${!showNetwork ? 'skills__toggle-btn--active' : ''}`}
             onClick={() => setShowNetwork(false)}
           >
-            Grid View
+            {t('skills.gridView')}
           </button>
         </motion.div>
 
@@ -176,7 +178,7 @@ const Skills = () => {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5 }}
           >
-            <Suspense fallback={<NetworkFallback />}>
+            <Suspense fallback={<NetworkFallback label={t('skills.loading')} />}>
               <SkillsNetwork />
             </Suspense>
           </motion.div>

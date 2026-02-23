@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { Mail, MapPin, Send } from 'lucide-react';
 import MagneticButton from '../ui/MagneticButton';
 import { personalInfo } from '../../data/portfolioData';
+import { useLanguage } from '../../context/LanguageContext';
 import {
   containerVariants,
   itemVariants,
@@ -13,6 +14,7 @@ import {
 import '../../styles/sections.css';
 
 const Contact = () => {
+  const { t } = useLanguage();
   return (
     <section id="contact" className="section contact">
       <motion.div
@@ -23,11 +25,11 @@ const Contact = () => {
         viewport={{ once: true, margin: '-80px' }}
       >
         <motion.span className="contact__pre" variants={itemVariants}>
-          What's Next?
+          {t('contact.whatsNext')}
         </motion.span>
 
         <motion.h2 className="contact__title" variants={itemVariants}>
-          Get In Touch
+          {t('contact.title')}
         </motion.h2>
 
         <motion.div
@@ -37,9 +39,7 @@ const Contact = () => {
         />
 
         <motion.p className="contact__text" variants={itemVariants}>
-          I'm currently pursuing my Master's in Data Science at NMBU, Norway and open to
-          discussing opportunities, collaborations, or interesting projects.
-          Feel free to reach out!
+          {t('contact.text')}
         </motion.p>
 
         <motion.div
@@ -52,7 +52,7 @@ const Contact = () => {
             onClick={() => window.location.href = `mailto:${personalInfo.email}`}
           >
             <Send size={16} style={{ marginRight: '8px' }} />
-            Say Hello
+            {t('contact.sayHello')}
           </MagneticButton>
         </motion.div>
 
@@ -88,7 +88,7 @@ const Contact = () => {
         viewport={{ once: true }}
         transition={{ delay: 0.5, duration: 0.8 }}
       >
-        <p>Designed & Built by Vatsav</p>
+        <p>{t('contact.footer')}</p>
       </motion.footer>
     </section>
   );
