@@ -263,6 +263,21 @@ function getCategoryResponse(category, language = 'en') {
 }
 
 // ============================================
+// DYNAMIC FACT BASE (For unexpected questions)
+// ============================================
+
+const flatFacts = [
+  ...knowledgeBase.skills.map(s => ({ type: 'skill', text: `${s.name} is a ${s.category} skill.` })),
+  ...knowledgeBase.projects.map(p => ({ type: 'project', text: `**${p.name}**: ${p.description}\nTechnologies: ${p.tech.join(', ')}` })),
+  ...knowledgeBase.experience.map(e => ({ type: 'experience', text: `**${e.role} at ${e.company}** (${e.period}): ${e.description}` })),
+  ...knowledgeBase.certifications.map(c => ({ type: 'certification', text: `Achievement: ${c}` })),
+  { type: 'education', text: `Education: ${knowledgeBase.education.masters} & ${knowledgeBase.education.bachelors}` },
+  { type: 'location', text: `Location: ${knowledgeBase.location}` },
+  { type: 'contact', text: `Contact: ${knowledgeBase.email} | ${knowledgeBase.linkedin}` },
+  { type: 'identity', text: `${knowledgeBase.name} is a ${knowledgeBase.role}` },
+];
+
+// ============================================
 // INTELLIGENT QUERY PROCESSING
 // ============================================
 
@@ -344,7 +359,7 @@ function getResponse(query, language = 'en') {
 
   if (intent) {
     // If it's a fun fact or has enough similarity
-    if (intent.name === 'funFact' || calculateSimilarity(lowerQuery, intent.data.keywords || []) > 0.05) {
+    if (intent.name === 'funFact' || calculateSimilarity(lowerQuery, intent.data.keywords || []) > 0.08) {
       const responses = intent.data.responses(language, lowerQuery);
       return responses[Math.floor(Math.random() * responses.length)];
     }
@@ -352,9 +367,44 @@ function getResponse(query, language = 'en') {
 
   // Check for partial matches (keywords in query)
   for (const [name, data] of Object.entries(intentPatterns)) {
-    if (data.keywords.some(k => lowerQuery.includes(k))) {
+    if (data.keywords.some(k => lowerQuery.includes(k) && k.length > 3)) {
       const responses = data.responses(language, lowerQuery);
       return responses[Math.floor(Math.random() * responses.length)];
+    }
+  }
+
+  // DYNAMIC FACT SEARCH (Handles any dynamic question)
+  const queryWords = lowerQuery.split(/[^a-z0-9]+/);
+  let bestFacts = [];
+
+  for (const fact of flatFacts) {
+    let score = 0;
+    const factLower = fact.text.toLowerCase();
+
+    for (const w of queryWords) {
+      // Ignore common stop words
+      if (['what', 'who', 'how', 'when', 'why', 'is', 'the', 'a', 'an', 'and', 'or', 'do', 'does', 'did', 'can', 'could'].includes(w)) continue;
+
+      if (w.length > 2 && factLower.includes(w)) {
+        score += w.length; // Weight longer word matches higher
+      }
+    }
+
+    if (score > 0) {
+      bestFacts.push({ ...fact, score });
+    }
+  }
+
+  if (bestFacts.length > 0) {
+    // Sort descending by score
+    bestFacts.sort((a, b) => b.score - a.score);
+    // Take top 2 most relevant facts
+    const topFacts = bestFacts.slice(0, 2);
+
+    if (language === 'no') {
+      return `Basert på min kunnskapsbase, fant jeg dette for deg:\n\n` + topFacts.map(f => `• ${f.text}`).join('\n\n');
+    } else {
+      return `Based on my analysis, here is what I found:\n\n` + topFacts.map(f => `• ${f.text}`).join('\n\n') + `\n\nCan I provide more details on any of these?`;
     }
   }
 

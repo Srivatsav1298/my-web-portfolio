@@ -7,6 +7,7 @@ import { LanguageProvider } from '../context/LanguageContext';
 
 // Light components (load immediately)
 import CustomCursor from '../components/ui/CustomCursor';
+import CommandPalette from '../components/ui/CommandPalette';
 import Navbar from '../components/layout/Navbar';
 import HUDOverlay from '../components/layout/HUDOverlay';
 import LoadTimeIndicator from '../components/LoadTimeIndicator';
@@ -69,6 +70,9 @@ const App = () => {
 
             {/* Neural Custom Cursor */}
             <CustomCursor />
+
+            {/* System Elements */}
+            <CommandPalette />
 
             {/* Layer 0: Constellation Background (lazy loaded) */}
             <Suspense fallback={<CanvasFallback />}>
