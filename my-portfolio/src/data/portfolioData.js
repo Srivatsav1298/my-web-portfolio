@@ -139,7 +139,7 @@ export const projects = [
     tags: ['Python', 'Pandas', 'Matplotlib', 'Mesh Data', 'Simulation'],
     category: 'data-science',
     categoryLabel: 'Data Science',
-    image: '/my-web-portfolio/src/assets/project-images/oil-spill.png',
+    image: '/my-web-portfolio/project-previews/oil-spill.png',
     github: '#',
     live: '#',
     metrics: {
@@ -176,7 +176,7 @@ export const projects = [
     tags: ['Python', 'PySpark', 'ETL', 'Data Analytics'],
     category: 'data-science',
     categoryLabel: 'Data Science',
-    image: '/my-web-portfolio/src/assets/project-images/energy-data-analytics.png',
+    image: '/my-web-portfolio/project-previews/energy-data-analytics.png',
     github: '#',
     live: '#',
     metrics: {
@@ -211,7 +211,7 @@ aggregated_df.write.mode("append").saveAsTable("meter_readings")`
     tags: ['Python', 'LLaMA', 'LangChain', 'AI Agent'],
     category: 'ai-ml',
     categoryLabel: 'AI & ML',
-    image: '/my-web-portfolio/src/assets/project-images/financial-ai.png',
+    image: '/my-web-portfolio/project-previews/financial-ai.png',
     github: '#',
     live: '#',
     metrics: {
