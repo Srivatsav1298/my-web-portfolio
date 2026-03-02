@@ -42,7 +42,7 @@ export default function CommandPalette() {
         {
             group: 'Actions',
             items: [
-                { id: 'act-resume', icon: <Download size={16} />, label: 'Download Resume', action: downloadResume },
+                { id: 'act-resume', icon: <FileText size={16} />, label: 'View Resume', action: viewResume },
                 { id: 'act-github', icon: <Code size={16} />, label: 'Open GitHub', action: () => window.open('https://github.com/Srivatsav1298', '_blank') },
                 { id: 'act-linkedin', icon: <Briefcase size={16} />, label: 'Open LinkedIn', action: () => window.open('https://linkedin.com/in/srivatsav-saravanan', '_blank') },
             ],
@@ -57,13 +57,8 @@ export default function CommandPalette() {
         }
     }
 
-    function downloadResume() {
-        const link = document.createElement('a');
-        link.href = '/my-web-portfolio/resume.pdf';
-        link.download = 'Vatsav_Saravanan_Resume.pdf';
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
+    function viewResume() {
+        window.open('/my-web-portfolio/resume.pdf', '_blank');
     }
 
     // Flatten items for filtering and keyboard navigation

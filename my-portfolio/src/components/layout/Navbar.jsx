@@ -56,8 +56,9 @@ const Navbar = forwardRef(({ showName = false }, ref) => {
         {/* Resume Download */}
         <a
           href="/my-web-portfolio/resume.pdf"
-          download="Vatsav_Saravanan_Resume.pdf"
-          title="Download Resume"
+          target="_blank"
+          rel="noopener noreferrer"
+          title="View Resume"
           className="navbar__icon navbar__resume"
         >
           <FileText size={18} />
