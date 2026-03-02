@@ -12,7 +12,7 @@ export const personalInfo = {
   role: 'Data Science Graduate Student & Software Engineer',
   location: 'Asker, Norway',
   email: 'srivatsavs98@gmail.com',
-  linkedin: 'linkedin.com/in/srivatsav-saravanan',
+  linkedin: 'linkedin.com/in/srivatsav-s',
   languages: ['English (Fluent)', 'Norwegian (B1)'],
 };
 

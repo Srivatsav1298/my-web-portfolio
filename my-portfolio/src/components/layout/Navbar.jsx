@@ -93,7 +93,7 @@ const Navbar = forwardRef(({ showName = false }, ref) => {
           </div>
         </button>
 
-        <a href="https://linkedin.com/in/srivatsav-saravanan" target="_blank" rel="noopener noreferrer" title="LinkedIn" className="navbar__icon">
+        <a href="https://www.linkedin.com/in/srivatsav-s" target="_blank" rel="noopener noreferrer" title="LinkedIn" className="navbar__icon">
           <Linkedin size={18} />
         </a>
         <a href="https://github.com/Srivatsav1298" target="_blank" rel="noopener noreferrer" title="GitHub" className="navbar__icon">

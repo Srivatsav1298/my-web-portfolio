@@ -26,7 +26,7 @@ const RightSidebar = () => {
         >
             <div className="sidebar-container">
                 <motion.a
-                    href="https://github.com"
+                    href="https://github.com/Srivatsav1298"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="sidebar-link"
@@ -36,7 +36,7 @@ const RightSidebar = () => {
                 </motion.a>
 
                 <motion.a
-                    href="/resume.pdf"
+                    href="/my-web-portfolio/resume.pdf"
                     target="_blank"
                     className="sidebar-link"
                     whileHover={{ scale: 1.1, color: "#fff" }}

@@ -44,7 +44,7 @@ export default function CommandPalette() {
             items: [
                 { id: 'act-resume', icon: <FileText size={16} />, label: 'View Resume', action: viewResume },
                 { id: 'act-github', icon: <Code size={16} />, label: 'Open GitHub', action: () => window.open('https://github.com/Srivatsav1298', '_blank') },
-                { id: 'act-linkedin', icon: <Briefcase size={16} />, label: 'Open LinkedIn', action: () => window.open('https://linkedin.com/in/srivatsav-saravanan', '_blank') },
+                { id: 'act-linkedin', icon: <Briefcase size={16} />, label: 'Open LinkedIn', action: () => window.open('https://www.linkedin.com/in/srivatsav-s', '_blank') },
             ],
         }
     ];
