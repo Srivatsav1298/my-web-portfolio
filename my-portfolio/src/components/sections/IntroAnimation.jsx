@@ -4,6 +4,7 @@ import { ChevronDown } from 'lucide-react';
 import { useTheme } from '../../context/ThemeContext';
 import { useLanguage } from '../../context/LanguageContext';
 import profileImage from '../../assets/profile.jpg';
+import ArmoredPortrait from '../ui/ArmoredPortrait';
 import './IntroAnimation.css';
 
 /**
@@ -201,8 +202,9 @@ export default function IntroAnimation({ onIntroComplete }) {
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.8, delay: 0.1 }}
+                style={{ perspective: '1200px' }}
               >
-                <img src={profileImage} alt="Srivatsav" />
+                <ArmoredPortrait imageSrc={profileImage} />
               </motion.div>
             </motion.div>
 

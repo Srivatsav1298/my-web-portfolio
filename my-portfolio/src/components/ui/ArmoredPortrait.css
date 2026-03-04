@@ -1,0 +1,232 @@
+/* src/components/ui/ArmoredPortrait.css */
+
+.armored-portrait__wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    perspective: 1200px;
+    cursor: crosshair;
+}
+
+.armored-portrait__container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    border-radius: 20px;
+    transform-style: preserve-3d;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+}
+
+.armored-portrait__base {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Nano-tech hex grid overlay - appears on assembly */
+.armored-portrait__nano-grid {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image:
+        linear-gradient(rgba(0, 255, 255, 0.1) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 255, 255, 0.1) 1px, transparent 1px);
+    background-size: 20px 20px;
+    pointer-events: none;
+    z-index: 2;
+    mix-blend-mode: screen;
+}
+
+/* Base layer for all armor parts */
+.armored-portrait__armor-layer {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 10;
+}
+
+.armor-piece {
+    position: absolute;
+    /* Premium metallic styling */
+    background: linear-gradient(135deg, rgba(140, 140, 140, 0.98), rgba(60, 60, 60, 0.98) 40%, rgba(20, 20, 20, 1));
+    box-shadow: inset 1px 1px 2px rgba(255, 255, 255, 0.4),
+        0 10px 20px rgba(0, 0, 0, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(8px);
+    transform-origin: center center;
+}
+
+/* Chest plate */
+.armor-chest {
+    width: 90%;
+    height: 55%;
+    left: 5%;
+    bottom: 0%;
+    clip-path: polygon(50% 15%, 85% 0, 100% 30%, 95% 100%, 5% 100%, 0 30%, 15% 0);
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: 15%;
+    z-index: 13;
+}
+
+/* Arc Reactor */
+.armor-arc-reactor {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 50% 50%, #fff 0%, #0ff 30%, rgba(0, 50, 255, 0.8) 80%, #000 100%);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.8), 0 0 20px #0ff;
+}
+
+.armor-arc-core {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: 0 0 15px #fff, 0 0 30px #0ff;
+    z-index: 2;
+}
+
+.armor-arc-ring {
+    position: absolute;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 4px dashed rgba(20, 20, 20, 0.8);
+    animation: arcSpin 8s linear infinite;
+    z-index: 3;
+}
+
+.armor-arc-glow {
+    position: absolute;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(0, 255, 255, 0.3) 0%, transparent 60%);
+    animation: arcPulse 2s ease-in-out infinite alternate;
+    z-index: 1;
+}
+
+@keyframes arcSpin {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes arcPulse {
+    100% {
+        transform: scale(1.1);
+        opacity: 0.9;
+    }
+
+    0% {
+        transform: scale(0.95);
+        opacity: 0.6;
+    }
+}
+
+/* Shoulders */
+.armor-shoulder {
+    width: 45%;
+    height: 35%;
+    top: 40%;
+    z-index: 12;
+}
+
+.armor-shoulder--left {
+    left: -10%;
+    clip-path: polygon(30% 0, 100% 20%, 85% 100%, 0 80%, 0 20%);
+}
+
+.armor-shoulder--right {
+    right: -10%;
+    clip-path: polygon(0 20%, 70% 0, 100% 20%, 100% 80%, 15% 100%);
+}
+
+/* Neck guard */
+.armor-neck {
+    width: 60%;
+    height: 25%;
+    left: 20%;
+    top: 35%;
+    clip-path: polygon(20% 0%, 80% 0%, 100% 100%, 0% 100%);
+    z-index: 11;
+    background: linear-gradient(180deg, rgba(30, 30, 30, 1), rgba(10, 10, 10, 1));
+}
+
+/* Helmet Base (covers back/sides of head) */
+.armor-helmet-base {
+    width: 80%;
+    height: 55%;
+    left: 10%;
+    top: -5%;
+    clip-path: polygon(30% 0, 70% 0, 100% 30%, 95% 100%, 5% 100%, 0 30%);
+    background: linear-gradient(180deg, rgba(80, 80, 80, 1), rgba(20, 20, 20, 0.95));
+    z-index: 14;
+}
+
+/* Face Plate (slides down to cover face) */
+.armor-face-plate {
+    width: 65%;
+    height: 48%;
+    left: 17.5%;
+    top: 0%;
+    /* Gold/Silver contrast style */
+    background: linear-gradient(135deg, rgba(230, 210, 170, 0.95), rgba(180, 150, 100, 0.95) 50%, rgba(90, 70, 40, 1));
+    clip-path: polygon(15% 0, 85% 0, 100% 50%, 75% 100%, 25% 100%, 0 50%);
+    z-index: 15;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding-bottom: 15%;
+    transform-origin: top center;
+    box-shadow: inset 0 -5px 15px rgba(0, 0, 0, 0.5);
+    border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Glowing eyes */
+.armor-eyes-container {
+    display: flex;
+    justify-content: space-between;
+    width: 75%;
+    margin: 0 auto;
+}
+
+.armor-eye {
+    width: 42%;
+    height: 8px;
+    background: #fff;
+    box-shadow: 0 0 10px #0ff, 0 0 25px #0ff, 0 0 40px #0ff, inset 0 0 5px #0ff;
+    border-radius: 2px;
+}
+
+.armor-eye--left {
+    transform: skewY(8deg);
+}
+
+.armor-eye--right {
+    transform: skewY(-8deg);
+}
+
+.armor-jaw-lines {
+    width: 30%;
+    height: 12px;
+    margin: 15% auto 0;
+    border-top: 2px solid rgba(50, 30, 10, 0.5);
+    border-bottom: 2px solid rgba(50, 30, 10, 0.5);
+}
+
+/* Media Queries for sizing */
+@media (max-width: 768px) {
+    .armored-portrait__wrapper {
+        perspective: none;
+    }
+}
