@@ -14,6 +14,13 @@
   padding: 40px 0;
 }
 
+.gallery-wrapper--story {
+  min-height: calc(100vh - 100px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
 /* Gallery Container */
 .gallery-container {
   display: flex;
@@ -26,10 +33,15 @@
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
   -ms-overflow-style: none;
+  will-change: scroll-position;
 }
 
 .gallery-container::-webkit-scrollbar {
   display: none;
+}
+
+.gallery-container--story {
+  overflow-x: hidden;
 }
 
 .gallery-container.grabbing {
@@ -52,12 +64,17 @@
   flex-direction: column;
   backdrop-filter: blur(20px);
   transition: transform 0.4s ease, border-color 0.3s ease, box-shadow 0.4s ease;
+  will-change: transform;
 }
 
 .gallery-card:hover {
   transform: translateY(-4px);
   border-color: rgba(255, 255, 255, 0.2);
   box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+}
+
+.gallery-card--active {
+  border-color: rgba(255, 255, 255, 0.22);
 }
 
 /* Card Number */
@@ -311,14 +328,25 @@
   animation: pulse 2s ease-in-out infinite;
 }
 
+.gallery-wrapper--story .gallery-card__drag-hint {
+  opacity: 0;
+}
+
 .drag-icon {
   font-size: 14px;
   letter-spacing: 2px;
 }
 
 @keyframes pulse {
-  0%, 100% { opacity: 0.5; }
-  50% { opacity: 1; }
+
+  0%,
+  100% {
+    opacity: 0.5;
+  }
+
+  50% {
+    opacity: 1;
+  }
 }
 
 /* Navigation Arrows */
@@ -503,6 +531,11 @@
    ============================================ */
 
 @media (max-width: 900px) {
+  .gallery-wrapper--story {
+    min-height: auto;
+    display: block;
+  }
+
   .gallery-card {
     flex: 0 0 85vw;
     min-height: auto;
@@ -555,5 +588,25 @@
   .gallery-card__btn {
     width: 100%;
     justify-content: center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gallery-container {
+    scroll-behavior: auto;
+  }
+
+  .gallery-card,
+  .gallery-card__image-container,
+  .gallery-card__project-image,
+  .gallery-card__btn,
+  .gallery-dot,
+  .gallery-progress__bar {
+    transition: none;
+  }
+
+  .gallery-card__drag-hint,
+  .gallery-card__shape {
+    animation: none;
   }
 }

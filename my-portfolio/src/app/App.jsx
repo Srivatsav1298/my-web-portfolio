@@ -1,9 +1,11 @@
-import React, { useState, useEffect, lazy, Suspense } from 'react';
+import React, { useState, lazy, Suspense } from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
+import { MotionConfig } from 'framer-motion';
 
 // Context
 import { ThemeProvider } from '../context/ThemeContext';
 import { LanguageProvider } from '../context/LanguageContext';
+import useSmoothScroll from '../hooks/useSmoothScroll';
 
 // Light components (load immediately)
 import CustomCursor from '../components/ui/CustomCursor';
@@ -59,47 +61,50 @@ const CanvasFallback = () => (
 
 const App = () => {
   const [showNavName, setShowNavName] = useState(false);
+  useSmoothScroll();
 
   return (
     <ThemeProvider>
       <LanguageProvider>
-        <Router>
-          <div className="app">
-            {/* Load Time Indicator - top left */}
-            <LoadTimeIndicator />
+        <MotionConfig reducedMotion="user">
+          <Router>
+            <div className="app">
+              {/* Load Time Indicator - top left */}
+              <LoadTimeIndicator />
 
-            {/* Neural Custom Cursor */}
-            <CustomCursor />
+              {/* Neural Custom Cursor */}
+              <CustomCursor />
 
-            {/* System Elements */}
-            <CommandPalette />
+              {/* System Elements */}
+              <CommandPalette />
 
-            {/* Layer 0: Constellation Background (lazy loaded) */}
-            <Suspense fallback={<CanvasFallback />}>
-              <ConstellationCanvas />
-            </Suspense>
+              {/* Layer 0: Constellation Background (lazy loaded) */}
+              <Suspense fallback={<CanvasFallback />}>
+                <ConstellationCanvas />
+              </Suspense>
 
-            {/* Layer 1: HUD Overlay (fixed, z-index: 100) */}
-            <HUDOverlay sections={sections} />
+              {/* Layer 1: HUD Overlay (fixed, z-index: 100) */}
+              <HUDOverlay sections={sections} />
 
-            {/* Layer 2: Navbar (fixed, z-index: 200) */}
-            <Navbar showName={showNavName} />
+              {/* Layer 2: Navbar (fixed, z-index: 200) */}
+              <Navbar showName={showNavName} />
 
-            {/* Layer 3: Scrollable Content (z-index: 10) */}
-            <main className="main-content">
-              <IntroAnimation onIntroComplete={setShowNavName} />
-              <About />
-              <Projects />
-              <Skills />
-              <Contact />
-            </main>
+              {/* Layer 3: Scrollable Content (z-index: 10) */}
+              <main className="main-content">
+                <IntroAnimation onIntroComplete={setShowNavName} />
+                <About />
+                <Projects />
+                <Skills />
+                <Contact />
+              </main>
 
-            {/* AI Chat Assistant (lazy loaded) */}
-            <Suspense fallback={null}>
-              <AIChatAssistant />
-            </Suspense>
-          </div>
-        </Router>
+              {/* AI Chat Assistant (lazy loaded) */}
+              <Suspense fallback={null}>
+                <AIChatAssistant />
+              </Suspense>
+            </div>
+          </Router>
+        </MotionConfig>
       </LanguageProvider>
     </ThemeProvider>
   );

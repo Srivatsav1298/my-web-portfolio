@@ -174,6 +174,40 @@
   border-radius: 1px;
 }
 
+.hud-progress-meta {
+  position: absolute;
+  right: 40px;
+  top: 50%;
+  transform: translateY(calc(-50% - 86px));
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+}
+
+.hud-progress-bar__markers {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2px 0;
+}
+
+.hud-progress-marker {
+  width: 4px;
+  height: 4px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.18);
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.hud-progress-marker--active {
+  background: var(--accent-mid);
+  transform: scale(1.15);
+}
+
 .hud-progress-bar__fill {
   position: absolute;
   bottom: 0;
@@ -191,5 +225,16 @@
 @media (max-width: 768px) {
   .hud-overlay {
     display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hud-status__dot {
+    animation: none;
+  }
+
+  .hud-progress-bar__fill,
+  .hud-progress-marker {
+    transition: none;
   }
 }

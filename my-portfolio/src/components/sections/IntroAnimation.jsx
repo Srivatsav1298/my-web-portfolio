@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useMemo } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import { ChevronDown } from 'lucide-react';
 import { useTheme } from '../../context/ThemeContext';
 import { useLanguage } from '../../context/LanguageContext';
@@ -17,6 +17,7 @@ export default function IntroAnimation({ onIntroComplete }) {
   const [scrollY, setScrollY] = useState(0);
   const [windowHeight, setWindowHeight] = useState(1);
   const [isInView, setIsInView] = useState(true);
+  const shouldReduceMotion = useReducedMotion();
 
   useEffect(() => {
     setWindowHeight(window.innerHeight);
@@ -42,14 +43,22 @@ export default function IntroAnimation({ onIntroComplete }) {
     };
   }, [windowHeight]);
 
-  // Smooth easing
-  const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3);
-
   // Calculate scroll progress (gentle fade - 1x viewport)
   const rawProgress = Math.min(scrollY / windowHeight, 1);
 
   // Animation values - softer, more gradual
   const animations = useMemo(() => {
+    if (shouldReduceMotion) {
+      return {
+        contentOpacity: 1,
+        contentY: 0,
+        scrollHintOpacity: 1,
+        glowY: 0,
+        profileY: 0,
+        profileScale: 1,
+      };
+    }
+
     // Content fades out gradually as user scrolls past 50%
     const contentOpacity = rawProgress < 0.5
       ? 1
@@ -61,13 +70,19 @@ export default function IntroAnimation({ onIntroComplete }) {
 
     // Scroll indicator fades out quickly
     const scrollHintOpacity = Math.max(0, 1 - rawProgress * 2);
+    const glowY = rawProgress * 28;
+    const profileY = rawProgress * -22;
+    const profileScale = 1 - (rawProgress * 0.04);
 
     return {
       contentOpacity: Math.max(0, contentOpacity),
       contentY,
       scrollHintOpacity,
+      glowY,
+      profileY,
+      profileScale,
     };
-  }, [rawProgress]);
+  }, [rawProgress, shouldReduceMotion]);
 
   // Update navbar name visibility
   useEffect(() => {
@@ -92,7 +107,10 @@ export default function IntroAnimation({ onIntroComplete }) {
         {isInView && (
           <>
             {/* Ambient glow */}
-            <div className="intro-section__ambient-glow" />
+            <div
+              className="intro-section__ambient-glow"
+              style={{ transform: `translate3d(0, ${animations.glowY}px, 0)` }}
+            />
 
             {/* Main container - split layout */}
             <motion.div
@@ -197,15 +215,22 @@ export default function IntroAnimation({ onIntroComplete }) {
               </div>
 
               {/* Right side - Profile Picture */}
-              <motion.div
-                className="intro-section__profile"
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.8, delay: 0.1 }}
-                style={{ perspective: '1200px' }}
+              <div
+                className="intro-section__profile-parallax"
+                style={{
+                  transform: `translate3d(0, ${animations.profileY}px, 0) scale(${animations.profileScale})`,
+                }}
               >
-                <ArmoredPortrait imageSrc={profileImage} />
-              </motion.div>
+                <motion.div
+                  className="intro-section__profile"
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.8, delay: 0.1 }}
+                  style={{ perspective: '1200px' }}
+                >
+                  <ArmoredPortrait imageSrc={profileImage} />
+                </motion.div>
+              </div>
             </motion.div>
 
             {/* Scroll indicator - Minimal Arrow */}
