@@ -77,19 +77,6 @@
   border-color: rgba(255, 255, 255, 0.22);
 }
 
-/* Card Number */
-.gallery-card__number {
-  position: absolute;
-  top: 32px;
-  left: 48px;
-  font-family: var(--font-mono);
-  font-size: 13px;
-  font-weight: 600;
-  color: #808080;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-}
-
 /* Card Content Layout */
 .gallery-card__content {
   display: flex;
@@ -444,10 +431,6 @@
 .light-mode .gallery-card:hover {
   border-color: rgba(0, 0, 0, 0.2);
   box-shadow: 0 30px 60px rgba(0, 0, 0, 0.15);
-}
-
-.light-mode .gallery-card__number {
-  color: #86868b;
 }
 
 .light-mode .gallery-card__tag {

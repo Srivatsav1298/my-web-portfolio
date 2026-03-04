@@ -78,11 +78,6 @@ export default function ArmoredPortrait({ imageSrc }) {
         assembled: { opacity: 1, scaleX: 1, filter: "blur(0px)", transition: { duration: 0.4, delay: 0.8, ease: "circOut" } }
     };
 
-    const arcReactorVariants = {
-        disassembled: { opacity: 0, scale: 0, rotate: -180, transition: { duration: 0.3 } },
-        assembled: { opacity: 1, scale: 1, rotate: 0, transition: { type: "spring", damping: 10, stiffness: 80, delay: 0.5 } }
-    };
-
     const nanoGridVariants = {
         disassembled: { opacity: 0, clipPath: "circle(0% at 50% 50%)" },
         assembled: { opacity: 0.4, clipPath: "circle(100% at 50% 50%)", transition: { duration: 1, ease: "easeOut" } }
@@ -131,14 +126,7 @@ export default function ArmoredPortrait({ imageSrc }) {
                     <motion.div className="armor-piece armor-neck" variants={neckGuardVariants} initial="disassembled" animate={controls} />
 
                     {/* Chest Plate */}
-                    <motion.div className="armor-piece armor-chest" variants={chestVariants} initial="disassembled" animate={controls}>
-                        {/* Arc Reactor */}
-                        <motion.div className="armor-arc-reactor" variants={arcReactorVariants}>
-                            <div className="armor-arc-core" />
-                            <div className="armor-arc-ring" />
-                            <div className="armor-arc-glow" />
-                        </motion.div>
-                    </motion.div>
+                    <motion.div className="armor-piece armor-chest" variants={chestVariants} initial="disassembled" animate={controls} />
 
                     {/* Helmet Base */}
                     <motion.div className="armor-piece armor-helmet-base" variants={helmetBaseVariants} initial="disassembled" animate={controls} />

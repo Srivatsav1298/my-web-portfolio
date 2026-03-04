@@ -25,6 +25,7 @@ export const translations = {
             viewWork: 'View Work',
             getInTouch: 'Get in Touch',
             scroll: 'Scroll',
+            scrollTop: 'Scroll to top',
         },
         about: {
             title: 'About Vatsav',
@@ -122,6 +123,7 @@ export const translations = {
             viewWork: 'Se arbeid',
             getInTouch: 'Ta kontakt',
             scroll: 'Rull ned',
+            scrollTop: 'Rull til toppen',
         },
         about: {
             title: 'Om Vatsav',

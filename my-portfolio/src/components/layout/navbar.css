@@ -37,6 +37,177 @@
 /* Logo - Silver for Dark Mode */
 .navbar__logo {
   flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 150px;
+}
+
+.navbar__logo-slot {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.navbar__logo-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  outline: none;
+  line-height: 0;
+}
+
+.navbar__logo-image {
+  width: auto;
+  height: 42px;
+  max-width: 78px;
+  object-fit: contain;
+  display: block;
+  filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.35));
+}
+
+.navbar__logo-fallback {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  color: #f2f2f2;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.logo-tech-dial {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0.05) 58%, rgba(0, 0, 0, 0.2));
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.2), 0 4px 12px rgba(0, 0, 0, 0.35);
+  transition: transform var(--transition-fast);
+}
+
+.logo-tech-dial__ring {
+  position: absolute;
+  border-radius: 50%;
+}
+
+.logo-tech-dial__ring--outer {
+  inset: 2px;
+  border: 1.5px solid rgba(230, 230, 230, 0.65);
+}
+
+.logo-tech-dial__ring--inner {
+  inset: 7px;
+  border: 1px solid rgba(142, 245, 10, 0.22);
+  box-shadow: 0 0 8px rgba(142, 245, 10, 0.08);
+}
+
+.logo-tech-dial__core {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  transform: translateY(-0.3px);
+}
+
+.logo-tech-dial__glyph {
+  font-size: 9px;
+  line-height: 0.86;
+  font-weight: 800;
+  letter-spacing: -0.08em;
+}
+
+.logo-tech-dial__glyph--s {
+  color: #f1f1f1;
+  text-shadow: 0 0 6px rgba(230, 230, 230, 0.28);
+}
+
+.logo-tech-dial__glyph--v {
+  color: #d1b8be;
+  text-shadow: 0 0 6px rgba(255, 83, 111, 0.22);
+}
+
+.logo-tech-dial__tick {
+  position: absolute;
+  width: 1.5px;
+  height: 5px;
+  top: 2px;
+  left: 50%;
+  margin-left: -0.75px;
+  border-radius: 999px;
+  background: rgba(210, 210, 210, 0.56);
+  transform-origin: 50% 13px;
+}
+
+.logo-tech-dial__tick:nth-of-type(3) {
+  transform: rotate(0deg);
+}
+
+.logo-tech-dial__tick:nth-of-type(4) {
+  transform: rotate(90deg);
+}
+
+.logo-tech-dial__tick:nth-of-type(5) {
+  transform: rotate(180deg);
+}
+
+.logo-tech-dial__tick:nth-of-type(6) {
+  transform: rotate(270deg);
+}
+
+.logo-tech-dial__tick--g {
+  background: rgba(142, 245, 10, 0.8);
+  box-shadow: 0 0 5px rgba(142, 245, 10, 0.42);
+}
+
+.logo-tech-dial__pulse {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: rgba(142, 245, 10, 0.9);
+  left: 50%;
+  top: 3px;
+  margin-left: -2px;
+  transform-origin: 50% 12px;
+  animation: logoDialSpin 2.9s linear infinite;
+  box-shadow: 0 0 6px rgba(142, 245, 10, 0.45);
+}
+
+.navbar__logo:hover .logo-tech-dial {
+  transform: translateY(-1px);
+}
+
+.navbar__logo:hover .logo-tech-dial__ring--inner {
+  border-color: rgba(142, 245, 10, 0.48);
+  box-shadow: 0 0 11px rgba(142, 245, 10, 0.22);
+}
+
+.navbar__logo:hover .logo-tech-dial__pulse {
+  animation-duration: 2s;
+}
+
+.navbar__logo-mark:focus-visible {
+  border-radius: 999px;
+  box-shadow: 0 0 0 2px rgba(142, 245, 10, 0.55);
+}
+
+@keyframes logoDialSpin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .navbar__logo-text {
@@ -222,6 +393,48 @@
   color: #000000;
 }
 
+.light-mode .navbar__logo-image {
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+.light-mode .navbar__logo-fallback {
+  color: #101114;
+  background: rgba(0, 0, 0, 0.08);
+  border-color: rgba(0, 0, 0, 0.18);
+}
+
+.light-mode .logo-tech-dial {
+  background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.9), rgba(230, 230, 230, 0.8) 58%, rgba(205, 205, 205, 0.9));
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.9), 0 3px 9px rgba(0, 0, 0, 0.12);
+}
+
+.light-mode .logo-tech-dial__ring--outer {
+  border-color: rgba(20, 20, 20, 0.5);
+}
+
+.light-mode .logo-tech-dial__core {
+  text-shadow: none;
+}
+
+.light-mode .logo-tech-dial__glyph--s {
+  color: #1d1d1f;
+  text-shadow: none;
+}
+
+.light-mode .logo-tech-dial__glyph--v {
+  color: #4d3238;
+  text-shadow: none;
+}
+
+.light-mode .logo-tech-dial__tick {
+  background: rgba(40, 40, 40, 0.35);
+}
+
+.light-mode .logo-tech-dial__tick--g {
+  background: rgba(68, 163, 0, 0.85);
+  box-shadow: 0 0 4px rgba(68, 163, 0, 0.34);
+}
+
 .light-mode .navbar__links a {
   color: #1d1d1f;
 }
@@ -275,5 +488,27 @@
   .navbar__logo-text {
     font-size: 12px;
     letter-spacing: 0.3em;
+  }
+
+  .navbar__logo {
+    min-width: auto;
+  }
+
+  .logo-tech-dial {
+    width: 26px;
+    height: 26px;
+  }
+
+  .navbar__logo-image,
+  .navbar__logo-fallback {
+    width: auto;
+    height: 34px;
+    max-width: 64px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .logo-tech-dial__pulse {
+    animation: none;
   }
 }

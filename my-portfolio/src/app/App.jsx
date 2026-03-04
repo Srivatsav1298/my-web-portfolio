@@ -1,6 +1,6 @@
 import React, { useState, lazy, Suspense } from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
-import { MotionConfig } from 'framer-motion';
+import { MotionConfig, LayoutGroup } from 'framer-motion';
 
 // Context
 import { ThemeProvider } from '../context/ThemeContext';
@@ -61,6 +61,7 @@ const CanvasFallback = () => (
 
 const App = () => {
   const [showNavName, setShowNavName] = useState(false);
+  const [showNavLogo, setShowNavLogo] = useState(false);
   useSmoothScroll();
 
   return (
@@ -86,17 +87,22 @@ const App = () => {
               {/* Layer 1: HUD Overlay (fixed, z-index: 100) */}
               <HUDOverlay sections={sections} />
 
-              {/* Layer 2: Navbar (fixed, z-index: 200) */}
-              <Navbar showName={showNavName} />
+              <LayoutGroup id="shared-brand-logo-group">
+                {/* Layer 2: Navbar (fixed, z-index: 200) */}
+                <Navbar showName={showNavName} showLogo={showNavLogo} />
 
-              {/* Layer 3: Scrollable Content (z-index: 10) */}
-              <main className="main-content">
-                <IntroAnimation onIntroComplete={setShowNavName} />
-                <About />
-                <Projects />
-                <Skills />
-                <Contact />
-              </main>
+                {/* Layer 3: Scrollable Content (z-index: 10) */}
+                <main className="main-content">
+                  <IntroAnimation
+                    onIntroComplete={setShowNavName}
+                    onLogoDockChange={setShowNavLogo}
+                  />
+                  <About />
+                  <Projects />
+                  <Skills />
+                  <Contact />
+                </main>
+              </LayoutGroup>
 
               {/* AI Chat Assistant (lazy loaded) */}
               <Suspense fallback={null}>

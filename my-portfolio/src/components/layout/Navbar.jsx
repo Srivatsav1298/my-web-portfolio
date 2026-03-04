@@ -1,12 +1,13 @@
 import React, { forwardRef, useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Github, Linkedin, FileText, Sun, Moon, Languages } from 'lucide-react';
 import { useTheme } from '../../context/ThemeContext';
 import { useLanguage } from '../../context/LanguageContext';
+import BrandLogo from './BrandLogo';
 import '../../styles/glass.css';
 import './navbar.css';
 
-const Navbar = forwardRef(({ showName = false }, ref) => {
+const Navbar = forwardRef(({ showName = false, showLogo = true }, ref) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const { isDark, toggleTheme, isAutoTheme, resetToAutoTheme } = useTheme();
   const { language, toggleLanguage, t } = useLanguage();
@@ -29,6 +30,25 @@ const Navbar = forwardRef(({ showName = false }, ref) => {
       }}
     >
       <div className="navbar__logo" ref={ref}>
+        <AnimatePresence initial={false}>
+          {showLogo && (
+            <motion.div
+              key="navbar-logo"
+              className="navbar__logo-slot"
+              initial={{ opacity: 0, scale: 0.92 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.92 }}
+              transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
+            >
+              <BrandLogo
+                layoutId="shared-brand-logo"
+                className="navbar__logo-mark"
+                imageClassName="navbar__logo-image"
+                fallbackClassName="navbar__logo-fallback"
+              />
+            </motion.div>
+          )}
+        </AnimatePresence>
         <motion.span
           className="navbar__logo-text"
           initial={{ opacity: 0, scale: 0.8 }}

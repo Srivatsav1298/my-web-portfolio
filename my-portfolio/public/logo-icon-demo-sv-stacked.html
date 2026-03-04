@@ -1,0 +1,417 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SV Stacked Dark Logo Demo</title>
+  <style>
+    :root {
+      --bg: radial-gradient(ellipse 85% 62% at 50% 0%, #181818 0%, #0d0d0d 45%, #060606 78%, #000 100%);
+      --panel: rgba(255, 255, 255, 0.03);
+      --panel-bd: rgba(255, 255, 255, 0.12);
+      --text: #ececec;
+      --muted: #a8a8a8;
+      --danger: #ff536f;
+      --guardian: #8ef50a;
+      --guardian-soft: rgba(142, 245, 10, 0.3);
+      --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+      --sans: "Inter", system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      display: grid;
+      place-items: center;
+      padding: 24px 14px;
+    }
+
+    .wrap {
+      width: min(920px, 100%);
+      border: 1px solid var(--panel-bd);
+      border-radius: 24px;
+      background: var(--panel);
+      backdrop-filter: blur(14px);
+      padding: 22px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(30px, 4vw, 44px);
+      letter-spacing: -0.03em;
+      font-weight: 680;
+    }
+
+    .sub {
+      margin: 9px 0 18px;
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 15px;
+      max-width: 760px;
+    }
+
+    .stage {
+      height: 440px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.1);
+      background: radial-gradient(circle at 50% 34%, rgba(255,255,255,.03), rgba(255,255,255,.01) 44%, rgba(0,0,0,.16));
+      display: grid;
+      place-items: center;
+      position: relative;
+      overflow: hidden;
+      perspective: 1200px;
+      transition: border-color .24s ease;
+      user-select: none;
+    }
+
+    .stage:hover { border-color: rgba(255,255,255,.2); }
+
+    .mist {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(320px 160px at 50% 76%, rgba(255,255,255,.04), transparent 72%),
+        radial-gradient(170px 100px at 30% 58%, rgba(255,255,255,.03), transparent 72%),
+        radial-gradient(170px 100px at 70% 54%, rgba(255,255,255,.03), transparent 72%);
+      opacity: .74;
+      animation: drift 8.5s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    .sigil {
+      position: absolute;
+      width: 290px;
+      height: 290px;
+      opacity: .5;
+      transition: opacity .3s ease;
+      pointer-events: none;
+    }
+
+    .sigil svg { width: 100%; height: 100%; }
+
+    .sigil .outer {
+      fill: none;
+      stroke: rgba(222, 222, 222, 0.28);
+      stroke-width: 1.6;
+    }
+
+    .sigil .ward {
+      fill: none;
+      stroke: rgba(255, 83, 111, 0.42);
+      stroke-width: 1.25;
+      stroke-dasharray: 6 6;
+      transform-origin: 145px 145px;
+      animation: spin 12s linear infinite;
+    }
+
+    .sigil .star {
+      fill: none;
+      stroke: rgba(220, 220, 220, 0.2);
+      stroke-width: 1.1;
+    }
+
+    .logo {
+      width: 245px;
+      height: 245px;
+      position: relative;
+      transform-style: preserve-3d;
+      animation: floatY 5.2s ease-in-out infinite;
+    }
+
+    .orbit {
+      position: absolute;
+      inset: 18px;
+      border-radius: 50%;
+      border: 2px solid rgba(235,235,235,.55);
+      transform: rotateX(70deg);
+      animation: spin 6.3s linear infinite;
+      box-shadow: 0 0 20px rgba(255,255,255,.13);
+      z-index: 3;
+      transition: border-color .32s ease, box-shadow .32s ease;
+    }
+
+    .energy {
+      position: absolute;
+      inset: 10px;
+      border-radius: 50%;
+      border: 1px solid rgba(142,245,10,.08);
+      box-shadow: 0 0 12px transparent;
+      z-index: 2;
+      transition: all .32s ease;
+    }
+
+    .orb {
+      position: absolute;
+      inset: 42px;
+      border-radius: 50%;
+      background: linear-gradient(145deg, #f5f5f5 0%, #c8c8c8 50%, #858585 100%);
+      box-shadow: inset 0 1px 2px rgba(255,255,255,.5), 0 16px 32px rgba(0,0,0,.5);
+      transform: translateZ(26px);
+      z-index: 5;
+    }
+
+    .stack {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      z-index: 6;
+      color: #1e1e1e;
+      text-shadow: 0 1px 0 rgba(255,255,255,.26);
+      font-weight: 850;
+      letter-spacing: -0.08em;
+    }
+
+    .stack .s {
+      position: absolute;
+      top: 62px;
+      font-size: 66px;
+      line-height: 1;
+      transform: translateX(-2px);
+    }
+
+    .stack .v {
+      position: absolute;
+      top: 115px;
+      font-size: 112px;
+      line-height: .9;
+      transform: translateX(-2px);
+    }
+
+    /* Eyes aligned to V edges */
+    .eyes {
+      position: absolute;
+      top: 152px;
+      left: 50%;
+      width: 118px;
+      transform: translateX(-50%);
+      pointer-events: none;
+      z-index: 7;
+    }
+
+    .eyes span {
+      position: absolute;
+      width: 30px;
+      height: 4px;
+      border-radius: 99px;
+      background: var(--danger);
+      box-shadow: 0 0 10px rgba(255,83,111,.42);
+      transition: all .32s ease;
+    }
+
+    .eyes .left {
+      left: 6px;
+      transform: rotate(24deg);
+    }
+
+    .eyes .right {
+      right: 6px;
+      transform: rotate(-24deg);
+    }
+
+    .spark {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.8);
+      filter: drop-shadow(0 0 7px rgba(255,255,255,.34));
+      left: 118px;
+      top: 8px;
+      transform-origin: 4px 114px;
+      animation: orbit 5.6s linear infinite;
+      z-index: 1;
+      transition: all .32s ease;
+    }
+
+    .spark.s2 { animation-duration: 7s; animation-direction: reverse; }
+
+    .ui {
+      margin-top: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      appearance: none;
+      border: 1px solid rgba(255,255,255,.2);
+      border-radius: 999px;
+      background: rgba(255,255,255,.05);
+      color: #e7e7e7;
+      font-family: var(--mono);
+      font-size: 12px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      padding: 10px 14px;
+      cursor: pointer;
+      transition: all .2s ease;
+    }
+
+    .btn:hover { border-color: rgba(255,255,255,.35); background: rgba(255,255,255,.08); }
+
+    .status {
+      font-family: var(--mono);
+      font-size: 12px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .status .v { color: #e3e3e3; }
+
+    .hint {
+      margin-top: 10px;
+      font-size: 14px;
+      line-height: 1.7;
+      color: #b8b8b8;
+    }
+
+    .hint code {
+      font-family: var(--mono);
+      font-size: 12px;
+      padding: 2px 6px;
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 7px;
+      background: rgba(255,255,255,.04);
+      color: #dfdfdf;
+    }
+
+    /* Guardian mode = positive interaction outcome */
+    .stage.guardian .sigil { opacity: .42; }
+    .stage.guardian .sigil .ward { stroke: rgba(142,245,10,.58); }
+
+    .stage.guardian .orbit {
+      border-color: rgba(142,245,10,.84);
+      box-shadow: 0 0 26px var(--guardian-soft);
+    }
+
+    .stage.guardian .energy {
+      border-color: rgba(142,245,10,.55);
+      box-shadow: 0 0 22px rgba(142,245,10,.2);
+    }
+
+    .stage.guardian .eyes span {
+      background: var(--guardian);
+      box-shadow: 0 0 12px rgba(142,245,10,.45);
+      height: 3px;
+      transform: rotate(0deg);
+    }
+
+    .stage.guardian .spark {
+      background: rgba(142,245,10,.95);
+      filter: drop-shadow(0 0 8px rgba(142,245,10,.4));
+    }
+
+    @keyframes floatY {
+      0%,100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    @keyframes spin { to { transform: rotateX(70deg) rotateZ(360deg); } }
+    @keyframes orbit { to { transform: rotate(360deg); } }
+
+    @keyframes drift {
+      0%,100% { transform: translateX(0) translateY(0); }
+      50% { transform: translateX(8px) translateY(-6px); }
+    }
+
+    @media (max-width: 768px) {
+      .stage { height: 360px; }
+      .logo { transform: scale(.86); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * { animation: none !important; transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <h1>SV Stacked Monogram</h1>
+    <p class="sub">
+      Exactly as requested: <strong>S on top of V</strong>, eyes aligned to the V edges, and a blend of Ben 10 energy + supernatural sigil + demon/ghost chilling mood,
+      with positive Guardian transformation on interaction.
+    </p>
+
+    <section id="stage" class="stage">
+      <div class="mist"></div>
+
+      <div class="sigil" aria-hidden="true">
+        <svg viewBox="0 0 290 290">
+          <circle class="outer" cx="145" cy="145" r="114" />
+          <circle class="ward" cx="145" cy="145" r="98" />
+          <polygon class="star" points="145,50 169,110 234,110 183,148 201,207 145,171 89,207 107,148 56,110 121,110" />
+        </svg>
+      </div>
+
+      <div id="logo" class="logo" aria-hidden="true">
+        <div class="energy"></div>
+        <div class="orbit"></div>
+        <span class="spark"></span>
+        <span class="spark s2"></span>
+
+        <div class="orb"></div>
+
+        <div class="stack">
+          <span class="s">S</span>
+          <span class="v">V</span>
+        </div>
+
+        <div class="eyes">
+          <span class="left"></span>
+          <span class="right"></span>
+        </div>
+      </div>
+    </section>
+
+    <div class="ui">
+      <button id="toggle" type="button" class="btn">Toggle Guardian Mode</button>
+      <div class="status">Mode: <span id="mode" class="v">Shadow</span></div>
+    </div>
+
+    <p class="hint">Interaction: <code>hover</code> = temporary Guardian mode, <code>click</code> = lock/unlock mode.</p>
+  </main>
+
+  <script>
+    const stage = document.getElementById('stage');
+    const logo = document.getElementById('logo');
+    const toggle = document.getElementById('toggle');
+    const mode = document.getElementById('mode');
+
+    let locked = false;
+
+    function setMode(guardian) {
+      stage.classList.toggle('guardian', guardian);
+      mode.textContent = guardian ? 'Guardian' : 'Shadow';
+    }
+
+    stage.addEventListener('mousemove', (e) => {
+      const r = stage.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - 0.5;
+      const y = (e.clientY - r.top) / r.height - 0.5;
+      logo.style.transform = `rotateX(${(-y * 8).toFixed(2)}deg) rotateY(${(x * 10).toFixed(2)}deg)`;
+      if (!locked) setMode(true);
+    });
+
+    stage.addEventListener('mouseleave', () => {
+      logo.style.transform = 'rotateX(0deg) rotateY(0deg)';
+      if (!locked) setMode(false);
+    });
+
+    toggle.addEventListener('click', () => {
+      locked = !locked;
+      setMode(locked);
+      toggle.textContent = locked ? 'Unlock Guardian Mode' : 'Toggle Guardian Mode';
+    });
+
+    setMode(false);
+  </script>
+</body>
+</html>

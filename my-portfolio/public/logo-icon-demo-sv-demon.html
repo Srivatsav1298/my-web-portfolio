@@ -1,0 +1,410 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SV Demon Emblem Animated</title>
+  <style>
+    :root {
+      --bg: radial-gradient(circle at 50% 30%, #1a1a1a 0%, #0b0b0b 42%, #020202 78%, #000 100%);
+      --red: #ff3357;
+      --red-soft: rgba(255, 51, 87, 0.55);
+      --ice-a: #e7f8ff;
+      --ice-b: #9dcfe6;
+      --ice-c: #5a8195;
+      --smoke: rgba(183, 217, 232, 0.24);
+      --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+      --sans: "Inter", system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      background: var(--bg);
+      color: #e9e9e9;
+      font-family: var(--sans);
+      padding: 24px 14px;
+    }
+
+    .wrap {
+      width: min(940px, 100%);
+      border-radius: 24px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(14px);
+      padding: 20px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(28px, 4vw, 42px);
+      letter-spacing: -0.03em;
+      font-weight: 700;
+    }
+
+    .sub {
+      margin: 10px 0 18px;
+      color: #a5a5a5;
+      line-height: 1.7;
+      font-size: 15px;
+    }
+
+    .stage {
+      height: 680px;
+      border-radius: 18px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: radial-gradient(circle at 50% 34%, rgba(255,255,255,0.03), rgba(255,255,255,0.01) 48%, rgba(0,0,0,0.24));
+      position: relative;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      transition: border-color .26s ease;
+    }
+
+    .stage:hover { border-color: rgba(255, 255, 255, 0.22); }
+
+    .ambient,
+    .ambient::before,
+    .ambient::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+
+    .ambient {
+      background:
+        radial-gradient(360px 200px at 50% 78%, rgba(255,255,255,0.04), transparent 72%),
+        radial-gradient(200px 130px at 35% 56%, rgba(255,255,255,0.03), transparent 72%),
+        radial-gradient(200px 130px at 65% 53%, rgba(255,255,255,0.03), transparent 72%);
+      opacity: .78;
+      animation: drift 8.2s ease-in-out infinite;
+    }
+
+    .ambient::before {
+      background: radial-gradient(230px 120px at 50% 36%, rgba(255, 51, 87, 0.16), transparent 74%);
+      animation: breatheRed 2.8s ease-in-out infinite;
+      opacity: .42;
+    }
+
+    .ambient::after {
+      background: radial-gradient(230px 130px at 50% 45%, rgba(151, 206, 230, 0.1), transparent 72%);
+      animation: drift 6.2s ease-in-out infinite reverse;
+      opacity: .5;
+    }
+
+    .emblem {
+      width: min(92vw, 620px);
+      max-width: 620px;
+      aspect-ratio: 1 / 1.05;
+      position: relative;
+      animation: floatY 5.4s ease-in-out infinite;
+      transform-origin: center;
+      cursor: pointer;
+    }
+
+    .emblem svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+      overflow: visible;
+      filter: drop-shadow(0 22px 30px rgba(0, 0, 0, 0.55));
+      transition: transform .28s ease;
+    }
+
+    .emblem:hover svg { transform: scale(1.012); }
+
+    .smoke {
+      position: absolute;
+      inset: 22% 20% 16% 20%;
+      border-radius: 50%;
+      pointer-events: none;
+      background:
+        radial-gradient(140px 80px at 48% 42%, var(--smoke), transparent 70%),
+        radial-gradient(120px 80px at 35% 65%, rgba(180,214,232,0.2), transparent 70%),
+        radial-gradient(120px 80px at 66% 70%, rgba(180,214,232,0.2), transparent 70%);
+      filter: blur(4px);
+      animation: swirl 7.6s ease-in-out infinite;
+      z-index: 5;
+      mix-blend-mode: screen;
+    }
+
+    .status {
+      margin-top: 14px;
+      font-family: var(--mono);
+      font-size: 12px;
+      letter-spacing: .09em;
+      text-transform: uppercase;
+      color: #a8a8a8;
+    }
+
+    .status .v { color: #e3e3e3; }
+
+    .btn {
+      margin-top: 12px;
+      appearance: none;
+      border: 1px solid rgba(255,255,255,.2);
+      border-radius: 999px;
+      background: rgba(255,255,255,.05);
+      color: #ececec;
+      font-family: var(--mono);
+      font-size: 12px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      padding: 9px 14px;
+      cursor: pointer;
+      transition: all .2s ease;
+    }
+
+    .btn:hover { border-color: rgba(255,255,255,.35); background: rgba(255,255,255,.08); }
+
+    .note {
+      margin-top: 10px;
+      color: #b4b4b4;
+      font-size: 14px;
+      line-height: 1.68;
+    }
+
+    .note code {
+      font-family: var(--mono);
+      font-size: 12px;
+      padding: 2px 6px;
+      border-radius: 7px;
+      border: 1px solid rgba(255,255,255,.1);
+      background: rgba(255,255,255,.04);
+      color: #ddd;
+    }
+
+    .stage.guardian .eye-core {
+      fill: #8ef50a !important;
+      filter: url(#eyeGlowGreen) !important;
+    }
+
+    .stage.guardian .eye-cut {
+      fill: #82f200 !important;
+    }
+
+    .stage.guardian .s-main {
+      fill: url(#sIceGuardian) !important;
+      filter: url(#sGlowGuardian) !important;
+    }
+
+    .stage.guardian .s-outline {
+      stroke: rgba(142, 245, 10, 0.55) !important;
+    }
+
+    .stage.guardian .smoke {
+      background:
+        radial-gradient(140px 80px at 48% 42%, rgba(142,245,10,0.25), transparent 70%),
+        radial-gradient(120px 80px at 35% 65%, rgba(142,245,10,0.2), transparent 70%),
+        radial-gradient(120px 80px at 66% 70%, rgba(142,245,10,0.2), transparent 70%);
+    }
+
+    .stage.guardian .wing {
+      fill: url(#obsidianGuardian);
+    }
+
+    .stage.guardian .burn {
+      fill: rgba(142, 245, 10, 0.2);
+    }
+
+    @keyframes floatY {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-9px); }
+    }
+
+    @keyframes drift {
+      0%,100% { transform: translateX(0) translateY(0); }
+      50% { transform: translateX(8px) translateY(-7px); }
+    }
+
+    @keyframes breatheRed {
+      0%,100% { opacity: .3; }
+      50% { opacity: .62; }
+    }
+
+    @keyframes swirl {
+      0%,100% { transform: rotate(0deg) scale(1); opacity: .75; }
+      50% { transform: rotate(8deg) scale(1.04); opacity: .95; }
+    }
+
+    @media (max-width: 900px) {
+      .stage { height: 560px; }
+    }
+
+    @media (max-width: 640px) {
+      .stage { height: 470px; }
+      .status, .note { font-size: 13px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * { animation: none !important; transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <h1>SV Demonic Emblem (Animated)</h1>
+    <p class="sub">
+      Close-match style to your attached reference: carved demonic V silhouette, glowing predatory eyes, and an icy ghost-like S overlay.
+      Interaction adds animated intensity while keeping it controlled and premium.
+    </p>
+
+    <section id="stage" class="stage">
+      <div class="ambient"></div>
+
+      <div id="emblem" class="emblem" aria-hidden="true">
+        <svg viewBox="0 0 620 650" role="img" aria-label="SV demon emblem">
+          <defs>
+            <linearGradient id="obsidian" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#4f5864" />
+              <stop offset="22%" stop-color="#1d242d" />
+              <stop offset="58%" stop-color="#0d0f13" />
+              <stop offset="100%" stop-color="#060608" />
+            </linearGradient>
+
+            <linearGradient id="obsidianGuardian" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#5f6d5d" />
+              <stop offset="26%" stop-color="#1d2a20" />
+              <stop offset="58%" stop-color="#0c120d" />
+              <stop offset="100%" stop-color="#060806" />
+            </linearGradient>
+
+            <linearGradient id="sIce" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="var(--ice-a)" />
+              <stop offset="35%" stop-color="var(--ice-b)" />
+              <stop offset="100%" stop-color="var(--ice-c)" />
+            </linearGradient>
+
+            <linearGradient id="sIceGuardian" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#eaffd9" />
+              <stop offset="38%" stop-color="#b8f085" />
+              <stop offset="100%" stop-color="#6fb932" />
+            </linearGradient>
+
+            <filter id="stoneTexture" x="-15%" y="-15%" width="130%" height="130%">
+              <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="5" result="noise"/>
+              <feColorMatrix in="noise" type="saturate" values="0" result="mono"/>
+              <feBlend in="SourceGraphic" in2="mono" mode="overlay" />
+            </filter>
+
+            <filter id="eyeGlow" x="-180%" y="-180%" width="460%" height="460%">
+              <feGaussianBlur stdDeviation="7" result="blur"/>
+              <feColorMatrix in="blur" type="matrix" values="1 0 0 0 0  0 0.2 0 0 0  0 0 0.4 0 0  0 0 0 1 0"/>
+            </filter>
+
+            <filter id="eyeGlowGreen" x="-180%" y="-180%" width="460%" height="460%">
+              <feGaussianBlur stdDeviation="7" result="blur"/>
+              <feColorMatrix in="blur" type="matrix" values="0.4 0 0 0 0  0 1 0 0 0  0 0.5 0 0 0  0 0 0 1 0"/>
+            </filter>
+
+            <filter id="sGlow" x="-80%" y="-80%" width="260%" height="260%">
+              <feGaussianBlur stdDeviation="2.8" result="blur"/>
+              <feColorMatrix in="blur" type="matrix" values="0.6 0 0 0 0  0 0.9 0 0 0  0 0.9 1 0 0  0 0 0 1 0"/>
+            </filter>
+
+            <filter id="sGlowGuardian" x="-80%" y="-80%" width="260%" height="260%">
+              <feGaussianBlur stdDeviation="2.8" result="blur"/>
+              <feColorMatrix in="blur" type="matrix" values="0.5 0 0 0 0  0 1 0 0 0  0 0.45 0 0 0  0 0 0 1 0"/>
+            </filter>
+          </defs>
+
+          <!-- Demon V frame -->
+          <g filter="url(#stoneTexture)">
+            <path class="wing" fill="url(#obsidian)" d="M48 108 L206 108 L248 154 L185 194 L115 183 Z" />
+            <path class="wing" fill="url(#obsidian)" d="M572 108 L414 108 L372 154 L435 194 L505 183 Z" />
+
+            <path class="wing" fill="url(#obsidian)" d="M105 120 L228 140 L290 305 L278 436 L240 585 L310 628 L380 585 L342 436 L330 305 L392 140 L515 120 L422 222 L355 595 L310 642 L265 595 L198 222 Z" />
+
+            <path class="burn" fill="rgba(255, 51, 87, 0.22)" d="M300 545 Q314 520 330 546 Q316 570 300 545Z" />
+            <path class="burn" fill="rgba(255, 51, 87, 0.14)" d="M244 314 Q259 294 276 310 Q262 329 244 314Z" />
+            <path class="burn" fill="rgba(255, 51, 87, 0.14)" d="M377 319 Q392 299 409 315 Q394 333 377 319Z" />
+
+            <path class="wing" fill="url(#obsidian)" d="M148 240 L196 244 L160 282 L130 276 Z" />
+            <path class="wing" fill="url(#obsidian)" d="M472 240 L424 244 L460 282 L490 276 Z" />
+            <path class="wing" fill="url(#obsidian)" d="M164 402 L206 405 L176 444 L144 436 Z" />
+            <path class="wing" fill="url(#obsidian)" d="M456 402 L414 405 L444 444 L476 436 Z" />
+          </g>
+
+          <!-- Eyes -->
+          <g>
+            <path class="eye-cut" fill="#ff5a75" d="M126 167 Q168 130 224 154 Q176 176 126 167 Z" />
+            <ellipse class="eye-core" cx="172" cy="157" rx="28" ry="18" fill="var(--red)" filter="url(#eyeGlow)" />
+
+            <path class="eye-cut" fill="#ff5a75" d="M494 167 Q452 130 396 154 Q444 176 494 167 Z" />
+            <ellipse class="eye-core" cx="448" cy="157" rx="28" ry="18" fill="var(--red)" filter="url(#eyeGlow)" />
+          </g>
+
+          <!-- Ghostly S overlay -->
+          <g>
+            <text x="310" y="500"
+              text-anchor="middle"
+              font-size="360"
+              font-weight="700"
+              font-family="Times New Roman, Georgia, serif"
+              class="s-main"
+              fill="url(#sIce)"
+              filter="url(#sGlow)">S</text>
+
+            <text x="310" y="500"
+              text-anchor="middle"
+              font-size="360"
+              font-weight="700"
+              font-family="Times New Roman, Georgia, serif"
+              class="s-outline"
+              fill="none"
+              stroke="rgba(220, 244, 255, 0.45)"
+              stroke-width="3">S</text>
+          </g>
+        </svg>
+
+        <div class="smoke"></div>
+      </div>
+    </section>
+
+    <button id="toggle" class="btn" type="button">Toggle Guardian Pulse</button>
+    <div class="status">Mode: <span id="mode" class="v">Demonic Shadow</span></div>
+    <p class="note">Interaction: <code>hover</code> intensifies animation, <code>click</code> toggles green guardian pulse mode.</p>
+  </main>
+
+  <script>
+    const stage = document.getElementById('stage');
+    const emblem = document.getElementById('emblem');
+    const toggle = document.getElementById('toggle');
+    const mode = document.getElementById('mode');
+    let locked = false;
+
+    function setMode(guardian) {
+      stage.classList.toggle('guardian', guardian);
+      mode.textContent = guardian ? 'Guardian Pulse' : 'Demonic Shadow';
+      toggle.textContent = guardian ? 'Disable Guardian Pulse' : 'Toggle Guardian Pulse';
+    }
+
+    stage.addEventListener('mousemove', (e) => {
+      const rect = stage.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width - 0.5;
+      const y = (e.clientY - rect.top) / rect.height - 0.5;
+      emblem.style.transform = `rotateX(${(-y * 5.8).toFixed(2)}deg) rotateY(${(x * 7.5).toFixed(2)}deg)`;
+    });
+
+    stage.addEventListener('mouseleave', () => {
+      emblem.style.transform = 'rotateX(0deg) rotateY(0deg)';
+    });
+
+    stage.addEventListener('mouseenter', () => {
+      if (!locked) setMode(false);
+    });
+
+    toggle.addEventListener('click', () => {
+      locked = !locked;
+      setMode(locked);
+    });
+
+    setMode(false);
+  </script>
+</body>
+</html>

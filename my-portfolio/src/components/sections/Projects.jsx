@@ -19,10 +19,10 @@ const Projects = () => {
   const { t } = useLanguage();
 
   const filterCategories = [
-    { id: 'all', label: t('projects.all') || 'All Projects', count: projects.length },
-    { id: 'ai-ml', label: t('projects.ai') || 'AI & ML', count: projects.filter(p => p.category === 'ai-ml').length },
-    { id: 'data-science', label: t('projects.data') || 'Data Science', count: projects.filter(p => p.category === 'data-science').length },
-    { id: 'full-stack', label: t('projects.fullstack') || 'Full Stack', count: projects.filter(p => p.category === 'full-stack').length },
+    { id: 'all', label: t('projects.all') || 'All Projects' },
+    { id: 'ai-ml', label: t('projects.ai') || 'AI & ML' },
+    { id: 'data-science', label: t('projects.data') || 'Data Science' },
+    { id: 'full-stack', label: t('projects.fullstack') || 'Full Stack' },
   ];
   const [activeFilter, setActiveFilter] = useState('all');
   const [activeIndex, setActiveIndex] = useState(0);
@@ -235,7 +235,6 @@ const Projects = () => {
               whileTap={{ scale: 0.95 }}
             >
               {category.label}
-              <span className="projects__filter-count">{category.count}</span>
             </motion.button>
           ))}
         </motion.div>
@@ -286,11 +285,6 @@ const Projects = () => {
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: index * 0.1, duration: 0.5 }}
                 >
-                  {/* Card Number */}
-                  <div className="gallery-card__number">
-                    {String(index + 1).padStart(2, '0')} / {String(filteredProjects.length).padStart(2, '0')}
-                  </div>
-
                   <div className="gallery-card__content">
                     {/* Left Side - Text */}
                     <div className="gallery-card__text">

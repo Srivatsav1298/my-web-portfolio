@@ -102,7 +102,6 @@ export default function HeroSection() {
               alt="Profile"
               className="hero-section__image"
             />
-            <div className="hero-section__image-glow" />
           </div>
         </motion.div>
       </motion.div>

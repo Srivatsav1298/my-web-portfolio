@@ -1,17 +1,18 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
-import { ChevronDown } from 'lucide-react';
+import { ChevronUp } from 'lucide-react';
 import { useTheme } from '../../context/ThemeContext';
 import { useLanguage } from '../../context/LanguageContext';
 import profileImage from '../../assets/profile.jpg';
 import ArmoredPortrait from '../ui/ArmoredPortrait';
+import BrandLogo from '../layout/BrandLogo';
 import './IntroAnimation.css';
 
 /**
  * IntroAnimation - Split Layout Hero
  * Content on left, profile picture on right, exits on scroll
  */
-export default function IntroAnimation({ onIntroComplete }) {
+export default function IntroAnimation({ onIntroComplete, onLogoDockChange }) {
   const { timeOfDay } = useTheme();
   const { language, t } = useLanguage();
   const [scrollY, setScrollY] = useState(0);
@@ -45,6 +46,7 @@ export default function IntroAnimation({ onIntroComplete }) {
 
   // Calculate scroll progress (gentle fade - 1x viewport)
   const rawProgress = Math.min(scrollY / windowHeight, 1);
+  const isLogoDocked = rawProgress >= 0.32;
 
   // Animation values - softer, more gradual
   const animations = useMemo(() => {
@@ -53,7 +55,6 @@ export default function IntroAnimation({ onIntroComplete }) {
         contentOpacity: 1,
         contentY: 0,
         scrollHintOpacity: 1,
-        glowY: 0,
         profileY: 0,
         profileScale: 1,
       };
@@ -70,7 +71,6 @@ export default function IntroAnimation({ onIntroComplete }) {
 
     // Scroll indicator fades out quickly
     const scrollHintOpacity = Math.max(0, 1 - rawProgress * 2);
-    const glowY = rawProgress * 28;
     const profileY = rawProgress * -22;
     const profileScale = 1 - (rawProgress * 0.04);
 
@@ -78,7 +78,6 @@ export default function IntroAnimation({ onIntroComplete }) {
       contentOpacity: Math.max(0, contentOpacity),
       contentY,
       scrollHintOpacity,
-      glowY,
       profileY,
       profileScale,
     };
@@ -93,6 +92,10 @@ export default function IntroAnimation({ onIntroComplete }) {
     }
   }, [rawProgress, onIntroComplete]);
 
+  useEffect(() => {
+    onLogoDockChange?.(isLogoDocked);
+  }, [isLogoDocked, onLogoDockChange]);
+
   const scrollToProjects = () => {
     document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' });
   };
@@ -106,12 +109,6 @@ export default function IntroAnimation({ onIntroComplete }) {
       <AnimatePresence>
         {isInView && (
           <>
-            {/* Ambient glow */}
-            <div
-              className="intro-section__ambient-glow"
-              style={{ transform: `translate3d(0, ${animations.glowY}px, 0)` }}
-            />
-
             {/* Main container - split layout */}
             <motion.div
               className="intro-section__container"
@@ -125,6 +122,26 @@ export default function IntroAnimation({ onIntroComplete }) {
             >
               {/* Left side - Content */}
               <div className="intro-section__content">
+                <AnimatePresence initial={false}>
+                  {!isLogoDocked && (
+                    <motion.div
+                      key="intro-logo"
+                      className="intro-section__logo-slot"
+                      initial={{ opacity: 0, y: 8 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -8 }}
+                      transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
+                    >
+                      <BrandLogo
+                        layoutId="shared-brand-logo"
+                        className="navbar__logo-mark intro-section__logo-mark"
+                        imageClassName="navbar__logo-image intro-section__logo-image"
+                        fallbackClassName="navbar__logo-fallback intro-section__logo-fallback"
+                      />
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+
                 {/* Greeting */}
                 <motion.p
                   className="intro-section__greeting"
@@ -233,24 +250,25 @@ export default function IntroAnimation({ onIntroComplete }) {
               </div>
             </motion.div>
 
-            {/* Scroll indicator - Minimal Arrow */}
-            <motion.div
+            {/* Scroll indicator - Neural vertical cue (scroll to top) */}
+            <motion.button
+              type="button"
               className="intro-section__scroll-hint"
               initial={{ opacity: 0 }}
               animate={{ opacity: animations.scrollHintOpacity }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.3, delay: 1.4 }}
-              onClick={() => window.scrollTo({ top: windowHeight, behavior: 'smooth' })}
-              style={{ cursor: 'pointer' }}
+              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+              aria-label={t('intro.scrollTop')}
             >
               <motion.div
                 className="intro-section__scroll-arrow"
-                animate={{ y: [0, 8, 0] }}
-                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                animate={shouldReduceMotion ? undefined : { y: [0, -6, 0] }}
+                transition={shouldReduceMotion ? undefined : { duration: 2, repeat: Infinity, ease: "easeInOut" }}
               >
-                <ChevronDown size={28} strokeWidth={1.5} />
+                <ChevronUp size={24} strokeWidth={1.7} />
               </motion.div>
-            </motion.div>
+            </motion.button>
           </>
         )}
       </AnimatePresence>
