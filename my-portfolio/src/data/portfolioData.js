@@ -139,7 +139,7 @@ export const projects = [
     tags: ['Python', 'Pandas', 'Matplotlib', 'Mesh Data', 'Simulation'],
     category: 'data-science',
     categoryLabel: 'Data Science',
-    image: '/my-web-portfolio/project-previews/oil-spill.png',
+    image: import.meta.env.BASE_URL + 'project-previews/oil-spill.png',
     github: '#',
     live: '#',
     metrics: {
@@ -176,7 +176,7 @@ export const projects = [
     tags: ['Python', 'PySpark', 'ETL', 'Data Analytics'],
     category: 'data-science',
     categoryLabel: 'Data Science',
-    image: '/my-web-portfolio/project-previews/energy-data-analytics.png',
+    image: import.meta.env.BASE_URL + 'project-previews/energy-data-analytics.png',
     github: '#',
     live: '#',
     metrics: {
@@ -211,7 +211,7 @@ aggregated_df.write.mode("append").saveAsTable("meter_readings")`
     tags: ['Python', 'LLaMA', 'LangChain', 'AI Agent'],
     category: 'ai-ml',
     categoryLabel: 'AI & ML',
-    image: '/my-web-portfolio/project-previews/financial-ai.png',
+    image: import.meta.env.BASE_URL + 'project-previews/financial-ai.png',
     github: '#',
     live: '#',
     metrics: {
@@ -248,7 +248,7 @@ aggregated_df.write.mode("append").saveAsTable("meter_readings")`
     tags: ['AWS', 'S3', 'CloudFront', 'JavaScript', 'CI/CD'],
     category: 'full-stack',
     categoryLabel: 'Full Stack',
-    image: '/my-web-portfolio/project-previews/av-danse.jpg',
+    image: import.meta.env.BASE_URL + 'project-previews/av-danse.jpg',
     github: '#',
     live: '#',
     metrics: {

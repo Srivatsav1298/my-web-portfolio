@@ -75,7 +75,7 @@ const Navbar = forwardRef(({ showName = false, showLogo = true }, ref) => {
       <div className="navbar__icons">
         {/* Resume Download */}
         <a
-          href="/my-web-portfolio/resume.pdf"
+          href={import.meta.env.BASE_URL + 'resume.pdf'}
           target="_blank"
           rel="noopener noreferrer"
           title="View Resume"

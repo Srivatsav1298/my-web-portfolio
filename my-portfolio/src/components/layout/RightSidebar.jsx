@@ -36,7 +36,7 @@ const RightSidebar = () => {
                 </motion.a>
 
                 <motion.a
-                    href="/my-web-portfolio/resume.pdf"
+                    href={import.meta.env.BASE_URL + 'resume.pdf'}
                     target="_blank"
                     className="sidebar-link"
                     whileHover={{ scale: 1.1, color: "#fff" }}

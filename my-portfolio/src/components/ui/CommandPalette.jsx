@@ -58,7 +58,7 @@ export default function CommandPalette() {
     }
 
     function viewResume() {
-        window.open('/my-web-portfolio/resume.pdf', '_blank');
+        window.open(import.meta.env.BASE_URL + 'resume.pdf', '_blank');
     }
 
     // Flatten items for filtering and keyboard navigation
