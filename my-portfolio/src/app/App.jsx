@@ -8,7 +8,6 @@ import { LanguageProvider } from '../context/LanguageContext';
 import useSmoothScroll from '../hooks/useSmoothScroll';
 
 // Light components (load immediately)
-import CustomCursor from '../components/ui/CustomCursor';
 import CommandPalette from '../components/ui/CommandPalette';
 import Navbar from '../components/layout/Navbar';
 import HUDOverlay from '../components/layout/HUDOverlay';
@@ -72,9 +71,6 @@ const App = () => {
             <div className="app">
               {/* Load Time Indicator - top left */}
               <LoadTimeIndicator />
-
-              {/* Neural Custom Cursor */}
-              <CustomCursor />
 
               {/* System Elements */}
               <CommandPalette />
