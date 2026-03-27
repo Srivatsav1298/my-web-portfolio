@@ -90,13 +90,13 @@ const skillIcons = {
   'LLM APIs': Bot,
   'Claude': MessageSquare,
   'LLaMA': Brain,
-  'Distributed Systems': Cpu,
-  'System Design': LayoutGrid,
-  'ETL/ELT': Workflow,
-  'Story Telling': PieChart,
   'LLM/AI': Brain,
   'Machine Learning': Brain,
   'Deep Learning': Cpu,
+  'Vector DB': Database,
+  'Distributed Systems': Cpu,
+  'System Design': LayoutGrid,
+  'ETL/ELT': Workflow,
   'Data Analysis': LineChart,
 };
 

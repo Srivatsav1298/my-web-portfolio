@@ -17,9 +17,10 @@ export const translations = {
                 evening: 'Good evening',
                 night: 'Good night'
             },
-            role: 'AI & Data Science Engineer',
+            role: 'AI Engineer',
             tagline: 'Building systems at the intersection of AI and Data',
             chocolate: '',
+            available: 'Available June 2026 · Oslo / Remote',
             yearsExp: '3+ Years Exp',
             aiData: 'AI & Data',
             viewWork: 'View Work',
@@ -29,7 +30,7 @@ export const translations = {
         },
         about: {
             title: 'About Vatsav',
-            p1: 'Vatsav is an AI & Data Science Engineer who builds intelligent, data-driven systems. With over three years of industry experience, he focuses on practical machine learning applications, LLM-powered tools, and reliable backend architecture. His core approach is to write clean, maintainable code that solves real problems without unnecessary complexity.',
+            p1: 'Vatsav is an AI Engineer who turns raw data into production-ready intelligence. After three years shipping backend systems and APIs at Orion Innovation, he pivoted toward AI — winning 3rd place at the AWS Norway GenAI Hackathon and building LLM agents that reason over real-world Norwegian datasets. Currently completing a Master\'s in Data Science at NMBU, he is focused on the gap between ML research and production systems.',
             achievements: 'Achievements & Certifications',
         },
         projects: {
@@ -116,9 +117,10 @@ export const translations = {
                 evening: 'God kveld',
                 night: 'God natt'
             },
-            role: 'AI & Datavitenskap-ingeniør',
+            role: 'AI-ingeniør',
             tagline: 'Bygger systemer i skjæringspunktet mellom AI og Data',
             chocolate: '',
+            available: 'Tilgjengelig juni 2026 · Oslo / Fjernarbeid',
             yearsExp: '3+ års erfaring',
             aiData: 'AI & Data',
             viewWork: 'Se arbeid',
@@ -128,7 +130,7 @@ export const translations = {
         },
         about: {
             title: 'Om Vatsav',
-            p1: 'Vatsav er en AI & Datavitenskap-ingeniør som bygger intelligente, datadrevne systemer. Med over tre års bransjeerfaring fokuserer han på praktiske maskinlæringsapplikasjoner, LLM-drevne verktøy og pålitelig backend-arkitektur. Hans kjernetilnærming er å skrive ren, vedlikeholdbar kode som løser reelle problemer uten unødvendig kompleksitet.',
+            p1: 'Vatsav er en AI-ingeniør som gjør rådata om til produksjonsklar intelligens. Etter tre år med å levere backend-systemer og API-er hos Orion Innovation, dreide han mot AI — vant 3. plass i AWS Norway GenAI Hackathon og bygde LLM-agenter som resonnerer over norske datasett fra den virkelige verden. For øyeblikket fullfører han en mastergrad i datavitenskap ved NMBU, med fokus på gapet mellom ML-forskning og produksjonssystemer.',
             achievements: 'Prestasjoner og sertifiseringer',
         },
         projects: {

@@ -194,6 +194,17 @@ export default function IntroAnimation({ onIntroComplete, onLogoDockChange }) {
                   {personalInfo.location}
                 </motion.p>
 
+                {/* Availability */}
+                <motion.div
+                  className="intro-section__availability"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.6, delay: 0.85 }}
+                >
+                  <span className="intro-section__availability-dot" />
+                  {t('intro.available')}
+                </motion.div>
+
                 {/* Stats row */}
                 <motion.div
                   className="intro-section__stats"
