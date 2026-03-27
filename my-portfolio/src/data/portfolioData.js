@@ -140,7 +140,7 @@ export const projects = [
     category: 'data-science',
     categoryLabel: 'Data Science',
     image: import.meta.env.BASE_URL + 'project-previews/oil-spill.png',
-    github: '#',
+    github: 'https://github.com/Srivatsav1298/INF202_Project',
     live: '#',
     metrics: {
       type: 'Environmental Monitoring',
@@ -177,7 +177,7 @@ export const projects = [
     category: 'data-science',
     categoryLabel: 'Data Science',
     image: import.meta.env.BASE_URL + 'project-previews/energy-data-analytics.png',
-    github: '#',
+    github: 'https://github.com/Srivatsav1298/WeatherAndEnergyInsights',
     live: '#',
     metrics: {
       records: '1M+ Hourly Records',
@@ -212,7 +212,7 @@ aggregated_df.write.mode("append").saveAsTable("meter_readings")`
     category: 'ai-ml',
     categoryLabel: 'AI & ML',
     image: import.meta.env.BASE_URL + 'project-previews/financial-ai.png',
-    github: '#',
+    github: 'https://github.com/Srivatsav1298/Financial_AI_ReAct_Agent',
     live: '#',
     metrics: {
       data: 'SSB Official Data',
@@ -249,7 +249,7 @@ aggregated_df.write.mode("append").saveAsTable("meter_readings")`
     category: 'full-stack',
     categoryLabel: 'Full Stack',
     image: import.meta.env.BASE_URL + 'project-previews/av-danse.jpg',
-    github: '#',
+    github: 'https://github.com/Srivatsav1298/NewProjectAVDS',
     live: '#',
     metrics: {
       uptime: '99.99% Uptime',
@@ -315,7 +315,7 @@ export const experienceData = [
     id: 4,
     year: '2016-20',
     title: 'B.Tech Computer Science',
-    company: 'India',
+    company: 'Karpagam College of Engineering',
     description: 'Bachelor of Technology in Computer Science and Engineering. Coursework: Software Engineering, Web Development, System Design.',
     technologies: ['Software Engineering', 'Web Dev', 'System Design'],
     type: 'education',
@@ -328,7 +328,7 @@ export const experienceData = [
 
 export const education = {
   masters: "Master's in Data Science at NMBU, Norway (2024-2026)",
-  bachelors: "B.Tech Computer Science from India (2016-2020)",
+  bachelors: "B.Tech Computer Science from Karpagam College of Engineering, India (2016-2020)",
 };
 
 // ============================================

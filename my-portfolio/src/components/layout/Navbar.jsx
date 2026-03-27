@@ -79,6 +79,7 @@ const Navbar = forwardRef(({ showName = false, showLogo = true }, ref) => {
           target="_blank"
           rel="noopener noreferrer"
           title="View Resume"
+          aria-label="View Resume"
           className="navbar__icon navbar__resume"
         >
           <FileText size={18} />
@@ -113,10 +114,10 @@ const Navbar = forwardRef(({ showName = false, showLogo = true }, ref) => {
           </div>
         </button>
 
-        <a href="https://www.linkedin.com/in/srivatsav-s" target="_blank" rel="noopener noreferrer" title="LinkedIn" className="navbar__icon">
+        <a href="https://www.linkedin.com/in/srivatsav-s" target="_blank" rel="noopener noreferrer" title="LinkedIn" aria-label="LinkedIn" className="navbar__icon">
           <Linkedin size={18} />
         </a>
-        <a href="https://github.com/Srivatsav1298" target="_blank" rel="noopener noreferrer" title="GitHub" className="navbar__icon">
+        <a href="https://github.com/Srivatsav1298" target="_blank" rel="noopener noreferrer" title="GitHub" aria-label="GitHub" className="navbar__icon">
           <Github size={18} />
         </a>
       </div>

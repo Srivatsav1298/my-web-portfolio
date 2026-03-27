@@ -313,14 +313,16 @@ const Projects = () => {
                         >
                           {t('ui.caseStudy')} <Info size={16} />
                         </button>
-                        <a
-                          href={project.github}
-                          className="gallery-card__btn gallery-card__btn--secondary"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          <Github size={16} /> GitHub
-                        </a>
+                        {project.github && project.github !== '#' && (
+                          <a
+                            href={project.github}
+                            className="gallery-card__btn gallery-card__btn--secondary"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            <Github size={16} /> GitHub
+                          </a>
+                        )}
                       </div>
                     </div>
 

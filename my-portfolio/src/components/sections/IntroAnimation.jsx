@@ -182,16 +182,6 @@ export default function IntroAnimation({ onIntroComplete, onLogoDockChange }) {
                   {t('intro.tagline')}
                 </motion.p>
 
-                {/* Fun Fact - Chocolate */}
-                <motion.p
-                  className="intro-section__chocolate"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 0.6, delay: 0.8 }}
-                >
-                  {t('intro.chocolate')}
-                </motion.p>
-
                 {/* Stats row */}
                 <motion.div
                   className="intro-section__stats"

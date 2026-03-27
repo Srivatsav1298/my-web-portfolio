@@ -6,7 +6,7 @@
 .intro-section {
   position: relative;
   width: 100%;
-  min-height: 100vh;
+  min-height: 150vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -31,7 +31,7 @@
   align-items: center;
   justify-content: center;
   gap: 80px;
-  z-index: 10;
+  z-index: 20;
   padding: 0 60px;
   width: 100%;
 }
@@ -242,7 +242,7 @@
   align-items: center;
   justify-content: flex-end;
   padding-bottom: 40px;
-  z-index: 15;
+  z-index: 25;
   cursor: pointer;
   pointer-events: auto;
 }
