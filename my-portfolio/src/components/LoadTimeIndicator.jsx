@@ -46,12 +46,12 @@ export default function LoadTimeIndicator() {
     });
   }, []);
 
-  // Auto-hide after 10 seconds
+  // Auto-hide after 3 seconds
   useEffect(() => {
     if (loadTime !== null) {
       const hideTimer = setTimeout(() => {
         setIsVisible(false);
-      }, 10000);
+      }, 3000);
       return () => clearTimeout(hideTimer);
     }
   }, [loadTime]);

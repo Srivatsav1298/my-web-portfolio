@@ -17,7 +17,7 @@ export const translations = {
                 evening: 'Good evening',
                 night: 'Good night'
             },
-            role: 'Software Engineer',
+            role: 'AI & Data Science Engineer',
             tagline: 'Building systems at the intersection of AI and Data',
             chocolate: '',
             yearsExp: '3+ Years Exp',
@@ -115,7 +115,7 @@ export const translations = {
                 evening: 'God kveld',
                 night: 'God natt'
             },
-            role: 'Programvareutvikler',
+            role: 'AI & Datavitenskap-ingeniør',
             tagline: 'Bygger systemer i skjæringspunktet mellom AI og Data',
             chocolate: '',
             yearsExp: '3+ års erfaring',

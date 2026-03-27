@@ -64,7 +64,7 @@ export default function HeroSection() {
             className="hero-section__title"
             variants={itemVariants}
           >
-            Software Engineer
+            AI & Data Science Engineer
           </motion.h1>
 
           <motion.p

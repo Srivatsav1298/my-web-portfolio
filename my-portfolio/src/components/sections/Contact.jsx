@@ -274,6 +274,9 @@ const Contact = () => {
               <a className="contact__direct-link" href={`mailto:${personalInfo.email}`}>
                 {t('contact.form.directEmail')}
               </a>
+              <p style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.4)', margin: '0.5rem 0 0', textAlign: 'center' }}>
+                Typically replies within 24 hours
+              </p>
             </div>
 
             <div className="contact__form-status" aria-live="polite">

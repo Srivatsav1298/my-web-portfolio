@@ -383,6 +383,24 @@ const Projects = () => {
           isOpen={isModalOpen}
           onClose={closeModal}
         />
+
+        <motion.div
+          className="projects__github-link"
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          style={{ textAlign: 'center', marginTop: '2rem' }}
+        >
+          <a
+            href="https://github.com/Srivatsav1298"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{ color: 'rgba(255,255,255,0.6)', fontSize: '0.9rem', textDecoration: 'none', borderBottom: '1px solid rgba(255,255,255,0.2)', paddingBottom: '2px' }}
+          >
+            View all on GitHub →
+          </a>
+        </motion.div>
       </motion.div>
     </section>
   );
