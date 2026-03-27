@@ -29,7 +29,8 @@ export const translations = {
         },
         about: {
             title: 'About Vatsav',
-            p1: 'Vatsav is a Software Engineer and Data Science student who builds stable, data-driven systems. With over three years of industry experience, he focuses on reliable backend architecture and practical machine learning applications. His core approach is to write clean, maintainable code that solves real problems without unnecessary complexity.',
+            p1: 'Vatsav is an AI & Data Science Engineer who builds intelligent, data-driven systems. With over three years of industry experience, he focuses on practical machine learning applications, LLM-powered tools, and reliable backend architecture. His core approach is to write clean, maintainable code that solves real problems without unnecessary complexity.',
+            achievements: 'Achievements & Certifications',
         },
         projects: {
             title: 'Projects',
@@ -127,7 +128,8 @@ export const translations = {
         },
         about: {
             title: 'Om Vatsav',
-            p1: 'Vatsav er en programvareutvikler og datavitenskap-student som bygger stabile, datadrevne systemer. Med over tre års bransjeerfaring fokuserer han på pålitelig backend-arkitektur og praktiske maskinlæringsapplikasjoner. Hans kjernetilnærming er å skrive ren, vedlikeholdbar kode som løser reelle problemer uten unødvendig kompleksitet.',
+            p1: 'Vatsav er en AI & Datavitenskap-ingeniør som bygger intelligente, datadrevne systemer. Med over tre års bransjeerfaring fokuserer han på praktiske maskinlæringsapplikasjoner, LLM-drevne verktøy og pålitelig backend-arkitektur. Hans kjernetilnærming er å skrive ren, vedlikeholdbar kode som løser reelle problemer uten unødvendig kompleksitet.',
+            achievements: 'Prestasjoner og sertifiseringer',
         },
         projects: {
             title: 'Prosjekter',

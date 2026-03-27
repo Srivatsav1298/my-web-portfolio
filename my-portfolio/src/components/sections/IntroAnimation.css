@@ -142,7 +142,24 @@
   color: #909090;
   max-width: 500px;
   line-height: 1.6;
-  margin: 0 0 40px 0;
+  margin: 0 0 16px 0;
+}
+
+/* Location */
+.intro-section__location {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--font-primary);
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  color: #707070;
+  margin: 0 0 32px 0;
+}
+
+.light-mode .intro-section__location {
+  color: #86868b;
 }
 
 /* Fun Fact - Chocolate */

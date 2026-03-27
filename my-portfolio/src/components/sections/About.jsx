@@ -1,7 +1,9 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { Award } from 'lucide-react';
 import Timeline from './Timeline';
 import { useLanguage } from '../../context/LanguageContext';
+import { certifications } from '../../data/portfolioData';
 import '../../styles/sections.css';
 
 const About = () => {
@@ -61,6 +63,59 @@ const About = () => {
           style={{ marginTop: '80px' }}
         >
           <Timeline />
+        </motion.div>
+
+        {/* Achievements & Certifications */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7, delay: 0.3 }}
+          style={{ marginTop: '60px' }}
+        >
+          <h3 style={{
+            fontFamily: 'var(--font-primary)',
+            fontSize: '13px',
+            fontWeight: '500',
+            letterSpacing: '0.15em',
+            textTransform: 'uppercase',
+            color: 'rgba(255,255,255,0.4)',
+            marginBottom: '20px',
+            textAlign: 'center',
+          }}>
+            {t('about.achievements')}
+          </h3>
+          <div style={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            gap: '10px',
+            justifyContent: 'center',
+          }}>
+            {certifications.map((cert, index) => (
+              <motion.div
+                key={cert}
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: index * 0.08 }}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '7px',
+                  padding: '8px 14px',
+                  border: '1px solid rgba(255,255,255,0.1)',
+                  borderRadius: '6px',
+                  background: 'rgba(255,255,255,0.03)',
+                  fontSize: '13px',
+                  color: 'rgba(255,255,255,0.65)',
+                  fontFamily: 'var(--font-primary)',
+                }}
+              >
+                <Award size={13} style={{ color: 'rgba(255,255,255,0.4)', flexShrink: 0 }} />
+                {cert}
+              </motion.div>
+            ))}
+          </div>
         </motion.div>
       </motion.div>
     </section>

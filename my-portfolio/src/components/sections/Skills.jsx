@@ -95,6 +95,8 @@ const skillIcons = {
   'ETL/ELT': Workflow,
   'Story Telling': PieChart,
   'LLM/AI': Brain,
+  'Machine Learning': Brain,
+  'Deep Learning': Cpu,
   'Data Analysis': LineChart,
 };
 

@@ -1,11 +1,12 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
-import { ChevronUp } from 'lucide-react';
+import { ChevronUp, MapPin } from 'lucide-react';
 import { useTheme } from '../../context/ThemeContext';
 import { useLanguage } from '../../context/LanguageContext';
 import profileImage from '../../assets/profile.jpg';
 import ArmoredPortrait from '../ui/ArmoredPortrait';
 import BrandLogo from '../layout/BrandLogo';
+import { personalInfo } from '../../data/portfolioData';
 import './IntroAnimation.css';
 
 /**
@@ -180,6 +181,17 @@ export default function IntroAnimation({ onIntroComplete, onLogoDockChange }) {
                   transition={{ duration: 0.6, delay: 0.7 }}
                 >
                   {t('intro.tagline')}
+                </motion.p>
+
+                {/* Location */}
+                <motion.p
+                  className="intro-section__location"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.6, delay: 0.8 }}
+                >
+                  <MapPin size={13} />
+                  {personalInfo.location}
                 </motion.p>
 
                 {/* Stats row */}

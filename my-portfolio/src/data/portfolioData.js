@@ -60,6 +60,8 @@ export const skillCategories = [
     category: 'AI & LLM',
     items: [
       { name: 'LLM/AI', icon: 'openai' },
+      { name: 'Machine Learning', icon: 'scikitlearn' },
+      { name: 'Deep Learning', icon: 'pytorch' },
     ],
     color: '#aa9a8a',
     shortName: 'AI',
@@ -97,6 +99,8 @@ export const skillNodes = [
 
   // AI & LLM
   { id: 'llmai', label: 'LLM/AI', category: 'ai', x: -1, y: 2, size: 1.3 },
+  { id: 'ml', label: 'Machine Learning', category: 'ai', x: -2.5, y: 2.5, size: 1.2 },
+  { id: 'dl', label: 'Deep Learning', category: 'ai', x: -0.5, y: 3.5, size: 1.1 },
 
   // Engineering
   { id: 'sql', label: 'SQL', category: 'database', x: 2, y: -1, size: 1.3 },
@@ -113,6 +117,10 @@ export const skillConnections = [
   { from: 'python', to: 'pyspark' },
   { from: 'python', to: 'dataanalysis' },
   { from: 'python', to: 'llmai' },
+  { from: 'python', to: 'ml' },
+  { from: 'llmai', to: 'ml' },
+  { from: 'llmai', to: 'dl' },
+  { from: 'ml', to: 'dl' },
   { from: 'python', to: 'sql' },
   { from: 'python', to: 'aws' },
   { from: 'pandas', to: 'dataanalysis' },
