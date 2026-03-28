@@ -73,45 +73,20 @@ const About = () => {
           transition={{ duration: 0.7, delay: 0.3 }}
           style={{ marginTop: '60px' }}
         >
-          <h3 style={{
-            fontFamily: 'var(--font-primary)',
-            fontSize: '13px',
-            fontWeight: '500',
-            letterSpacing: '0.15em',
-            textTransform: 'uppercase',
-            color: 'rgba(255,255,255,0.4)',
-            marginBottom: '20px',
-            textAlign: 'center',
-          }}>
+          <h3 className="about__cert-title">
             {t('about.achievements')}
           </h3>
-          <div style={{
-            display: 'flex',
-            flexWrap: 'wrap',
-            gap: '10px',
-            justifyContent: 'center',
-          }}>
+          <div className="about__cert-list">
             {certifications.map((cert, index) => (
               <motion.div
                 key={cert}
+                className="about__cert-chip"
                 initial={{ opacity: 0, scale: 0.9 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: index * 0.08 }}
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '7px',
-                  padding: '8px 14px',
-                  border: '1px solid rgba(255,255,255,0.1)',
-                  borderRadius: '6px',
-                  background: 'rgba(255,255,255,0.03)',
-                  fontSize: '13px',
-                  color: 'rgba(255,255,255,0.65)',
-                  fontFamily: 'var(--font-primary)',
-                }}
               >
-                <Award size={13} style={{ color: 'rgba(255,255,255,0.4)', flexShrink: 0 }} />
+                <Award size={13} className="about__cert-icon" />
                 {cert}
               </motion.div>
             ))}

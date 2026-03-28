@@ -87,6 +87,57 @@
   margin: 0;
 }
 
+/* Achievements & Certifications chips */
+.about__cert-title {
+  font-family: var(--font-primary);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.4);
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.about__cert-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+
+.about__cert-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.03);
+  font-family: var(--font-primary);
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.about__cert-icon {
+  color: rgba(255, 255, 255, 0.4);
+  flex-shrink: 0;
+}
+
+.light-mode .about__cert-title {
+  color: #86868b;
+}
+
+.light-mode .about__cert-chip {
+  background: #f5f5f7;
+  border-color: transparent;
+  color: #3a3a3c;
+}
+
+.light-mode .about__cert-icon {
+  color: #6e6e73;
+}
+
 /* ============================================
    Projects Section
    ============================================ */
