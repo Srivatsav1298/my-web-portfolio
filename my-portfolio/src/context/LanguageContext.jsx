@@ -30,7 +30,7 @@ export const translations = {
         },
         about: {
             title: 'About Vatsav',
-            p1: 'I\'m an AI Engineer who loves turning complex data into real world solutions. For the past three years at Orion Innovation, I built backend systems that actually work at scale — then I jumped into AI and haven\'t looked back. I won 3rd place in the AWS Norway GenAI Hackathon, created financial AI agents that use official Norwegian statistics, and now I\'m finishing my Master\'s in Data Science at NMBU. My mission? Bridging the gap between fancy AI research and systems that regular people can use.',
+            p1: 'Vatsav is an AI Engineer who turns complex data into practical, real-world systems. Over the past three years at Orion Innovation, he has built backend systems that scale reliably in production environments. He later moved into AI, where he focuses on developing systems that deliver measurable impact. He secured 3rd place at the AWS Norway GenAI Hackathon and has built financial AI agents powered by official Norwegian statistics. Currently pursuing a Master’s in Data Science at NMBU, he is driven by a clear goal: bridging the gap between advanced AI research and systems that people can actually use.',
             achievements: 'What I\'m Proud Of',
         },
         projects: {
@@ -130,7 +130,7 @@ export const translations = {
         },
         about: {
             title: 'Om Vatsav',
-            p1: 'Jeg er en AI-ingeniør som elsker å gjøre kompleks data til brukbare løsninger. I de siste tre årene hos Orion Innovation bygget jeg backend systemer som fungerer i skala — så hoppet jeg inn i AI og har ikke sett tilbake. Jeg vant 3. plass i AWS Norway GenAI Hackathon, bygde finans AGI agenter som bruker offisielle norske tall, og fullfører nå master i datavitenskap ved NMBU. Min mission? Å bygge bro mellom smart AI forskning og systemer vanlige folk kan bruke.',
+            p1: 'Vatsav er en AI-ingeniør som transformerer kompleks data til praktiske, virkelige systemer. I de siste tre årene hos Orion Innovation har han bygd backendsystemer som skalerer pålitelig i produksjonsmiljøer. Han gikk deretter over til AI, hvor han fokuserer på å utvikle systemer som leverer målbar effekt. Han sikret 3. plass i AWS Norway GenAI Hackathon og har bygget finans AI-agenter drevet av offisielle norske tall. Nå som han fullfører master i datavitenskap ved NMBU, er han drevet av et klart mål: å bygge bro mellom avansert AI-forskning og systemer som folk faktisk kan bruke.',
             achievements: 'Hva jeg er stolt av',
         },
         projects: {
