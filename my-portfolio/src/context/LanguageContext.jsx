@@ -30,7 +30,7 @@ export const translations = {
         },
         about: {
             title: 'About Vatsav',
-            p1: 'I\'m an AI Engineer who loves turning complex data into real-world solutions. For the past three years at Orion Innovation, I built backend systems that actually work at scale — then I jumped into AI and haven\'t looked back. I won 3rd place in the AWS Norway GenAI Hackathon, created financial AI agents that use official Norwegian statistics, and now I\'m finishing my Master\'s in Data Science at NMBU. My mission? Bridging the gap between fancy AI research and systems that regular people can use.',
+            p1: 'I\'m an AI Engineer who loves turning complex data into real world solutions. For the past three years at Orion Innovation, I built backend systems that actually work at scale — then I jumped into AI and haven\'t looked back. I won 3rd place in the AWS Norway GenAI Hackathon, created financial AI agents that use official Norwegian statistics, and now I\'m finishing my Master\'s in Data Science at NMBU. My mission? Bridging the gap between fancy AI research and systems that regular people can use.',
             achievements: 'What I\'m Proud Of',
         },
         projects: {
@@ -130,7 +130,7 @@ export const translations = {
         },
         about: {
             title: 'Om Vatsav',
-            p1: 'Jeg er en AI-ingeniør som elsker å gjøre kompleks data til brukbare løsninger. I de siste tre årene hos Orion Innovation bygget jeg backend-systemer som fungerer i skala — så hoppet jeg inn i AI og har ikke sett tilbake. Jeg vant 3. plass i AWS Norway GenAI Hackathon, bygde finans-AGI-agenter som bruker offisielle norske tall, og fullfører nå master i datavitenskap ved NMBU. Min mission? Å bygge bro mellom smart AI-forskning og systemer vanlige folk kan bruke.',
+            p1: 'Jeg er en AI-ingeniør som elsker å gjøre kompleks data til brukbare løsninger. I de siste tre årene hos Orion Innovation bygget jeg backend systemer som fungerer i skala — så hoppet jeg inn i AI og har ikke sett tilbake. Jeg vant 3. plass i AWS Norway GenAI Hackathon, bygde finans AGI agenter som bruker offisielle norske tall, og fullfører nå master i datavitenskap ved NMBU. Min mission? Å bygge bro mellom smart AI forskning og systemer vanlige folk kan bruke.',
             achievements: 'Hva jeg er stolt av',
         },
         projects: {
