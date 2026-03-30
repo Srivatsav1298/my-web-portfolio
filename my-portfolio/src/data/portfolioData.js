@@ -290,6 +290,42 @@ aggregated_df.write.mode("append").saveAsTable("meter_readings")`
       }
     }
   },
+  {
+    title: 'PinTrip',
+    shortName: 'pintrip',
+    description: 'Location-based social discovery app where users share moments with geolocation, explore real-time feeds, and discover content near them.',
+    tags: ['React', 'Supabase', 'Mapbox', 'TypeScript', 'Tailwind'],
+    category: 'full-stack',
+    categoryLabel: 'Full Stack',
+    image: import.meta.env.BASE_URL + 'project-previews/pintrip.jpg',
+    github: 'https://github.com/Srivatsav1298/PinTrip',
+    live: 'https://github.com/Srivatsav1298/PinTrip',
+    metrics: {
+      users: 'Real-time Feed',
+      tech: 'Location-based',
+    },
+    details: {
+      problem: "People want to discover and share moments in the places they are, but existing platforms either lack location context or have poor user experience.",
+      solution: "Built a full-stack social app with Supabase for real-time data and Mapbox for interactive maps. Users can post photos with precise location, explore a proximity-based feed, and search for content near them.",
+      highlights: [
+        "Implemented real-time feed using Supabase Realtime subscriptions",
+        "Built custom proximity queries with PostGIS for location-based content",
+        "Created smooth map interactions with Mapbox GL and react-map-gl",
+        "Designed mobile-first responsive UI with Tailwind CSS",
+      ],
+      techStack: ['React 19', 'TypeScript', 'Supabase', 'Mapbox GL', 'Tailwind CSS', 'Vite'],
+      techSnippet: {
+        title: "Proximity Feed Query",
+        language: "sql",
+        code: `SELECT * FROM posts
+WHERE ST_DWithin(
+  location,
+  ST_SetSRID(ST_MakePoint($1, $2), 4326),
+  $3 * 1000
+) AND is_public = true`
+      }
+    }
+  },
 ];
 
 // ============================================

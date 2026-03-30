@@ -307,9 +307,19 @@ const Projects = () => {
                       </div>
 
                       <div className="gallery-card__actions">
+                        {project.live && project.live !== '#' && (
+                          <a
+                            href={project.live}
+                            className="gallery-card__btn gallery-card__btn--primary"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            🌐 Live Demo
+                          </a>
+                        )}
                         <button
                           onClick={() => openModal(project)}
-                          className="gallery-card__btn gallery-card__btn--primary"
+                          className="gallery-card__btn gallery-card__btn--secondary"
                         >
                           {t('ui.caseStudy')} <Info size={16} />
                         </button>
