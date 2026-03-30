@@ -263,7 +263,7 @@ aggregated_df.write.mode("append").saveAsTable("meter_readings")`
     categoryLabel: 'Full Stack',
     image: import.meta.env.BASE_URL + 'project-previews/av-danse.jpg',
     github: 'https://github.com/Srivatsav1298/NewProjectAVDS',
-    live: '#',
+    live: 'https://avdanse.no',
     metrics: {
       uptime: '99.99% Uptime',
       users: '2x Capacity',
