@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Github, ExternalLink, Cpu, CheckCircle2, Target, Lightbulb } from 'lucide-react';
+import { X, ExternalLink, Cpu, CheckCircle2, Target, Lightbulb } from 'lucide-react';
 import { useLanguage } from '../../context/LanguageContext';
 import './ProjectModal.css';
 
@@ -46,12 +46,11 @@ const ProjectModal = ({ project, isOpen, onClose }) => {
                                 </div>
 
                                 <div className="project-modal-actions">
-                                    <a href={project.live} target="_blank" rel="noopener noreferrer" className="modal-btn modal-btn--primary">
-                                        <ExternalLink size={18} /> {t('ui.liveDemo')}
-                                    </a>
-                                    <a href={project.github} target="_blank" rel="noopener noreferrer" className="modal-btn modal-btn--secondary">
-                                        <Github size={18} /> {t('ui.sourceCode')}
-                                    </a>
+                                    {project.live && project.live !== '#' && (
+                                        <a href={project.live} target="_blank" rel="noopener noreferrer" className="modal-btn modal-btn--primary">
+                                            <ExternalLink size={18} /> {t('ui.liveDemo')}
+                                        </a>
+                                    )}
                                 </div>
 
                                 <div className="project-modal-tech-stack">
