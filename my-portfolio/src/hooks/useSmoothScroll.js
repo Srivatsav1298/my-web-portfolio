@@ -28,6 +28,9 @@ export default function useSmoothScroll() {
       lerp: 0.09,
     });
 
+    // Expose Lenis instance globally for programmatic scrolling
+    window.__LENIS_INSTANCE__ = lenis;
+
     const updateScrollTrigger = () => ScrollTrigger.update();
     lenis.on('scroll', updateScrollTrigger);
 
@@ -42,6 +45,7 @@ export default function useSmoothScroll() {
       gsap.ticker.remove(raf);
       lenis.off('scroll', updateScrollTrigger);
       lenis.destroy();
+      delete window.__LENIS_INSTANCE__;
       root.style.scrollBehavior = previousScrollBehavior;
     };
   }, []);

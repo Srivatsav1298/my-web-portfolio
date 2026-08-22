@@ -98,11 +98,27 @@ export default function IntroAnimation({ onIntroComplete, onLogoDockChange }) {
   }, [isLogoDocked, onLogoDockChange]);
 
   const scrollToProjects = () => {
-    document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' });
+    const element = document.getElementById('projects');
+    if (element) {
+      if (window.__LENIS_INSTANCE__) {
+        window.__LENIS_INSTANCE__.scrollTo(element, { offset: -90 });
+      } else {
+        const top = element.getBoundingClientRect().top + window.scrollY - 90;
+        window.scrollTo({ top, behavior: 'smooth' });
+      }
+    }
   };
 
   const scrollToContact = () => {
-    document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+    const element = document.getElementById('contact');
+    if (element) {
+      if (window.__LENIS_INSTANCE__) {
+        window.__LENIS_INSTANCE__.scrollTo(element, { offset: -90 });
+      } else {
+        const top = element.getBoundingClientRect().top + window.scrollY - 90;
+        window.scrollTo({ top, behavior: 'smooth' });
+      }
+    }
   };
 
   return (
@@ -193,17 +209,6 @@ export default function IntroAnimation({ onIntroComplete, onLogoDockChange }) {
                   <MapPin size={13} />
                   {personalInfo.location}
                 </motion.p>
-
-                {/* Availability */}
-                <motion.div
-                  className="intro-section__availability"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 0.6, delay: 0.85 }}
-                >
-                  <span className="intro-section__availability-dot" />
-                  {t('intro.available')}
-                </motion.div>
 
                 {/* Stats row */}
                 <motion.div

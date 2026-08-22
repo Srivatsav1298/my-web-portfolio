@@ -26,8 +26,6 @@ export const skillCategories = [
     category: 'Data Science & Analytics',
     items: [
       { name: 'Python', icon: 'python' },
-      { name: 'Pandas', icon: 'pandas' },
-      { name: 'PySpark', icon: 'apachespark' },
       { name: 'Data Analysis', icon: 'googleanalytics' },
     ],
     color: '#8a9aaa',
@@ -39,7 +37,6 @@ export const skillCategories = [
     items: [
       { name: 'SQL', icon: 'postgresql' },
       { name: 'Data Modelling', icon: 'dbt' },
-      { name: 'ETL/ELT', icon: 'apacheairflow' },
     ],
     color: '#9aaa8a',
     shortName: 'Engineering',
@@ -59,10 +56,11 @@ export const skillCategories = [
     category: 'AI & LLM',
     items: [
       { name: 'LLM/AI', icon: 'openai' },
-      { name: 'Machine Learning', icon: 'scikitlearn' },
-      { name: 'Deep Learning', icon: 'pytorch' },
+      { name: 'AI Agents', icon: 'langchain' },
+      { name: 'RAG', icon: 'pinecone' },
+      { name: 'MCP', icon: 'langchain' },
+      { name: 'AI Models Integration', icon: 'openai' },
       { name: 'LangChain', icon: 'langchain' },
-      { name: 'Vector DB', icon: 'pinecone' },
     ],
     color: '#aa9a8a',
     shortName: 'AI',
@@ -93,21 +91,19 @@ export const categoryNames = Object.fromEntries(
 export const skillNodes = [
   // Data Science
   { id: 'python', label: 'Python', category: 'data', x: 0, y: 0, size: 1.6 },
-  { id: 'pandas', label: 'Pandas', category: 'data', x: -2, y: -1, size: 1.2 },
-  { id: 'pyspark', label: 'PySpark', category: 'data', x: -1.5, y: -2.5, size: 1.1 },
   { id: 'dataanalysis', label: 'Data Analysis', category: 'data', x: -2.5, y: -0.5, size: 1.2 },
 
   // AI & LLM
   { id: 'llmai', label: 'LLM/AI', category: 'ai', x: -1, y: 2, size: 1.3 },
-  { id: 'ml', label: 'Machine Learning', category: 'ai', x: -2.5, y: 2.5, size: 1.2 },
-  { id: 'dl', label: 'Deep Learning', category: 'ai', x: -0.5, y: 3.5, size: 1.1 },
+  { id: 'aiagents', label: 'AI Agents', category: 'ai', x: -2.5, y: 2.5, size: 1.2 },
+  { id: 'rag', label: 'RAG', category: 'ai', x: -0.5, y: 3.5, size: 1.1 },
   { id: 'langchain', label: 'LangChain', category: 'ai', x: -2, y: 4, size: 1.1 },
-  { id: 'vectordb', label: 'Vector DB', category: 'ai', x: 0.5, y: 4.5, size: 1.0 },
+  { id: 'mcp', label: 'MCP', category: 'ai', x: 0.5, y: 4.5, size: 1.0 },
+  { id: 'modelsint', label: 'AI Models Integration', category: 'ai', x: 1, y: 3, size: 1.1 },
 
   // Engineering
   { id: 'sql', label: 'SQL', category: 'database', x: 2, y: -1, size: 1.3 },
   { id: 'datamodelling', label: 'Data Modelling', category: 'database', x: 3, y: -2.5, size: 1.2 },
-  { id: 'etl', label: 'ETL/ELT', category: 'database', x: 1.5, y: -3, size: 1.1 },
 
   // Cloud & Arch
   { id: 'aws', label: 'AWS', category: 'cloud', x: 1.5, y: 2, size: 1.4 },
@@ -146,39 +142,51 @@ export const skillConnections = [
 
 export const projects = [
   {
-    title: 'Oil Spill Simulation System',
-    shortName: 'oil-spill',
-    description: 'Data-driven simulation system to model oil spill scenarios in offshore environments, visualize environmental impact, and support real-time monitoring.',
-    tags: ['Python', 'Pandas', 'Matplotlib', 'Mesh Data', 'Simulation'],
-    category: 'data-science',
-    categoryLabel: 'Data Science',
-    image: import.meta.env.BASE_URL + 'project-previews/oil-spill.png',
-    github: 'https://github.com/Srivatsav1298/INF202_Project',
-    live: '#',
+    title: 'Regelverk Copilot',
+    shortName: 'regelverk-copilot',
+    description: 'AI assistant answering Norwegian employment-termination law questions with grounded, cited answers — built for small business owners who currently guess or overpay a lawyer for simple questions.',
+    tags: ['Python', 'FastAPI', 'React', 'Ollama', 'RAG'],
+    category: 'ai-ml',
+    categoryLabel: 'AI & ML',
+    image: import.meta.env.BASE_URL + 'project-previews/regelverk-copilot.svg',
+    github: 'https://github.com/Srivatsav1298/Regelverk-Copilot',
+    live: 'https://regelverk-copilot.onrender.com',
     metrics: {
-      type: 'Environmental Monitoring',
-      impact: 'Early Detection',
+      type: 'Legal AI Assistant',
+      impact: 'Grounded Citations',
     },
     details: {
-      problem: "Traditional oil spill monitoring systems often react too late. There was a need for a predictive system that could simulate multiple environmental scenarios to support preemptive decision-making.",
-      solution: "Developed a Python-based simulation engine that processes complex mesh data to model spill trajectories. The system integrates real-time environmental variables to provide dynamic visual impact assessments.",
+      problem: "Small business owners facing Norwegian employment-termination questions either guess (risky) or overpay a lawyer for simple questions. Generic chatbots hallucinate legal rules and provide no verifiable sources.",
+      solution: "Built a guest-first employment decision-support product around guided workflows, verified sources, and safe escalation. An agentic pipeline of explicit tools (classify_intent, retrieve_legal_sources, extract_case_signals, verify_citations) composes /ask and /assess workflows on an Ollama runtime, with a deterministic safety layer that calculates notice periods, detects protected situations, and blocks action when review is required.",
       highlights: [
-        "Modeled complex fluid dynamics using advanced mesh data structures.",
-        "Created a custom visualization suite for spatio-temporal impact maps.",
-        "Optimized computation time allowing for multi-scenario parallel testing.",
+        "Agentic building blocks: explicit classify_intent, retrieve_legal_sources, extract_case_signals, and verify_citations tools compose into /ask and /assess workflows.",
+        "MCP-ready contracts: /tools publishes a transport-neutral tool manifest so building blocks can be exposed through an MCP server without framework coupling.",
+        "Decision support, not generic chat: deterministic safety layer calculates notice periods, detects protected situations, flags missing facts, and blocks action when review is required.",
+        "Print-ready decision brief: /brief produces an ephemeral HTML report separating employer-provided facts, retrieved rules, AI interpretation, and review items.",
+        "Freshness-aware grounding: /sources and /ready expose corpus version, source references, ingestion dates, and stale-source warnings.",
+        "Production controls: graceful model failure, local lexical retrieval fallback, caching, rate limits, readiness endpoint, provider/tool metrics, and citation gates.",
+        "Evaluations: 20-question suite testing factual keywords, scope refusal, citation source, and confidence — runnable against Ollama locally.",
+        "Guest-first privacy: no account required; assessment drafts live in browser storage and can be deleted or printed without server persistence.",
       ],
-      techStack: ['Python', 'Pandas', 'NumPy', 'Matplotlib', 'Geospatial Data'],
+      techStack: ['Python', 'FastAPI', 'Ollama', 'OpenRouter (optional adapter)', 'React', 'TypeScript', 'Vite', 'MCP'],
       techSnippet: {
-        title: "Simulation Engine Logic",
+        title: "Agentic Tool Composition",
         language: "python",
-        code: `def simulate_spill(mesh, wind, current, dt=3600):
-    # Calculate trajectory based on environmental vectors
-    vector = (wind * 0.03) + (current * 1.1)
-    new_positions = mesh.coords + (vector * dt)
-    
-    # Update concentration grid
-    concentration = calculate_diffusion(new_positions)
-    return update_mesh_state(mesh, concentration)`
+        code: `@app.post("/assess")
+async def assess(request: AssessRequest):
+    intent = await classify_intent(request.message)
+    if not intent.in_scope:
+        return scope_refusal(intent)
+
+    signals = extract_case_signals(request.case_facts)
+    sources = retrieve_legal_sources(request.message)
+
+    if SAFETY.requires_review(signals):
+        return escalation_required(signals)
+
+    answer = await generate_answer(request.message, sources)
+    verify_citations(answer, sources)
+    return DecisionBrief(answer, sources, signals)`
       }
     }
   },
@@ -286,7 +294,7 @@ aggregated_df.write.mode("append").saveAsTable("meter_readings")`
     - uses: actions/checkout@v2
     - run: npm install && npm run build
     - name: Deploy to S3
-      run: aws s3 sync ./dist s3://\${{ secrets.AWS_S3_BUCKET }}`
+      run: aws s3 sync ./dist s3://\${ secrets.AWS_S3_BUCKET }`
       }
     }
   },
@@ -326,6 +334,49 @@ WHERE ST_DWithin(
       }
     }
   },
+  {
+    title: 'Crave Station',
+    shortName: 'crave-station',
+    description: 'A stunning landing page for a social dining discovery platform in Oslo, Norway, featuring vibrant design and cinematic animations.',
+    tags: ['React 19', 'TypeScript', 'Vite', 'Tailwind CSS', 'GSAP', 'shadcn/ui'],
+    category: 'full-stack',
+    categoryLabel: 'Full Stack',
+    image: import.meta.env.BASE_URL + 'project-previews/crave-station.jpg',
+    github: '#',
+    live: 'https://cravestation.no',
+    metrics: {
+      design: 'Vibrant Design System',
+      animation: 'Cinematic GSAP',
+    },
+    details: {
+      problem: "Existing restaurant discovery platforms lacked visual appeal and seamless user experience. There was a need for a modern, visually stunning platform that could showcase Oslo's dining scene with engaging animations.",
+      solution: "Built a premium landing page with a 10-color palette inspired by Leoff Paris, using GSAP ScrollTrigger for cinematic transitions and shadcn/ui for accessible components. The platform features fully responsive design with smooth interactions.",
+      highlights: [
+        "Crafted a vibrant 10-color design system inspired by Leoff Paris aesthetics",
+        "Implemented cinematic scroll animations using GSAP ScrollTrigger",
+        "Built fully responsive layout with Tailwind CSS for optimal mobile experience",
+        "Integrated shadcn/ui components for consistent, accessible UI patterns",
+        "Developed with React 19 and TypeScript for type safety and future-proofing",
+      ],
+      techStack: ['React 19', 'TypeScript', 'Vite 7.2', 'Tailwind CSS 3.4', 'GSAP 3.14', 'shadcn/ui', 'Lucide React'],
+      techSnippet: {
+        title: "GSAP ScrollTrigger Animation",
+        language: "typescript",
+        code: `// Cinematic scroll-triggered animations
+const sections = gsap.utils.toArray('.animate-section');
+ScrollTrigger.create({
+  trigger: sections[0],
+  start: 'top top',
+  end: 'bottom top',
+  scrub: 1,
+  animation: gsap.to(sections, {
+    xPercent: -100,
+    ease: 'none'
+  })
+});`
+      }
+    }
+  },
 ];
 
 // ============================================
@@ -335,7 +386,16 @@ WHERE ST_DWithin(
 export const experienceData = [
   {
     id: 1,
-    year: '2025',
+    year: '2026-Present',
+    title: 'Software Engineer - Trainee',
+    company: 'Agela AS',
+    description: 'Working as a Software Engineer Trainee, building production software with a focus on AI and data-driven systems.',
+    technologies: ['Python', 'AI', 'Data', 'Software Engineering'],
+    type: 'work',
+  },
+  {
+    id: 2,
+    year: 'Sep 2025 - Dec 2025',
     title: 'Teaching Assistant - DBMS',
     company: 'NMBU',
     description: 'Mentored 40+ students in SQL optimization, database design, and system thinking. Designed exercises simulating production-level data challenges.',
@@ -343,16 +403,16 @@ export const experienceData = [
     type: 'work',
   },
   {
-    id: 2,
-    year: '2024',
+    id: 3,
+    year: '2024-2026',
     title: "Master's in Data Science",
     company: 'Norwegian University of Life Sciences (NMBU)',
-    description: 'Pursuing advanced studies in Data Science. Expected graduation June 2026. Coursework: Python Programming, Data-to-Decision, SQL for Data Handling and Analysis.',
+    description: 'Completed Master\'s studies in Data Science, graduating June 2026. Coursework: Python Programming, Data-to-Decision, SQL for Data Handling and Analysis.',
     technologies: ['Python', 'SQL', 'Data Analytics', 'Machine Learning'],
     type: 'education',
   },
   {
-    id: 3,
+    id: 4,
     year: '2020-24',
     title: 'Software Engineer',
     company: 'Orion Innovation',
@@ -361,7 +421,7 @@ export const experienceData = [
     type: 'work',
   },
   {
-    id: 4,
+    id: 5,
     year: '2016-20',
     title: 'B.Tech Computer Science',
     company: 'Karpagam College of Engineering',

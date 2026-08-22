@@ -6,7 +6,8 @@ export default defineConfig({
   plugins: [react()],
   base: '/my-web-portfolio/',
   server: {
-    host: true
+    host: true,
+    port: 5174
   },
   build: {
     // Increase warning limit since we have code-split chunks

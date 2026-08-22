@@ -240,15 +240,12 @@ const Projects = () => {
         </motion.div>
 
         {/* Gallery Container */}
-        <AnimatePresence mode="wait">
           <motion.div
             ref={galleryWrapperRef}
-            key={activeFilter}
             className={`gallery-wrapper ${isStoryMode ? 'gallery-wrapper--story' : ''}`}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.4 }}
+            transition={{ duration: 0.4, delay: 0.2 }}
           >
             {/* Navigation Arrows */}
             <button
@@ -385,14 +382,13 @@ const Projects = () => {
                 style={{ width: `${filteredProjects.length > 0 ? ((activeIndex + 1) / filteredProjects.length) * 100 : 0}%` }}
               />
             </div>
-          </motion.div>
-        </AnimatePresence>
 
-        <ProjectModal
-          project={selectedProject}
-          isOpen={isModalOpen}
-          onClose={closeModal}
-        />
+          <ProjectModal
+            project={selectedProject}
+            isOpen={isModalOpen}
+            onClose={closeModal}
+          />
+        </motion.div>
 
         <motion.div
           className="projects__github-link"

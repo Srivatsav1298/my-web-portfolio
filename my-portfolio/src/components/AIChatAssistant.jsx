@@ -211,7 +211,7 @@ const intentPatterns = {
     responses: () => [
       `I can help you with:\n\n` +
       `🔹 **Skills & Expertise** - Python, Data Science, AI, Cloud\n` +
-      `🔹 **Projects** - Oil Spill Sim, Energy Dashboard, AI Agent\n` +
+      `🔹 **Projects** - Regelverk Copilot, Energy Dashboard, AI Agent\n` +
       `🔹 **Experience** - Orion Innovation, product development\n` +
       `🔹 **Education** - NMBU Master's, BS Computer Science\n` +
       `🔹 **Contact** - Email, LinkedIn, location\n\n` +
