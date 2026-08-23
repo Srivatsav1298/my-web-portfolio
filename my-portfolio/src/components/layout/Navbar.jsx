@@ -66,9 +66,9 @@ const Navbar = forwardRef(({ showName = false, showLogo = true }, ref) => {
       </div>
 
       <nav className="navbar__links">
+        <a href="#experience">{t('nav.experience')}</a>
+        <a href="#projects">{t('nav.projects')}</a>
         <a href="#about">{t('nav.about')}</a>
-        <a href="#projects">{t('nav.work')}</a>
-        <a href="#skills">{t('nav.skills')}</a>
         <a href="#contact">{t('nav.contact')}</a>
       </nav>
 

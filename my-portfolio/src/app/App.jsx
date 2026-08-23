@@ -10,14 +10,14 @@ import useSmoothScroll from '../hooks/useSmoothScroll';
 // Light components (load immediately)
 import CommandPalette from '../components/ui/CommandPalette';
 import Navbar from '../components/layout/Navbar';
-import HUDOverlay from '../components/layout/HUDOverlay';
 import LoadTimeIndicator from '../components/LoadTimeIndicator';
+import Footer from '../components/layout/Footer';
 
 // Sections (load immediately - they're text-based)
 import IntroAnimation from '../components/sections/IntroAnimation';
-import About from '../components/sections/About';
+import Experience from '../components/sections/Experience';
 import Projects from '../components/sections/Projects';
-import Skills from '../components/sections/Skills';
+import About from '../components/sections/About';
 import Contact from '../components/sections/Contact';
 
 // Heavy components (lazy load)
@@ -33,15 +33,6 @@ import '../styles/hud.css';
 import '../styles/utilities.css';
 import '../styles/sections.css';
 import '../styles/datasheet.css';
-
-// Section definitions for HUD
-const sections = [
-  { id: 'intro', name: 'intro' },
-  { id: 'about', name: 'about' },
-  { id: 'projects', name: 'work' },
-  { id: 'skills', name: 'skills' },
-  { id: 'contact', name: 'contact' },
-];
 
 // Simple fallback for canvas while loading
 const CanvasFallback = () => (
@@ -80,9 +71,6 @@ const App = () => {
                 <ConstellationCanvas />
               </Suspense>
 
-              {/* Layer 1: HUD Overlay (fixed, z-index: 100) */}
-              <HUDOverlay sections={sections} />
-
               <LayoutGroup id="shared-brand-logo-group">
                 {/* Layer 2: Navbar (fixed, z-index: 200) */}
                 <Navbar showName={showNavName} showLogo={showNavLogo} />
@@ -93,11 +81,12 @@ const App = () => {
                     onIntroComplete={setShowNavName}
                     onLogoDockChange={setShowNavLogo}
                   />
-                  <About />
+                  <Experience />
                   <Projects />
-                  <Skills />
+                  <About />
                   <Contact />
                 </main>
+                <Footer />
               </LayoutGroup>
 
               {/* AI Chat Assistant (lazy loaded) */}

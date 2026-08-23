@@ -54,7 +54,7 @@
   --font-mono: 'JetBrains Mono', 'SF Mono', Consolas, monospace;
 
   /* Spacing */
-  --section-padding: 120px;
+  --section-padding: clamp(80px, 9vw, 120px);
   --container-max: 1200px;
   --card-radius: 12px;
   --button-radius: 8px;

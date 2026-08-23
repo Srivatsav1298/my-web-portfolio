@@ -6,7 +6,7 @@
 .intro-section {
   position: relative;
   width: 100%;
-  min-height: 150vh;
+  min-height: 108vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -108,7 +108,7 @@
 /* Name - Large with silver gradient */
 .intro-section__name {
   font-family: var(--font-primary);
-  font-size: clamp(48px, 8vw, 80px);
+  font-size: clamp(34px, 5.5vw, 62px);
   font-weight: 700;
   letter-spacing: -0.03em;
   line-height: 0.95;
@@ -495,4 +495,56 @@
     transform: none !important;
     will-change: auto;
   }
+}
+
+/* Hero social links */
+.intro-section__socials {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 22px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+}
+
+.intro-section__socials a {
+  color: #a0a0a0;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition:
+    color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.intro-section__socials a:hover,
+.intro-section__socials a:focus-visible {
+  color: #fff;
+  border-bottom-color: rgba(255, 255, 255, 0.5);
+}
+
+.intro-section__socials span {
+  color: #6e6e73;
+}
+
+.light-mode .intro-section__socials a {
+  color: #6e6e73;
+}
+
+.light-mode .intro-section__socials a:hover,
+.light-mode .intro-section__socials a:focus-visible {
+  color: #1d1d1f;
+  border-bottom-color: rgba(0, 0, 0, 0.4);
+}
+
+.light-mode .intro-section__socials span {
+  color: #aeaeb2;
+}
+
+/* Secondary CTA as link */
+.intro-section__cta-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
 }

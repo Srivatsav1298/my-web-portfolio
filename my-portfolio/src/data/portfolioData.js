@@ -111,29 +111,21 @@ export const skillNodes = [
 ];
 
 export const skillConnections = [
-  { from: 'python', to: 'pandas' },
-  { from: 'python', to: 'pyspark' },
   { from: 'python', to: 'dataanalysis' },
   { from: 'python', to: 'llmai' },
-  { from: 'python', to: 'ml' },
   { from: 'python', to: 'sql' },
   { from: 'python', to: 'aws' },
-  { from: 'pandas', to: 'dataanalysis' },
-  { from: 'llmai', to: 'ml' },
-  { from: 'llmai', to: 'dl' },
+  { from: 'llmai', to: 'aiagents' },
+  { from: 'llmai', to: 'rag' },
   { from: 'llmai', to: 'langchain' },
-  { from: 'llmai', to: 'vectordb' },
+  { from: 'llmai', to: 'modelsint' },
   { from: 'llmai', to: 'aws' },
-  { from: 'ml', to: 'dl' },
-  { from: 'langchain', to: 'vectordb' },
-  { from: 'langchain', to: 'aws' },
+  { from: 'aiagents', to: 'mcp' },
+  { from: 'aiagents', to: 'rag' },
+  { from: 'modelsint', to: 'mcp' },
   { from: 'sql', to: 'datamodelling' },
-  { from: 'sql', to: 'etl' },
-  { from: 'etl', to: 'pyspark' },
-  { from: 'etl', to: 'aws' },
   { from: 'systemdesign', to: 'aws' },
   { from: 'systemdesign', to: 'datamodelling' },
-  { from: 'pyspark', to: 'aws' },
 ];
 
 // ============================================

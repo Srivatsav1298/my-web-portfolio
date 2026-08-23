@@ -1,0 +1,198 @@
+/* ============================================
+   About - minimal: headline, principles, expertise map
+   ============================================ */
+
+.about-xp {
+  min-height: auto;
+}
+
+.about-xp__container {
+  max-width: 860px;
+}
+
+/* Header */
+.about-xp__header {
+  text-align: left;
+  margin-bottom: 48px;
+}
+
+.about-xp__eyebrow {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #8a8a8a;
+  margin-bottom: 16px;
+}
+
+.about-xp__headline {
+  font-family: var(--font-primary);
+  font-size: clamp(28px, 4vw, 40px);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  margin: 0 0 20px;
+  color: #f0f0f0;
+}
+
+.about-xp__intro {
+  font-family: var(--font-primary);
+  font-size: 16px;
+  line-height: 1.7;
+  color: #b8b8b8;
+  max-width: 620px;
+  margin: 0;
+}
+
+/* Principles row */
+.about-xp__principles {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+  padding: 28px 0;
+  margin: 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.09);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.09);
+}
+
+.about-xp__principle {
+  display: flex;
+  gap: 12px;
+  align-items: baseline;
+}
+
+.about-xp__principle-number {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: #6e6e73;
+  flex-shrink: 0;
+}
+
+.about-xp__principle-title {
+  font-family: var(--font-primary);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #e8e8e8;
+  margin: 0 0 4px;
+}
+
+.about-xp__principle-text {
+  font-family: var(--font-primary);
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: #a0a0a0;
+  margin: 0;
+}
+
+/* Expertise map */
+.about-xp__expertise {
+  padding-top: 36px;
+}
+
+.about-xp__subheading {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #8a8a8a;
+  margin: 0 0 22px;
+}
+
+.about-xp__map {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px 48px;
+  margin: 0;
+}
+
+.about-xp__map-row {
+  display: grid;
+  grid-template-columns: 130px 1fr;
+  gap: 16px;
+  align-items: baseline;
+}
+
+.about-xp__map-area {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #9a9a9a;
+}
+
+.about-xp__map-items {
+  font-family: var(--font-primary);
+  font-size: 14px;
+  line-height: 1.6;
+  color: #d0d0d0;
+  margin: 0;
+}
+
+/* Light mode (Apple) */
+.light-mode .about-xp__eyebrow,
+.light-mode .about-xp__subheading {
+  color: #86868b;
+}
+
+.light-mode .about-xp__headline {
+  color: #1d1d1f;
+}
+
+.light-mode .about-xp__intro,
+.light-mode .about-xp__principle-text,
+.light-mode .about-xp__map-items {
+  color: #515154;
+}
+
+.light-mode .about-xp__principles {
+  border-color: rgba(0, 0, 0, 0.09);
+}
+
+.light-mode .about-xp__principle-number {
+  color: #aeaeb2;
+}
+
+.light-mode .about-xp__principle-title {
+  color: #1d1d1f;
+}
+
+.light-mode .about-xp__map-area {
+  color: #86868b;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .about-xp * {
+    transition: none !important;
+  }
+}
+
+/* Responsive */
+@media (max-width: 720px) {
+  .about-xp__header {
+    margin-bottom: 36px;
+  }
+
+  .about-xp__principles {
+    grid-template-columns: 1fr;
+    gap: 18px;
+    padding: 24px 0;
+  }
+
+  .about-xp__expertise {
+    padding-top: 28px;
+  }
+
+  .about-xp__map {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .about-xp__map-row {
+    grid-template-columns: 110px 1fr;
+    gap: 12px;
+  }
+}

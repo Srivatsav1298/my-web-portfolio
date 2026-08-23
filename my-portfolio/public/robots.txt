@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://vatsav.kamkan.vip/sitemap.xml

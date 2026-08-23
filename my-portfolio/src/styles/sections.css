@@ -9,7 +9,7 @@
 .section {
   position: relative;
   width: 100%;
-  min-height: 100vh;
+  min-height: auto;
   padding: var(--section-padding) 24px;
   display: flex;
   flex-direction: column;

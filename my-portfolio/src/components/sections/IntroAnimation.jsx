@@ -109,18 +109,6 @@ export default function IntroAnimation({ onIntroComplete, onLogoDockChange }) {
     }
   };
 
-  const scrollToContact = () => {
-    const element = document.getElementById('contact');
-    if (element) {
-      if (window.__LENIS_INSTANCE__) {
-        window.__LENIS_INSTANCE__.scrollTo(element, { offset: -90 });
-      } else {
-        const top = element.getBoundingClientRect().top + window.scrollY - 90;
-        window.scrollTo({ top, behavior: 'smooth' });
-      }
-    }
-  };
-
   return (
     <section id="intro" className="intro-section">
       <AnimatePresence>
@@ -176,7 +164,7 @@ export default function IntroAnimation({ onIntroComplete, onLogoDockChange }) {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.7, delay: 0.3 }}
                 >
-                  Vatsav
+                  Vatsav Saravanan
                 </motion.h1>
 
                 {/* Role */}
@@ -240,12 +228,39 @@ export default function IntroAnimation({ onIntroComplete, onLogoDockChange }) {
                   >
                     {t('intro.viewWork')}
                   </button>
-                  <button
+                  <a
                     className="intro-section__cta-secondary"
-                    onClick={scrollToContact}
+                    href={import.meta.env.BASE_URL + 'resume.pdf'}
+                    download="Vatsav-Saravanan-Resume.pdf"
                   >
-                    {t('intro.getInTouch')}
-                  </button>
+                    {t('intro.resume')}
+                  </a>
+                </motion.div>
+
+                {/* Social links */}
+                <motion.div
+                  className="intro-section__socials"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.6, delay: 1.25 }}
+                >
+                  <a
+                    href="https://github.com/Srivatsav1298"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="GitHub"
+                  >
+                    GitHub
+                  </a>
+                  <span aria-hidden="true">·</span>
+                  <a
+                    href={personalInfo.linkedin ? `https://${personalInfo.linkedin}` : 'https://www.linkedin.com/in/srivatsav-s'}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="LinkedIn"
+                  >
+                    LinkedIn
+                  </a>
                 </motion.div>
               </div>
 

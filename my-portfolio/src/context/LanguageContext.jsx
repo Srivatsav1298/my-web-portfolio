@@ -5,9 +5,9 @@ const LanguageContext = createContext();
 export const translations = {
     en: {
         nav: {
+            experience: 'Experience',
+            projects: 'Projects',
             about: 'About',
-            work: 'Work',
-            skills: 'Skills',
             contact: 'Contact',
         },
         intro: {
@@ -22,8 +22,8 @@ export const translations = {
             chocolate: '',
             yearsExp: '3+ Years Exp',
             aiData: 'AI & Data',
-            viewWork: 'View Work',
-            getInTouch: 'Get in Touch',
+            viewWork: 'Explore Projects',
+            resume: 'Download Resume',
             scroll: 'Scroll',
             scrollTop: 'Scroll to top',
         },
@@ -48,7 +48,7 @@ export const translations = {
         },
         contact: {
             whatsNext: "What's Next?",
-            title: 'Get In Touch',
+            title: "Let's build something meaningful.",
             text: "I'm currently pursuing my Master's in Data Science at NMBU, Norway and open to discussing opportunities, collaborations, or interesting projects. Feel free to reach out!",
             sayHello: 'Say Hello',
             form: {
@@ -104,9 +104,9 @@ export const translations = {
     },
     no: {
         nav: {
-            about: 'Om',
-            work: 'Arbeid',
-            skills: 'Ferdigheter',
+            experience: 'Erfaring',
+            projects: 'Prosjekter',
+            about: 'Om meg',
             contact: 'Kontakt',
         },
         intro: {
@@ -121,8 +121,8 @@ export const translations = {
             chocolate: '',
             yearsExp: '3+ års erfaring',
             aiData: 'AI & Data',
-            viewWork: 'Se arbeid',
-            getInTouch: 'Ta kontakt',
+            viewWork: 'Utforsk prosjekter',
+            resume: 'Last ned CV',
             scroll: 'Rull ned',
             scrollTop: 'Rull til toppen',
         },
@@ -147,7 +147,7 @@ export const translations = {
         },
         contact: {
             whatsNext: 'Hva skjer videre?',
-            title: 'Ta kontakt',
+            title: 'La oss bygge noe meningsfullt.',
             text: 'Jeg tar for øyeblikket en mastergrad i datavitenskap ved NMBU, Norge, og er åpen for å diskutere muligheter, samarbeid eller interessante prosjekter. Ta gjerne kontakt!',
             sayHello: 'Si hei',
             form: {

@@ -1,0 +1,373 @@
+/* ============================================
+   Experience - editorial stories, no timeline
+   ============================================ */
+
+.xp {
+  min-height: auto;
+}
+
+.xp__header {
+  text-align: center;
+  margin-bottom: 56px;
+}
+
+.xp__eyebrow {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #8a8a8a;
+  margin-bottom: 14px;
+}
+
+.xp__subtitle {
+  font-family: var(--font-primary);
+  font-size: 17px;
+  line-height: 1.6;
+  max-width: 560px;
+  margin: 18px auto 0;
+  color: #d0d0d0;
+}
+
+/* Story blocks */
+.xp__stories {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+.xp-story {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.02);
+  padding: 32px 34px 28px;
+  transition:
+    border-color 0.25s ease,
+    background-color 0.25s ease;
+}
+
+.xp-story:hover {
+  border-color: rgba(255, 255, 255, 0.22);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.xp-story--featured {
+  padding: 44px 46px 36px;
+}
+
+.xp-story__header {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  grid-template-areas:
+    'number role date'
+    'number company date';
+  column-gap: 18px;
+  align-items: baseline;
+  margin-bottom: 18px;
+}
+
+.xp-story__number {
+  grid-area: number;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: #6e6e73;
+}
+
+.xp-story__role {
+  grid-area: role;
+  font-family: var(--font-primary);
+  font-size: 19px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin: 0;
+  color: #f0f0f0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.xp-story--featured .xp-story__role {
+  font-size: clamp(21px, 3vw, 26px);
+}
+
+.xp-story__current-badge {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #4ade80;
+  border: 1px solid rgba(74, 222, 128, 0.35);
+  border-radius: 999px;
+  padding: 3px 9px;
+}
+
+.xp-story__company {
+  grid-area: company;
+  font-family: var(--font-primary);
+  font-size: 15px;
+  font-weight: 500;
+  color: #c8c8c8;
+  margin: 4px 0 0;
+}
+
+.xp-story__date {
+  grid-area: date;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: #8a8a8a;
+  white-space: nowrap;
+  justify-self: end;
+}
+
+.xp-story__context {
+  font-family: var(--font-primary);
+  font-size: 15px;
+  line-height: 1.65;
+  color: #b8b8b8;
+  max-width: 640px;
+  margin: 0 0 18px;
+}
+
+/* Impact metric */
+.xp-story__metric {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  padding: 16px 0 18px;
+  margin-bottom: 18px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.xp-story__metric-value {
+  font-family: var(--font-primary);
+  font-size: clamp(30px, 4vw, 40px);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: #f0f0f0;
+  line-height: 1;
+}
+
+.xp-story__metric-label {
+  font-family: var(--font-primary);
+  font-size: 13px;
+  line-height: 1.5;
+  color: #a8a8a8;
+  max-width: 380px;
+}
+
+/* Contributions */
+.xp-story__contributions {
+  list-style: none;
+  margin: 0 0 18px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.xp-story__contributions li {
+  position: relative;
+  padding-left: 20px;
+  font-family: var(--font-primary);
+  font-size: 14px;
+  line-height: 1.6;
+  color: #c0c0c0;
+}
+
+.xp-story__contributions li::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: #8a8a8a;
+}
+
+/* Technologies */
+.xp-story__tech {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.03em;
+  color: #8a8a8a;
+  margin: 0;
+}
+
+/* Education */
+.xp-education {
+  max-width: 860px;
+  margin: 48px auto 0;
+  padding-top: 40px;
+  border-top: 1px solid rgba(255, 255, 255, 0.09);
+}
+
+.xp-education__label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #8a8a8a;
+  margin: 0 0 24px;
+}
+
+.xp-edu-entry {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 8px 32px;
+  padding: 18px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.xp-edu-entry:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.xp-edu-entry__degree {
+  font-family: var(--font-primary);
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0 0 4px;
+  color: #e8e8e8;
+}
+
+.xp-edu-entry__school {
+  font-family: var(--font-primary);
+  font-size: 13px;
+  color: #a8a8a8;
+  margin: 0;
+}
+
+.xp-edu-entry__date {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: #8a8a8a;
+  margin: 0 0 4px;
+}
+
+.xp-edu-entry__note {
+  font-family: var(--font-primary);
+  font-size: 13px;
+  color: #b8b8b8;
+  margin: 0 0 4px;
+}
+
+.xp-edu-entry__coursework {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  line-height: 1.6;
+  color: #7a7a7a;
+  margin: 0;
+}
+
+/* Light mode (Apple) */
+.light-mode .xp__eyebrow,
+.light-mode .xp-education__label {
+  color: #86868b;
+}
+
+.light-mode .xp__subtitle {
+  color: #6e6e73;
+}
+
+.light-mode .xp-story {
+  border-color: rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.6);
+}
+
+.light-mode .xp-story:hover {
+  border-color: rgba(0, 0, 0, 0.28);
+  background: #ffffff;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+}
+
+.light-mode .xp-story__number {
+  color: #aeaeb2;
+}
+
+.light-mode .xp-story__role,
+.light-mode .xp-story__metric-value {
+  color: #1d1d1f;
+}
+
+.light-mode .xp-story__company,
+.light-mode .xp-edu-entry__degree {
+  color: #3a3a3c;
+}
+
+.light-mode .xp-story__date,
+.light-mode .xp-edu-entry__date,
+.light-mode .xp-story__tech,
+.light-mode .xp-edu-entry__coursework {
+  color: #86868b;
+}
+
+.light-mode .xp-story__context,
+.light-mode .xp-story__contributions li,
+.light-mode .xp-edu-entry__note {
+  color: #515154;
+}
+
+.light-mode .xp-story__contributions li::before {
+  color: #aeaeb2;
+}
+
+.light-mode .xp-story__metric {
+  border-color: rgba(0, 0, 0, 0.08);
+}
+
+.light-mode .xp-story__metric-label {
+  color: #6e6e73;
+}
+
+.light-mode .xp-education {
+  border-top-color: rgba(0, 0, 0, 0.09);
+}
+
+.light-mode .xp-edu-entry {
+  border-bottom-color: rgba(0, 0, 0, 0.06);
+}
+
+.light-mode .xp-edu-entry__school {
+  color: #6e6e73;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .xp-story {
+    transition: none;
+  }
+}
+
+/* Responsive */
+@media (max-width: 720px) {
+  .xp__header {
+    margin-bottom: 44px;
+  }
+
+  .xp-story,
+  .xp-story--featured {
+    padding: 26px 22px 24px;
+  }
+
+  .xp-story__header {
+    grid-template-columns: 1fr auto;
+    grid-template-areas:
+      'number date'
+      'role date'
+      'company date';
+  }
+
+  .xp-story__date {
+    justify-self: end;
+  }
+
+  .xp-edu-entry {
+    grid-template-columns: 1fr;
+  }
+}
